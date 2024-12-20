@@ -1,0 +1,175 @@
+// import { useLoaderData,useLocation,useNavigate } from "react-router-dom";
+
+
+// const PaginationContainer=()=>{
+//     const {meta}=useLoaderData();
+
+//     const {pageCount ,page}=meta.pagination;
+//     const pages=Array.from({length:pageCount},(_,index)=>{
+//         return index+1;
+//     });
+
+//     const {search,pathname}=useLocation();
+//     const navigate=useNavigate();
+//     const handlePageChange=(pageNumber)=>{
+//         const searchParams=new URLSearchParams(search);
+//         searchParams.set('page',pageNumber);
+//         navigate(`${pathname}?${searchParams.toString()}`);
+
+//         console.log(pageNumber);
+//     }
+//     if(pageCount<2) return null;
+
+//     return(
+//         <div className="mt-16 flex justify-end"> 
+//         <div className="join">
+//             <button
+            
+//             className="btn btn-xs sm:btn-md join-item"
+//             onClick={()=>{
+//                 let prevPage=page-1;
+//                 if(prevPage<1) prevPage=pageCount;
+//                 handlePageChange(prevPage);
+//             }}
+//             >
+//                 Prev
+//             </button>
+//             {pages.map((pageNumber)=>{
+//                 return(
+//                     <button
+                    
+//                     key={pageNumber}
+//                     onClick={()=>handlePageChange(pageNumber)}
+//                     className={`btn btn-xs sm:btn-md border-none join-item ${pageNumber===page ?'bg-base-300 border-base-300':''}`}
+                    
+//                     >
+//                         {pageNumber}
+//                     </button>
+//                 )
+//             })}
+//             <button
+            
+//             className="btn btn-xs sm:btn-md join-item"
+//             onClick={()=>{
+//                 let nextPage=page+1;
+//                 if(nextPage>1) nextPage=1;
+//                 handlePageChange(nextPage);
+//             }}
+//             >
+//                 Next
+//             </button>
+
+//         </div>
+
+//         </div>
+//     )
+// }
+
+// export default PaginationContainer;
+
+// import React from 'react';
+// import { useLocation, useNavigate } from 'react-router-dom';
+
+// const PaginationContainer = ({ current, total, pageSize, onChange }) => {
+//     const pageCount = Math.ceil(total / pageSize);
+//     const pages = Array.from({ length: pageCount }, (_, index) => index + 1);
+
+//     const { search, pathname } = useLocation();
+//     const navigate = useNavigate();
+
+//     const handlePageChange = (pageNumber) => {
+//         const searchParams = new URLSearchParams(search);
+//         searchParams.set('page', pageNumber);
+//         navigate(`${pathname}?${searchParams.toString()}`);
+//         onChange(pageNumber);
+//     };
+
+//     if (pageCount < 2) return null;
+
+//     return (
+//         <div className="mt-16 flex justify-end">
+//             <div className="join">
+//                 <button
+//                     className="btn btn-xs sm:btn-md join-item"
+//                     onClick={() => {
+//                         let prevPage = current - 1;
+//                         if (prevPage < 1) prevPage = pageCount;
+//                         handlePageChange(prevPage);
+//                     }}
+//                 >
+//                     Prev
+//                 </button>
+//                 {pages.map((pageNumber) => (
+//                     <button
+//                         key={pageNumber}
+//                         onClick={() => handlePageChange(pageNumber)}
+//                         className={`btn btn-xs sm:btn-md border-none join-item ${pageNumber === current ? 'bg-base-300 border-base-300' : ''}`}
+//                     >
+//                         {pageNumber}
+//                     </button>
+//                 ))}
+//                 <button
+//                     className="btn btn-xs sm:btn-md join-item"
+//                     onClick={() => {
+//                         let nextPage = current + 1;
+//                         if (nextPage > pageCount) nextPage = 1;
+//                         handlePageChange(nextPage);
+//                     }}
+//                 >
+//                     Next
+//                 </button>
+//             </div>
+//         </div>
+//     );
+// };
+
+// export default PaginationContainer;
+
+const PaginationContainer = ({ current, total, pageSize, onChange }) => {
+    console.log('Current Page:', current);
+    console.log('Total Products:', total);
+    console.log('Page Size:', pageSize);
+
+    const pagesCount = Math.ceil(total / pageSize);
+    const pages = Array.from({ length: pagesCount }, (_, index) => index + 1);
+
+    if (pagesCount < 2) return null;
+
+    return (
+        <div className="mt-16 flex justify-end">
+            <div className="join">
+                <button
+                    className="btn btn-xs sm:btn-md join-item"
+                    onClick={() => {
+                        let prevPage = current - 1;
+                        if (prevPage < 1) prevPage = pagesCount;
+                        onChange(prevPage);
+                    }}
+                >
+                    Prev
+                </button>
+                {pages.map((pageNumber) => (
+                    <button
+                        key={pageNumber}
+                        onClick={() => onChange(pageNumber)}
+                        className={`btn btn-xs sm:btn-md border-none join-item ${pageNumber === current ? 'bg-base-300 border-base-300' : ''}`}
+                    >
+                        {pageNumber}
+                    </button>
+                ))}
+                <button
+                    className="btn btn-xs sm:btn-md join-item"
+                    onClick={() => {
+                        let nextPage = current + 1;
+                        if (nextPage > pagesCount) nextPage = 1;
+                        onChange(nextPage);
+                    }}
+                >
+                    Next
+                </button>
+            </div>
+        </div>
+    );
+};
+
+export default PaginationContainer;

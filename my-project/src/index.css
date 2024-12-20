@@ -1,0 +1,17 @@
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components{
+  .align-element{
+    @apply mx-auto max-w-7xl px-7;
+  }
+}
+/* 
+ .carousal-image{
+  height: 70%;
+  width: 70%;
+  object-fit: fill;
+  max-height: 20rem;
+}  */
