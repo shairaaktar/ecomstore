@@ -1,4 +1,4 @@
-const ParentCategory=require('../models/ParentCategory')
+const ParentCategory=require('../models/parentcategory')
 const Product=require('../models/product');
 const slugify=require('slugify');
 
