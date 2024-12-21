@@ -68,7 +68,7 @@ app.use('/media',express.static(path.join(__dirname,'media')));
 
 mongoose.set('strictQuery', false);
 
-mongoose.connect(process.env.DATABASE, {
+mongoose.connect(process.env.DATABASE || 'mongodb://localhost:27017/comfy-store', {
     useNewUrlParser: true,
     useUnifiedTopology: true,
 }).then(() => console.log('Connected to Database!'))
