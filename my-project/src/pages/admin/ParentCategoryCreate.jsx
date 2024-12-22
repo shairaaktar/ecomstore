@@ -4,6 +4,7 @@ import { useSelector } from "react-redux";
 import { toast } from "react-toastify";
 import axios from "axios";
 import {LoadingOutlined} from '@ant-design/icons'
+import BASE_URL from "../../config";
 
 
 
@@ -45,7 +46,7 @@ const ParentCategoryCreate = () => {
     console.log('Category Data:', parentcategoryData);  // Log the data to check if it's correct
 
     try {
-const response = await axios.post('http://localhost:8001/api/parent-category', {parentcategoryData,email}, {
+const response = await axios.post(`${BASE_URL}/api/parent-category`, {parentcategoryData,email}, {
         headers: {
           authtoken: token,
           

@@ -1,5 +1,6 @@
 import React,{useState} from 'react';
 import axios from 'axios'
+import BASE_URL from '../../config';
 
 const AdminNotificationForm=()=>{
     const [subject,setSubject]=useState('');
@@ -10,7 +11,7 @@ const AdminNotificationForm=()=>{
 
         try{
 
-            await axios.post(`http://localhost:8001/api/send-offer-notification`,{
+            await axios.post(`${BASE_URL}/api/send-offer-notification`,{
                 subject,
                 message,
             });

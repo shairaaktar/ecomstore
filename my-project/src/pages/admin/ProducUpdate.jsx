@@ -260,6 +260,7 @@ import { getCategories } from "../../functions/category";
 import axios from "axios";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+import BASE_URL from "../../config";
 
 
 const ProducUpdate = () => {
@@ -312,7 +313,7 @@ const ProducUpdate = () => {
 
 //   const getProduct = async (slug) => {
 //     try {
-//       const response = await axios.get(`http://localhost:8001/api/single-product/${slug}`);
+//       const response = await axios.get(`${BASE_URL}/api/single-product/${slug}`);
 //       return response; // This should return the complete response object, including data
 //     } catch (error) {
 //       console.error('Error fetching product:', error);
@@ -324,7 +325,7 @@ const ProducUpdate = () => {
 
   const loadProduct = async () => {
     try {
-     const response = await axios.get(`http://localhost:8001/api/single-product/${id}`);
+     const response = await axios.get(`${BASE_URL}/api/single-product/${id}`);
      console.log('response',response)
 
       if (!response || !response.data) {

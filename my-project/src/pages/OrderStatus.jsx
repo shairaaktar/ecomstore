@@ -165,6 +165,7 @@ import { io } from 'socket.io-client';
 import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import axios from 'axios'
+import BASE_URL from '../config';
 
 const socket = io('http://localhost:3000')
 
@@ -179,7 +180,7 @@ const [orders, setOrders] = useState([]);
 
   useEffect(() => {
     const fetchOrders = async () => {
-        axios.post('http://localhost:8001/api/user/orders',{email},{
+        axios.post(`${BASE_URL}/api/user/orders`,{email},{
             headers: {
                 Authorization: `Bearer ${token}`,
                 authtoken: token,

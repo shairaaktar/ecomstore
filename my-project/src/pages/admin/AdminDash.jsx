@@ -345,6 +345,7 @@ import MarkUnreadChatAltOutlinedIcon from "@mui/icons-material/MarkUnreadChatAlt
 import ShoppingBagOutlinedIcon from "@mui/icons-material/ShoppingBagOutlined";
 import CategoryOutlinedIcon from "@mui/icons-material/CategoryOutlined";
 import { EveryDaySales, MonthlySalesGraph, SalesByPie,TotalSalesByMonth,NewCustomersByMonth,EveryDaysOrders, EveryDaysOrdersNumber } from "../../components";
+import BASE_URL from "../../config";
 
 const navItems = [
   {

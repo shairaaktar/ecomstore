@@ -3,6 +3,7 @@ import { useSelector } from "react-redux";
 import axios from "axios";
 import SectionTitle from "../../components/SectionTitle";
 import {Link} from 'react-router-dom'
+import BASE_URL from "../../config";
 
 
 const Customers=()=>{
@@ -23,7 +24,7 @@ const Customers=()=>{
 
 
     const fetchAllUser=()=>{
-        axios.post('http://localhost:8001/api/all-users',{email
+        axios.post(`${BASE_URL}/api/all-users`,{email
 
         },{
             headers:{
@@ -40,7 +41,7 @@ const Customers=()=>{
     }
 
   const  fetchUsersCount=()=>{
-        axios.get('http://localhost:8001/api/admin/users/count',{
+        axios.get(`${BASE_URL}/api/admin/users/count`,{
             headers:{
                 Authorization:`Bearer ${token}`,
                 authtoken:token,

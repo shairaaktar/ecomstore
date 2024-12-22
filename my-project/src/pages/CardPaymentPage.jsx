@@ -571,6 +571,7 @@ import { clearCart } from '../features/cart/cartSlice';
 import {jwtDecode} from 'jwt-decode';
 import styled from 'styled-components'
 import { Link } from 'react-router-dom';
+import BASE_URL from '../config';
 // Assuming you have a CSS file for custom styles
 
 const CardPaymentPage = () => {

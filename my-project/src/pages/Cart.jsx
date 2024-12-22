@@ -1,6 +1,7 @@
 import { useSelector } from "react-redux";
 import { CartItemsList,SectionTitle,CartTotals,Footer,CartCard } from "../components";
 import { Link } from "react-router-dom";
+import BASE_URL from "../config";
 
 
 

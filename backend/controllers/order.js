@@ -321,7 +321,7 @@ exports.createOrderWithCard = async (req, res) => {
   try {
       // Create payment intent with Stripe
       const paymentIntent = await stripe.paymentIntents.create({
-          amount: Math.round(orderTotal * 100), // Stripe expects the amount in cents
+          amount: Math.round(orderTotal * 100), // Stripe expects the amount in cent
           currency: 'usd',
       });
 

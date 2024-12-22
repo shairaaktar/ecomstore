@@ -22,6 +22,7 @@ import { StarIcon } from '@heroicons/react/20/solid'
 import { Dialog, DialogBackdrop, DialogPanel, RadioGroup } from '@headlessui/react'
 import { addItem } from "../features/cart/cartSlice";
 import { ProductQuickView } from "../components";
+import BASE_URL from "../config";
 
 const {SubMenu}=Menu
 
@@ -379,7 +380,7 @@ useEffect(() => {
     // const fetchUserWishList =  () => {
     //   try {
     //     const response =  axios.post(
-    //       `http://localhost:8001/api/wishlist/${userId}`,
+    //       `${BASE_URL}/api/wishlist/${userId}`,
     //       { email },
     //       {
     //         headers: {
@@ -397,7 +398,7 @@ useEffect(() => {
 
     const fetchUserWishList = async () => {
         try {
-          const response = await axios.post(`http://localhost:8001/api/wishlist/${userId}`, { email }, {
+          const response = await axios.post(`${BASE_URL}/api/wishlist/${userId}`, { email }, {
             headers: {
               Authorization: `Bearer ${token}`,
               authtoken: token,
@@ -441,7 +442,7 @@ const handleAddToWishList= async(product)=>{
         setWishlist([...wishlist,productId])
         }else{
             await axios.delete(
-                 `http://localhost:8001/api/${userId}/${productId}`,
+                 `${BASE_URL}/api/${userId}/${productId}`,
                  {
                     data:{userId,productId},
                     headers:{
@@ -484,7 +485,7 @@ const addToWishList=async(userId,productId)=>{
 
     try {
         const response = await axios.post(
-            `http://localhost:8001/api/wishlist`,
+            `${BASE_URL}/api/wishlist`,
             {
                 email, 
                WishProduct

@@ -5,6 +5,7 @@ import { toast } from "react-toastify";
 import axios from "axios";
 import {LoadingOutlined} from '@ant-design/icons'
 import { getParentCategories } from "../../functions/parentcategories";
+import BASE_URL from "../../config";
 
 const CategoryCreatePage = () => {
   const [name, setName] = useState('');
@@ -49,7 +50,7 @@ const CategoryCreatePage = () => {
     console.log('Category Data:', categoryData);  // Log the data to check if it's correct
 
     try {
-const response = await axios.post('http://localhost:8001/api/category', {categoryData,email}, {
+const response = await axios.post(`${BASE_URL}/api/category`, {categoryData,email}, {
         headers: {
           authtoken: token,
           

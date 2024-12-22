@@ -530,6 +530,7 @@ import { getCategories } from "../functions/category";
 import { Link } from "react-router-dom";
 import DatePicker from "react-datepicker";
 import "react"
+import BASE_URL from "../config";
 
 
 const ProductCreatePage = () => {
@@ -663,7 +664,7 @@ const ProductCreatePage = () => {
     console.log('Product Data:', productData);  // Log the data to check if it's correct
 
     try {
-      const response = await axios.post('http://localhost:8001/api/create-product', productData, {
+      const response = await axios.post(`${BASE_URL}/api/create-product`, productData, {
         headers: {
           authtoken: token,
           

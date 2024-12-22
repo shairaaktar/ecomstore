@@ -4,6 +4,7 @@ import { Link, useParams } from 'react-router-dom';
 import { SectionTitle } from '../../components';
 import ReactStars from "react-rating-stars-component"
 import { DeleteOutline } from '@mui/icons-material';
+import BASE_URL from '../../config';
 
 const UserReviews=()=>{
     const {userId}=useParams();
@@ -22,7 +23,7 @@ const UserReviews=()=>{
     const fetchUserReviews=async()=>{
         try{
 
-            const response=await axios.get(`http://localhost:8001/api/users/${userId}/reviews`);
+            const response=await axios.get(`${BASE_URL}/api/users/${userId}/reviews`);
             setReviews(response.data);
             console.log('response',response.data)
 
@@ -37,7 +38,7 @@ const UserReviews=()=>{
     const deleteReview=async(productId,reviewId)=>{
         try{
 
-            await axios.delete(`http://localhost:8001/api/products/${productId}/reviews/${reviewId}`);
+            await axios.delete(`${BASE_URL}/api/products/${productId}/reviews/${reviewId}`);
             setReviews((prevReviews)=>prevReviews.filter((review)=>review._id!==reviewId));
             alert('Review deleted successfully');
 

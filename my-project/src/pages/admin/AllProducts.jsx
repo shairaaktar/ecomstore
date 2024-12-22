@@ -5,6 +5,7 @@ import { getProductsByCount,getProductsCount,getGridProducts,getProducts } from 
 import { useEffect,useState } from "react";
 import {BsFillGridFill, BsList} from 'react-icons/bs'
 import axios from "axios";
+import BASE_URL from "../../config";
 
 const url='./products';
 

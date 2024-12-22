@@ -21,6 +21,7 @@ import assert from "assert";
 import Slider from "react-slick";
  import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
+import BASE_URL from "../config";
 
 
 
@@ -78,7 +79,7 @@ const handleMouseMove = (e, imageUrl) => {
     useEffect(() => {
         const fetchProduct = async () => {
             try {
-                const response = await axios.get(`http://localhost:8001/api/products/${id}`);
+                const response = await axios.get(`${BASE_URL}/api/products/${id}`);
                 setProduct(response.data);
                 console.log('response data',response.data)
 
@@ -153,7 +154,7 @@ const addToWishList=async(userId,productId)=>{
 
     try {
         const response = await axios.post(
-            `http://localhost:8001/api/wishlist`,
+            `${BASE_URL}/api/wishlist`,
             {
                 email, 
                WishProduct
@@ -212,7 +213,7 @@ const addToWishList=async(userId,productId)=>{
     const fetchReviews=async()=>{
         try{
 
-            const response=await axios.get(`http://localhost:8001/api/${id}/getreviews`);
+            const response=await axios.get(`${BASE_URL}/api/${id}/getreviews`);
             setReviews(response.data);
             console.log('review',response)
 
@@ -271,7 +272,7 @@ const addToWishList=async(userId,productId)=>{
 
        
         const response=await axios.post(
-            `http://localhost:8001/api/${id}/reviews`,
+            `${BASE_URL}/api/${id}/reviews`,
             {feedback,email},
            { headers: {
                 authtoken: token,

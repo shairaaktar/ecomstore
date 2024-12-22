@@ -3,7 +3,7 @@ const router=express.Router();
 
 const {authCheck,adminCheck}=require('../middlewares/auth')
 
-const {orders,orderStatus,deleteOrders,OrdersCount}=require('../controllers/admin');
+const {orders,orderStatus,deleteOrders,OrdersCount}=require('../controllers/admin')
 
 
 router.post('/admin/orders',authCheck,adminCheck,orders)

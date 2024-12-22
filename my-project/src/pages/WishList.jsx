@@ -63,6 +63,7 @@ import { SectionTitle } from "../components";
 import axios from "axios";
 import { formattedPrice } from "../utils";
 import { Link } from "react-router-dom";
+import BASE_URL from "../config";
 
 const WishList = () => {
   const [wishList, setWishlist] = useState({ products: [] });
@@ -81,7 +82,7 @@ const WishList = () => {
   const fetchUserWishList = () => {
     axios
       .post(
-        `http://localhost:8001/api/wishlist/${id}`,
+        `${BASE_URL}/api/wishlist/${id}`,
         { email },
         {
           headers: {

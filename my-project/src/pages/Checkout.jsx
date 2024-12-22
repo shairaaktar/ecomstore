@@ -6,6 +6,7 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { clearCart } from "../features/cart/cartSlice";
+import BASE_URL from "../config";
 
 
 //  export const loader=(store)=>()=>{
@@ -73,7 +74,7 @@ const Checkout=()=>{
 
             try {
                 const response = await axios.post(
-                    'http://localhost:8001/api/orders',
+                    `${BASE_URL}/api/orders`,
                     info,
                     {
                         headers: {

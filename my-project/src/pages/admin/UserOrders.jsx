@@ -2,13 +2,14 @@ import { useEffect,useState } from "react";
 import { useParams } from "react-router-dom";
 import axios from "axios";
 import { SectionTitle } from "../../components";
+import BASE_URL from "../../config";
 
 const UserOrders=()=>{
     const {id}=useParams()
     const [orders,setOrders]=useState([]);
 
     useEffect(()=>{
-        axios.get(`http://localhost:8001/api/user/${id}/orders`)
+        axios.get(`${BASE_URL}/api/user/${id}/orders`)
         .then((response)=>{
             setOrders(response.data)
             console.log('response',response.data)
