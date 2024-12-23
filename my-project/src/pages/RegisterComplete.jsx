@@ -9,6 +9,7 @@ import { auth } from "../firebase";
 import { store } from "../store";
 
 export const handleRegisterComplete = async ({ request }) => {
+     console.log("handleRegisterComplete called");
     const formData=await request.formData();
     const password=formData.get('password');
     const email = window.localStorage.getItem('emailForRegistration');
