@@ -12,6 +12,7 @@ export const handleRegisterComplete = async ({ request }) => {
     const formData=await request.formData();
     const password=formData.get('password');
     const email = window.localStorage.getItem('emailForRegistration');
+    console.log("Retrieved email from localStorage:", email);
 
     if (!email || !password) {
         toast.error("Email and password are required");
