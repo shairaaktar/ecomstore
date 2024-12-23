@@ -1,4 +1,5 @@
 import axios from 'axios'
+import BASE_URL from '../config';
 
 // export const createPaymentIntent=(token,orderTotal)=>{
 //     console.log('token-->',token)
@@ -16,7 +17,7 @@ import axios from 'axios'
 export const createPaymentIntent = async (token, orderTotal) => {
     try {
       const response = await axios.post(
-        'http://localhost:8001/api/create-payment-intent',
+        `${BASE_URL}/api/create-payment-intent`,
         { orderTotal },
         {
           headers: {
@@ -54,7 +55,7 @@ export const createOrder = async (payload, token,info) => {
       };
   
       const response = await axios.post(
-        'http://localhost:8001/api/card-orders',
+        `${BASE_URL}/api/card-orders`,
         { data: info },
         {
           headers: {

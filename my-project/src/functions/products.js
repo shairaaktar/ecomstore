@@ -1,9 +1,10 @@
 import axios from 'axios'
+import BASE_URL from '../config'
 
 export const getProductsByCount=async (count)=>{
     
     try {
-      const response = await axios.get(`http://localhost:8001/api/product/${count}`)
+      const response = await axios.get(`${BASE_URL}/api/product/${count}`)
       console.log('response-->',response)
       return response.data; 
     } catch (error) {
@@ -18,7 +19,7 @@ export const getProductsByCount=async (count)=>{
 
 export const getProductsCount = async () => {
     try {
-      const response = await axios.get('http://localhost:8001/api/productscounts');
+      const response = await axios.get(`${BASE_URL}/api/productscounts`);
       console.log('response-->',response)
       return response.data; 
     } catch (error) {
@@ -28,7 +29,7 @@ export const getProductsCount = async () => {
   };
 
 export const getRelated=async (productId)=>{
-    await axios.get(`http://localhost:8001/api/product/related/${productId}`);
+    await axios.get(`${BASE_URL}/api/product/related/${productId}`);
 }
 
 // export const getProducts = async (slug) =>
@@ -45,7 +46,7 @@ export const getRelated=async (productId)=>{
 //     });
 
     export const getGridProducts = async (sort, order, page) =>
-      await axios.post(`http://localhost:8001/api/productsss`, {
+      await axios.post(`${BASE_URL}/api/productsss`, {
           sort,
           order,
           page
@@ -53,7 +54,7 @@ export const getRelated=async (productId)=>{
 
 
 export const removeProduct=async (slug,authtoken,email)=>{
-  await axios.post(`http://localhost:8001/api/product/remove/${slug}`,{email},{
+  await axios.post(`${BASE_URL}/api/product/remove/${slug}`,{email},{
     headers:{
       authtoken,
     }
@@ -61,7 +62,7 @@ export const removeProduct=async (slug,authtoken,email)=>{
 }
 
 export const updateProduct=async (id,product,email,authtoken)=>{
-  await axios.put(`http://localhost:8001/api/product/${id}`,{email,product,id},{
+  await axios.put(`${BASE_URL}/api/product/${id}`,{email,product,id},{
     headers:{
       authtoken,
     }
@@ -76,7 +77,7 @@ export const updateProduct=async (id,product,email,authtoken)=>{
 
 export const getProduct = async (slug) => {
   try {
-    const response = await axios.get(`http://localhost:8001/api/single-product/${slug}`);
+    const response = await axios.get(`${BASE_URL}/api/single-product/${slug}`);
     return response; // This should return the complete response object, including data
   } catch (error) {
     console.error('Error fetching product:', error);
@@ -86,7 +87,7 @@ export const getProduct = async (slug) => {
 
 export const getRelatedProduct = async (productId) => {
   try {
-    const response = await axios.get(`http://localhost:8001/api/product/related/${productId}`);
+    const response = await axios.get(`${BASE_URL}/api/product/related/${productId}`);
     return response; // This should return the complete response object, including data
   } catch (error) {
     console.error('Error fetching product:', error);
@@ -97,7 +98,7 @@ export const getRelatedProduct = async (productId) => {
 export const getProducts = async (sort,order,page) => {
   
   try {
-    const response =  await axios.post(`http://localhost:8001/api/productss`, {
+    const response =  await axios.post(`${BASE_URL}/api/productss`, {
       sort,
       order,
       page
@@ -115,7 +116,7 @@ export const getProducts = async (sort,order,page) => {
 export const fetchProductsByFilter = async (arg) => {
   console.log('args---->',arg)
   try {
-    const response = await axios.post(`http://localhost:8001/api/search/filters`,arg);
+    const response = await axios.post(`${BASE_URL}/api/search/filters`,arg);
     return response; // This should return the complete response object, including data
   } catch (error) {
     console.error('Error fetching product:', error);
@@ -125,7 +126,7 @@ export const fetchProductsByFilter = async (arg) => {
 
 export const getProductsFilters=async()=>{
   try{
-    const response=await axios.get(`http://localhost:8001/api/products/filters`);
+    const response=await axios.get(`${BASE_URL}/api/products/filters`);
     return response;
 
 

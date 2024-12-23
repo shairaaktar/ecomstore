@@ -1,7 +1,8 @@
 import axios from 'axios'
+import BASE_URL from '../config';
 
 export const createCategory=async(category,authtoken,email)=>{
-  await axios.post(`http://localhost:8001/api/category`,{category,email},{
+  await axios.post(`${BASE_URL}/api/category`,{category,email},{
     headers:{
          authtoken,
     }
@@ -18,7 +19,7 @@ export const createCategory=async(category,authtoken,email)=>{
 
 export const getCategories = async () => {
   try {
-      const response = await axios.get('http://localhost:8001/api/categories'
+      const response = await axios.get(`${BASE_URL}/api/categories`
       );
       return response.data; // Assuming the data is directly returned
   } catch (error) {
@@ -29,7 +30,7 @@ export const getCategories = async () => {
 
 export const removeCategory = async (slug,token,email) => {
   try {
-      const response = await axios.post(`http://localhost:8001/api/category/${slug}`, {email},{
+      const response = await axios.post(`${BASE_URL}/api/category/${slug}`, {email},{
           headers: {
               Authorization: `Bearer ${token}`,
               authtoken:token
@@ -44,7 +45,7 @@ export const removeCategory = async (slug,token,email) => {
 
 export const updateCategory = async (slug,token,email) => {
   try {
-      const response = await axios.post(`http://localhost:8001/api/category/update/${slug}`, {email},{
+      const response = await axios.post(`${BASE_URL}/api/category/update/${slug}`, {email},{
           headers: {
               Authorization: `Bearer ${token}`,
               authtoken:token
@@ -59,7 +60,7 @@ export const updateCategory = async (slug,token,email) => {
 
 export const readCategory = async (slug,page=1,limit=10) => {
   try {
-      const response = await axios.get(`http://localhost:8001/api/category/read/${slug}`,{
+      const response = await axios.get(`${BASE_URL}/api/category/read/${slug}`,{
         params:{page,limit}
       });
       return response.data; // Assuming the data is directly returned

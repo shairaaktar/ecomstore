@@ -1,8 +1,9 @@
 import axios from "axios";
+import BASE_URL from "../config";
 
 export const createOrUpdateUser=async(authtoken)=>{
     return await axios.post(
-        `http://localhost:8001/api/create-or-update-user`,
+        `${BASE_URL}/api/create-or-update-user`,
         {},
         {
             headers:{
@@ -15,7 +16,7 @@ export const createOrUpdateUser=async(authtoken)=>{
 
 export const currentUser=async(authtoken)=>{
     return await axios.post(
-        `http://localhost:8001/api/current-user`,
+        `${BASE_URL}/api/current-user`,
         {},
         {
             headers:{

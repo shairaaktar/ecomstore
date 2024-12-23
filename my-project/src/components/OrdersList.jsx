@@ -396,6 +396,7 @@ import PaginationContainer from "./PaginationContainer";
 import { formattedPrice } from "../utils/index";
 import {Link} from 'react-router-dom'
 import { io } from "socket.io-client";
+import BASE_URL from "../config";
 day.extend(advancedFormat);
 
 const ORDER_PER_PAGE = 10;
@@ -418,7 +419,7 @@ const OrdersList = () => {
   const loadUserOrders = () => {
     axios
       .post(
-        "http://localhost:8001/api/user/orders",
+        `${BASE_URL}/api/user/orders`,
         { email, page, limit: ORDER_PER_PAGE },
         {
           headers: {
@@ -452,7 +453,7 @@ const OrdersList = () => {
 
   const fetchOrdersCount = () => {
     axios
-      .get("http://localhost:8001/api/user/orders/count", {
+      .get(`${BASE_URL}/api/user/orders/count`, {
         headers: {
           Authorization: `Bearer ${token}`,
           authtoken: token,
