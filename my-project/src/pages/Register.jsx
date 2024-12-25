@@ -14,7 +14,8 @@ export const handleRegister = async ({ request }) => {
     const email = formData.get('email');
   
     const config = {
-      url: 'http://localhost:5173/register/complete',
+      // url: 'http://localhost:5173/register/complete',
+        url:`https://ecomstore-my-project.onrender.com/register/complete`,
       handleCodeInApp: true,
     };
   
