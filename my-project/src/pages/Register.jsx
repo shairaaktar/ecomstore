@@ -13,11 +13,18 @@ export const handleRegister = async ({ request }) => {
     const formData = await request.formData();
     const email = formData.get('email');
   
+    // const config = {
+    //   // url: 'http://localhost:5173/register/complete',
+    //     url:`https://ecomstore-my-project.onrender.com/register/complete`,
+    //   handleCodeInApp: true,
+    // };
+
     const config = {
-      // url: 'http://localhost:5173/register/complete',
-        url:`https://ecomstore-my-project.onrender.com/register/complete`,
-      handleCodeInApp: true,
-    };
+  url: process.env.NODE_ENV === 'production'
+    ? `${window.location.origin}/register/complete`
+    : 'http://localhost:5173/register/complete',
+  handleCodeInApp: true,
+};
   
     try {
       await auth.sendSignInLinkToEmail(email, config);

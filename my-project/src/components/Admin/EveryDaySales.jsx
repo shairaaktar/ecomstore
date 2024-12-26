@@ -171,7 +171,6 @@ import {
 } from 'chart.js';
 import axios from 'axios';
 import { useSelector } from 'react-redux';
-import BASE_URL from '../../config'
 
 ChartJS.register(
     Title,
