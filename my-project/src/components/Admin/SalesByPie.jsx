@@ -255,6 +255,7 @@ import "react-datepicker/dist/react-datepicker.css";
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
 import ChartDataLabels from "chartjs-plugin-datalabels";
 import { formattedPrice } from "../../utils";
+import BASE_URL from "../../config";
 
 // Register chart.js elements and plugin
 ChartJS.register(ArcElement, Tooltip, Legend, ChartDataLabels);
@@ -273,7 +274,7 @@ const SalesByPie = () => {
     try {
       const month = selectedMonth.toISOString().slice(0, 7);
       const response = await axios.post(
-        `http://localhost:8001/api/sales-by-category?month=${month}`,
+        `${BASE_URL}/api/sales-by-category?month=${month}`,
         { email, token },
         {
           headers: {

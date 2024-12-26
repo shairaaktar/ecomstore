@@ -9,6 +9,7 @@ import { toast } from "react-toastify";
 import Swal from 'sweetalert2'
 import ShowPaymentInfo from "./Admin/ShowPaymentInfo";
 import PaginationContainer from "./PaginationContainer";
+import BASE_URL from "../config";
 const ORDER_PER_PAGE=10;
 
 day.extend(advancedFormat);
@@ -67,7 +68,7 @@ const AllOrdersList=()=>{
     // }
 
     const loadOrders = () => {
-      axios.post('http://localhost:8001/api/admin/orders', { email, page, limit: ORDER_PER_PAGE }, {
+      axios.post(`${BASE_URL}/api/admin/orders`, { email, page, limit: ORDER_PER_PAGE }, {
           headers: {
               Authorization: `Bearer ${token}`,
               authtoken: token,
@@ -97,7 +98,7 @@ const AllOrdersList=()=>{
     }
 
     const fetchOrdersCount =()=>{
-      axios.get('http://localhost:8001/api/admin/orders/count',{
+      axios.get(`${BASE_URL}/api/admin/orders/count`,{
         headers:{
           Authorization:`Bearer ${token}`,
           authtoken:token,
@@ -132,7 +133,7 @@ const AllOrdersList=()=>{
           cancelButtonText: 'No, cancel!',
         }).then(result => {
           if (result.value) {
-            axios.post(`http://localhost:8001/api/admin/orders/${id}`,{email},
+            axios.post(`${BASE_URL}/api/admin/orders/${id}`,{email},
               {
                 headers:{
                    Authorization:`Bearer ${token}`,

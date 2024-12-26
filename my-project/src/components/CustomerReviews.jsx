@@ -7,7 +7,9 @@ import advancedFormat from 'dayjs/plugin/advancedFormat'
 import { Link } from 'react-router-dom';
 import { DeleteOutline } from '@mui/icons-material';
 import ReactStars from "react-rating-stars-component"
+import BASE_URL from '../config';
 day.extend(advancedFormat);
+
 
 
 const CustomerReviews=()=>{
@@ -25,7 +27,7 @@ const CustomerReviews=()=>{
     const fetchReviws=async()=>{
         try{
 
-            const response=await axios.get(`http://localhost:8001/api/reviews`);
+            const response=await axios.get(`${BASE_URL}/api/reviews`);
             setReviews(response.data);
             console.log('response',response)
 
@@ -41,7 +43,7 @@ const CustomerReviews=()=>{
     const deleteReview=async(productId,reviewId)=>{
         try{
 
-            await axios.delete(`http://localhost:8001/api/products/${productId}/reviews/${reviewId}`);
+            await axios.delete(`${BASE_URL}/api/products/${productId}/reviews/${reviewId}`);
             setReviews((prevReviews)=>prevReviews.filter((review)=>review._id!==reviewId));
             alert('Review deleted successfully');
 

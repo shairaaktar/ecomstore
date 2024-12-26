@@ -482,6 +482,7 @@ import { useStripe, useElements, CardElement } from '@stripe/react-stripe-js';
 import axios from 'axios';
 import { useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
+import BASE_URL from '../config';
 
 const StripeCheckoutForm = ({ orderId, clientSecret }) => {
     const stripe = useStripe();
@@ -510,7 +511,7 @@ const StripeCheckoutForm = ({ orderId, clientSecret }) => {
             if (error) {
                 toast.error(`Payment Failed: ${error.message}`);
             } else {
-                const response = await axios.post(`http://localhost:8001/api/orders/${orderId}/confirm-payment`, {
+                const response = await axios.post(`${BASE_URL}/api/orders/${orderId}/confirm-payment`, {
                     paymentIntentId: paymentIntent.id,
                 }, {
                     headers: {

@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { useSelector } from 'react-redux';
 import axios from "axios";
 import { toast } from "react-toastify";
+import BASE_URL from "../config";
 
 const PlaceOrder = () => {
     const navigate = useNavigate();
@@ -17,7 +18,7 @@ const PlaceOrder = () => {
         }
 
         try {
-            const response = await axios.post('http://localhost:8001/api/create-order', {
+            const response = await axios.post(`${BASE_URL}/api/create-order`, {
                 items: cartState.cartItems,
                 totalAmount: cartState.orderTotal,
             }, {

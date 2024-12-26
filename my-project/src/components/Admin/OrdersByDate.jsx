@@ -79,6 +79,7 @@
 import React, { useState } from 'react';
 import { toast } from 'react-toastify';
 import axios from 'axios';
+import BASE_URL from '../../config';
 
 const OrdersByDate = () => {
   const [date, setDate] = useState('');
@@ -94,7 +95,7 @@ const OrdersByDate = () => {
       return;
     }
     try {
-      const response = await axios.post(`http://localhost:8001/api/todays-orders`, {
+      const response = await axios.post(`${BASE_URL}/api/todays-orders`, {
         params: { date },
       });
 

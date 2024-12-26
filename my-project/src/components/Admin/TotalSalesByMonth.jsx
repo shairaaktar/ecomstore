@@ -4,6 +4,7 @@ import axios from "axios";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { formattedPrice } from "../../utils";
+import BASE_URL from "../../config";
 
 
 
@@ -33,7 +34,7 @@ const TotalSalesByMonth=()=>{
 
             console.log("Formatted Month for API (UTC):", month);
             const response = await axios.post(
-                `http://localhost:8001/api/total-sales-month?month=${month}`,
+                `${BASE_URL}/api/total-sales-month?month=${month}`,
                 { email,token },
                 {
                     headers: {

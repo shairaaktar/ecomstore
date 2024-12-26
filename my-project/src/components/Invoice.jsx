@@ -129,6 +129,7 @@ import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import axios from "axios";
 import { formattedPrice } from "../utils";
+import BASE_URL from "../config";
 
 const Invoice = () => {
   const { orderId } = useParams();
@@ -142,7 +143,7 @@ const Invoice = () => {
 
   const fetchOrderDetails = async () => {
     try {
-      const response = await axios.get(`http://localhost:8001/api/orders/${orderId}`);
+      const response = await axios.get(`${BASE_URL}/api/orders/${orderId}`);
       setOrderDetails(response.data);
     } catch (err) {
       setError(err.response?.data?.message || "Failed to fetch order details.");

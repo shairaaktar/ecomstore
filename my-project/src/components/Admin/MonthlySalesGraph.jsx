@@ -163,6 +163,7 @@ import {
 } from 'chart.js';
 import axios from 'axios';
 import { useSelector } from 'react-redux';
+import BASE_URL from '../../config';
 
 
 ChartJS.register(
@@ -206,7 +207,7 @@ const MonthlySalesGraph = () => {
     
             console.log("Formatted Month for API (UTC):", month);
             const response = await axios.post(
-                `http://localhost:8001/api/monthly-sales?month=${month}`,
+                `${BASE_URL}/api/monthly-sales?month=${month}`,
                 { email,token },
                 {
                     headers: {

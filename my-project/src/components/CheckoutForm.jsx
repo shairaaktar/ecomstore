@@ -336,6 +336,7 @@ import axios from 'axios';
 import { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import CartTotals from './CartTotals';
+import BASE_URL from '../config';
 
 // export const action = (store) => async ({ request }) => {
 //     const formData = await request.formData();
@@ -435,7 +436,7 @@ const CheckoutForm = ({formData,handleInputChange,setSelectedPaymentMethod,selec
 
              try {
                  const response = await axios.post(
-                     'http:localhost:8001/api/orders',
+                     `${BASE_URL}/api/orders`,
                      info,
                      {
                          headers: {

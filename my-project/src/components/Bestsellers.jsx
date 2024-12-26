@@ -8,6 +8,7 @@ import { formattedPrice } from '../utils';
 import day from 'dayjs';
 import advancedFormat from 'dayjs/plugin/advancedFormat'
 day.extend(advancedFormat);
+import BASE_URL from '../config';
 
 const PRODUCT_PER_PAGE=3;
 
@@ -28,7 +29,7 @@ const BestSeller=()=>{
     },[token,email])
 
     const loadBestsellingProducts=()=>{
-        axios.post('http://localhost:8001/api/admin/best-selling-products',{email},{
+        axios.post(`${BASE_URL}/api/admin/best-selling-products`,{email},{
             headers:{
 
                 Authorization:`Bearer ${token}`,

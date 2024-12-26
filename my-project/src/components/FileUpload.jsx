@@ -238,6 +238,7 @@ import Resizer from 'react-image-file-resizer';
 import axios from "axios";
 import { useSelector } from "react-redux";
 import { Avatar, Badge } from 'antd';
+import BASE_URL from "../config";
 
 const FileUpload = ({ values, setValues ,setLoading}) => {
   const user = useSelector((state) => state.userState);
@@ -246,7 +247,7 @@ const FileUpload = ({ values, setValues ,setLoading}) => {
   const uploadImages=async (uri, retries=3)=>{
     try{
       const res=await axios.post(
-        'http://localhost:8001/api/uploadImages',
+        `${BASE_URL}/api/uploadImages`,
         {image:uri},
         {
           headers:{
@@ -291,7 +292,7 @@ const FileUpload = ({ values, setValues ,setLoading}) => {
             async (uri) => {
               try {
                 const res = await axios.post(
-                  'http://localhost:8001/api/uploadImages',
+                  `${BASE_URL}/api/uploadImages`,
                   { image: uri },
                   {
                     headers: {
@@ -434,7 +435,7 @@ const FileUpload = ({ values, setValues ,setLoading}) => {
   const handleImageRemove = async (public_id) => {
     try {
       await axios.post(
-        'http://localhost:8001/api/removeImages',
+        `${BASE_URL}/api/removeImages`,
         { public_id },
         {
           headers: {

@@ -622,6 +622,7 @@ import { toast } from 'react-toastify';
 import { useDispatch } from 'react-redux';
 import { addItem } from '../features/cart/cartSlice';
 import ProductQuickView from './ProductQuickView';
+import BASE_URL from '../config';
 
 
 
@@ -857,7 +858,7 @@ useEffect(() => {
 
     const fetchUserWishList = async () => {
         try {
-          const response = await axios.post(`http://localhost:8001/api/wishlist/${userId}`, { email }, {
+          const response = await axios.post(`${BASE_URL}/api/wishlist/${userId}`, { email }, {
             headers: {
               Authorization: `Bearer ${token}`,
               authtoken: token,
@@ -900,7 +901,7 @@ useEffect(() => {
         setWishlist([...wishlist,productId])
         }else{
             await axios.delete(
-                 `http://localhost:8001/api/${userId}/${productId}`,
+                 `${BASE_URL}/api/${userId}/${productId}`,
                  {
                     data:{userId,productId},
                     headers:{
@@ -943,7 +944,7 @@ const addToWishList=async(userId,productId)=>{
 
     try {
         const response = await axios.post(
-            `http://localhost:8001/api/wishlist`,
+            `${BASE_URL}/api/wishlist`,
             {
                 email, 
                WishProduct

@@ -1,6 +1,7 @@
 import React,{useEffect,useState} from 'react'
 import axios from 'axios'
 import { toast } from 'react-toastify'
+import BASE_URL from '../../config'
 
 const NewCustomersByMonth=()=>{
     const [customers,setCustomers]=useState([])
@@ -13,7 +14,7 @@ const NewCustomersByMonth=()=>{
 
     const fetchNewCustomers=async()=>{
         try{
-            const response=await axios.get( `http://localhost:8001/api/new-customers`);
+            const response=await axios.get( `${BASE_URL}/api/new-customers`);
            setCustomers(response.data);
            console.log('response',response)
 

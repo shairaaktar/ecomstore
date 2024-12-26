@@ -171,6 +171,7 @@ import {
 } from 'chart.js';
 import axios from 'axios';
 import { useSelector } from 'react-redux';
+import BASE_URL from '../../config'
 
 ChartJS.register(
     Title,
@@ -202,7 +203,7 @@ const EveryDaySales = () => {
             console.log("Formatted Date for API:", date);
 
             const response = await axios.post(
-                `http://localhost:8001/api/daily-sales?date=${date}`,
+                `${BASE_URL}/api/daily-sales?date=${date}`,
                 { email, token },
                 {
                     headers: {
