@@ -3,6 +3,7 @@ import DatePicker from "react-datepicker";
 import { useSelector } from "react-redux";
 import axios from "axios";
 import SectionTitle from "../SectionTitle";
+import BASE_URL from "../../config";
 
 
 
@@ -33,7 +34,7 @@ const EveryDaysOrders=()=>{
             console.log("Formatted Date for API:", date);
 
 
-            const response=await axios.post(`http://localhost:8001/api/todays-orders?date=${date}`,
+            const response=await axios.post(`${BASE_URL}/api/todays-orders?date=${date}`,
 
                 {email,token },{
                     headers:{
