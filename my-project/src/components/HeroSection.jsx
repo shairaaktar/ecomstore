@@ -306,10 +306,17 @@ const HeroSection=()=>{
 <div
 //  className="w-1/2 h-full flex"
 // className="w-full lg:w-1/2 h-full flex"
+// className="
+       
+//         w-full h-full 
+        
+//         lg:w-1/2 
+//         flex
+//       "
 className="
-        w-full h-full 
-        lg:w-1/2 
-        flex
+       hidden lg:flex
+        w-full lg:w-1/2 
+        h-full 
       "
  >
         {/* Left Half of the Left Section */}
