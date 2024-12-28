@@ -314,7 +314,7 @@ const HeroSection=()=>{
 //         flex
 //       "
 className="
-       hidden lg:flex
+        hidden lg:flex
         w-full lg:w-1/2 
         h-full 
       "

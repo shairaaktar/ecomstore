@@ -595,6 +595,504 @@
 
 // export default NewArrivals;
 
+// import React, { useEffect, useState } from 'react';
+// import { Link, useParams } from 'react-router-dom';
+// import { getProducts, getProductsCount } from '../functions/products';
+// import LoadingCard from './LoadingCard';
+// import { useSprings, animated } from '@react-spring/web';
+// import SectionTitle from './SectionTitle';
+// import { formattedPrice } from '../utils';
+// import { Tooltip } from 'antd';
+// import { Products } from '../pages';
+// import ReactStars from "react-rating-stars-component"
+// import ShoppingBagIcon from '@mui/icons-material/ShoppingBag';
+// import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
+// import FavoriteIcon from '@mui/icons-material/Favorite';
+// import ShoppingBagOutlinedIcon from '@mui/icons-material/ShoppingBagOutlined';
+// import ZoomInIcon from '@mui/icons-material/ZoomIn';
+// import { ZoomIn } from '@mui/icons-material';
+// import { selectClasses } from '@mui/material';
+// import { Dialog, DialogBackdrop, DialogPanel, Radio, RadioGroup } from '@headlessui/react'
+// import { XMarkIcon } from '@heroicons/react/24/outline'
+// import { StarIcon } from '@heroicons/react/20/solid'
+// import { useSelector } from 'react-redux';
+// import axios from 'axios';
+// import { toast } from 'react-toastify';
+// import { useDispatch } from 'react-redux';
+// import { addItem } from '../features/cart/cartSlice';
+// import ProductQuickView from './ProductQuickView';
+// import BASE_URL from '../config';
+
+
+
+// const NewArrivals = () => {
+//     const { id } = useParams();
+//     const [products, setProducts] = useState([]);
+//     const [loading, setLoading] = useState(false);
+//     const [productsCount, setProductsCount] = useState(0);
+//     const [page, setPage] = useState(1);
+//     const [tooltip, setTooltip] = useState('click to add');
+//     const [showDiscount,setShowDiscount]=useState(false)
+//     const [isModalOpen,setIsModalOpen]=useState(false)
+//     const [selectedProduct,setSelectedProduct] =useState(null);
+//     const [wishlist,setWishlist]=useState([])
+
+//     const user=useSelector((state)=>state.userState);
+//   const userId=user.id
+//   const {email,token}=user
+
+//   const dispatch=useDispatch();
+
+//     useEffect(() => {
+//         loadAllProducts();
+//     }, [page]);
+
+//     useEffect(() => {
+//         fetchProductsCount();
+//     }, []);
+
+    
+    
+    
+//     // useEffect(()=>{
+//     //      fetchUserWishList()
+
+//     //  },[userId,token,email])
+
+//     const loadAllProducts = () => {
+//         const sort = "createdAt"; // Example sort criteria
+//         const order = "desc"; // Example order
+//         setLoading(true);
+
+//         getProducts(sort, order, page).then((res) => {
+//             // setProducts(prevProducts => [...prevProducts, ...res.data.products]);
+
+//             setProducts(prevProducts=>{
+//                 const newProducts=res.data.products.filter(
+//                     (newProduct)=>!prevProducts.some((prevProduct)=>prevProduct._id===newProduct._id)
+//                 );
+//                 return [...prevProducts,...newProducts];
+//             })
+
+
+                
+
+            
+                
+    
+              
+
+//             console.log('response.data',res.data)
+
+//             setLoading(false);
+//         }).catch((error) => {
+//             console.error("Error loading products:", error);
+//             setLoading(false);
+//         });
+//     };
+
+//     const fetchProductsCount = () => {
+//         getProductsCount().then((res) => {
+//             setProductsCount(res.total);
+//         }).catch((error) => {
+//             console.error("Error fetching products count:", error);
+//         });
+//     };
+
+//     const handleLoadMore = () => {
+//         setPage(prevPage => prevPage + 1);
+//     };
+
+//     const springs = useSprings(
+//         products.length,
+//         products.map((product, index) => ({
+//             from: { opacity: 0, transform: 'translateY(20px)' },
+//             to: { opacity: 1, transform: 'translateY(0px)' },
+//             delay: index * 100,
+//             config: { tension: 200, friction: 20 }
+//         }))
+//     );
+
+//     const handleaddToCart = (product) => {
+//         console.log('Added to cart')
+//     };
+
+//     console.log('Products',products)
+
+
+   
+
+//     const getDisplayedPrice = (product) => {
+//         const currentDate = new Date();
+//         const discountStartDate = product.discountStartDate ? new Date(product.discountStartDate) : null;
+//         const discountEndDate = product.discountEndDate ? new Date(product.discountEndDate) : null;
+
+//         // Check if the product is in the discount period
+//         const isDiscountActive = discountStartDate && discountEndDate &&
+//             currentDate >= discountStartDate && currentDate <= discountEndDate;
+
+//         const displayedPrice = isDiscountActive && product.discountPrice
+//             ? formattedPrice(product.discountPrice)
+//             : formattedPrice(product.price);
+
+//         const discountPercentage = isDiscountActive && product.discountPercentage
+//             ? product.discountPercentage
+//             : null;
+
+//         return { displayedPrice, discountPercentage };
+//     };
+
+//     const ImageCarousel=({images})=>{
+//         const [currentImageIndex,setCurrentImageIndex]=useState(0);
+//         const [isHovered,setIsHovered]=useState(false);
+
+//         useEffect(()=>{
+//             let intervalId;
+
+//             if(isHovered && images.length>1){
+//                 intervalId=setInterval(()=>{
+//                     setCurrentImageIndex((prevIndex)=>(prevIndex+1)%images.length)
+
+//                 },2000)
+//             }else{
+//                 setCurrentImageIndex(0)
+//             }
+//             return()=>clearInterval(intervalId);
+//         },[isHovered,images.length]);
+
+//         return(
+//             <div 
+//             // className='relative w-full overflow-hidden bg-gray-200 xl:aspect-h-8 xl:aspect-w-7'
+//             className="relative w-full h-80  "
+//                 onMouseEnter={() => setIsHovered(true)}
+//                 onMouseLeave={() => setIsHovered(false)}
+//             >
+//                 {images.length>0 ?(
+//                      <img
+//                      src={images[currentImageIndex]?.url}
+//                      alt={`Product Image ${currentImageIndex + 1}`}
+//                     //  className="h-full w-full object-cover object-center group-hover:opacity-"
+//                     className='absolute w-full h-80 object-cover  transition-opacity  duration-1000 ease-in-out  group-hover:opacity-80 group-hover:border border-grey'
+//                  />
+
+//                 ):(
+//                     <div className="h-full w-full flex items-center justify-center bg-gray-200">
+//                     <span className="text-gray-500">No Image</span>
+//                 </div>
+//                 )}
+//             </div>
+//         )
+//     }
+
+//    const handleModalToggle=()=>{
+//     setIsModalOpen(!isModalOpen);
+//    }
+//    const handleQuickView=(product)=>{
+//     setSelectedProduct(product)
+//     setIsModalOpen(true)
+//    }
+
+//    const closeModal=()=>{
+//     setIsModalOpen(false)
+//     setSelectedProduct(null)
+//    }
+
+//    function classNames(...classes) {
+//     return classes.filter(Boolean).join(' ')
+//   }
+
+  
+
+
+
+
+
+
+// //   },[userId,email,token])
+
+// useEffect(() => {
+   
+
+//     const fetchUserWishList = async () => {
+//         try {
+//           const response = await axios.post(`${BASE_URL}/api/wishlist/${userId}`, { email }, {
+//             headers: {
+//               Authorization: `Bearer ${token}`,
+//               authtoken: token,
+//             },
+//           });
+      
+//           console.log('Wishlist Response:', response.data);
+      
+//           const products = response.data?.wishlist?.products || [];
+//           setWishlist(products.map(product => product._id)); // Store only product IDs for comparison
+//         } catch (error) {
+//           console.error('Error fetching wishlist:', error);
+//         }
+//       };
+      
+
+//     if (token && email) {
+//         fetchUserWishList();
+//       }
+   
+//   }, [userId, email, token]);
+
+  
+
+//   const handleAddToWishList= async(product)=>{
+
+   
+    
+//     console.log('product',product)
+//      const productId=product._id;
+//      console.log('productId',productId)
+    
+//     try{
+
+//         if(!wishlist.includes(productId)){
+//         const response=await addToWishList(userId,productId);
+//         console.log('response',response)
+
+//         toast.success(response.data.message || 'Product added to wishlist!');
+//         setWishlist([...wishlist,productId])
+//         }else{
+//             await axios.delete(
+//                  `${BASE_URL}/api/${userId}/${productId}`,
+//                  {
+//                     data:{userId,productId},
+//                     headers:{
+//                         Authorization:`Bearer ${token}`,
+//                         authtoken:token,
+//                     }
+//                  }
+//             );
+
+//             toast.success('Product removed from wishlist!');
+//             setWishlist(wishlist.filter((id)=>id !==productId))
+
+
+//         }
+
+//     }catch(error){
+//         // const errorMsg =
+//         //     error.response?.data?.message || 'Failed to add product to wishlist';
+//         // toast.error(errorMsg);
+
+//         console.log('error',error)
+
+//     }
+// }
+
+// const addToWishList=async(userId,productId)=>{
+
+//     console.log('userId ,productId',userId,productId)
+//     if (!token) {
+//         throw new Error('User not authenticated!');
+//     }
+//     if (!email) {
+//         throw new Error('User email is required!');
+//     }
+
+//     const WishProduct={
+//         userId:userId,
+//         productId:productId,
+//     }
+
+//     try {
+//         const response = await axios.post(
+//             `${BASE_URL}/api/wishlist`,
+//             {
+//                 email, 
+//                WishProduct
+//             },
+//             {
+//                 headers: {
+//                     Authorization:token,
+//                     authtoken: token,
+//                 },
+//             }
+//         );
+//         return response;
+//     } catch (error) {
+//         throw error; // Rethrow to handle in the calling function
+//     }
+
+// }
+
+
+
+
+   
+
+//     return (
+//         <div className='pt-10'>
+//             <h1 className='text-center'>
+//             <SectionTitle text='New Arrivals'/>
+//             </h1>
+//             <div className='mx-auto max-w-2xl px-4 py-16 sm:px-6 sm:py-24 lg:max-w-7xl lg:px-8'>
+//                 {loading ? (
+//                     <LoadingCard count={3} />
+//                 ) : (
+//                     <div 
+//                     // className='grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 xl:gap-x-8'
+//                     className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-x-4 gap-y-6"
+//                     >
+//                         {springs.map((styles, index) => {
+//                             const product = products[index];
+//                             const { title, price, images, _id, quantity,discountStartDate,discountEndDate,averageRating } = product;
+                           
+//                             const {displayedPrice,discountPercentage}=getDisplayedPrice(product)
+
+//                             console.log('displayedPrice,discountPercentage',displayedPrice,discountPercentage)
+
+//                             const image = images[0]?.url;
+//                             // const dollarsAmount = formatPrice(price);
+//                             const Price=formattedPrice(price)
+
+                           
+                           
+
+
+//                             return (
+//                                 <animated.div key={_id} style={styles}
+//                                  className="w-full sm:w-56 md:w-64 lg:w-72"
+                                
+//                                 >
+//                                     <div>
+//                                         <>
+//                                         <div 
+//                                              className=' relative w-60 overflow-hidden bg-gray-200  xl:aspect-h-8 xl:aspect-w-7 group'
+                                           
+//                                             >
+//                                         <Link key={_id} to={`/products/${_id}`} >
+                                           
+                                               
+
+//                                                 <ImageCarousel images={images}/>
+
+                                                
+
+//                  {discountPercentage ? (
+//                           <div
+//                            className="absolute top-2 left-2 bg-blue-500 text-white text-sm font-bold px-2 py-1 rounded"
+//                                     >
+//                                   -{discountPercentage}%
+//                            </div>
+//                              ) : (
+//                               quantity === 0 ? (
+//                                         <div 
+
+//                         className="absolute top-2 left-2   text-white text-sm font-bold px-2 py-1 rounded "
+//                         style={{ backgroundColor: 'oklch(76.66% 0.135 135 / 1)' }}
+                       
+//                            >
+//                                      Sold Out
+//                                </div>
+//                                    ) : null
+//                                               )}
+
+                                
+// </Link>
+                                
+//                                     <div className=' absolute bottom-2 right-2 mb-2 flex items-center justify-center opacity-0 group-hover:opacity-85 transition-opacity duration-300'>
+//                                         <div className='space-x-4 bg-gray-800 rounded'>
+//                                             <ul>
+                                             
+//                                             <li>
+//                                             <button
+//                                              className=" text-white py-2 px-4 rounded hover:bg-gray-600" 
+//                                              onClick={()=>handleAddToWishList(product)}
+//                                              data-tooltip-id={`wishlist-tooltip-${_id}`}
+//                                               >
+//                                            {wishlist.includes(_id) ? <FavoriteIcon/> : <FavoriteBorderIcon/>}
+//                                             </button>
+//                                             <Tooltip
+//                                             id={`wishlist-tooltip-${_id}`}
+//                                             place="top"
+//                                             effect="solid"
+//                                             content={wishlist.includes(_id) ? 'Added to Wishlist' : 'Add to Wishlist'}
+//                                             />
+//                                             </li>
+//                                             <li>
+//                                             <button className=" text-white py-2 px-4 rounded hover:bg-gray-600 hover:shadow-lg transition-all" onClick={()=>handleQuickView(product)} >
+//                                                <ZoomIn/>
+//                                             </button>
+//                                             </li>
+//                                             </ul>
+
+//                                         </div>
+
+//                                     </div>
+                                    
+                                 
+                                    
+ 
+//                                             </div>
+//                                             <Link key={_id} to={`/products/${_id}`} className='group'>
+                                            
+//                                              <h3 className='mt-4 text-sm '>{title}</h3>
+//                                              {averageRating >0 &&(
+//                                                 <div>
+//                                                     <ReactStars
+//                                                     count={5}
+//                                                     value={averageRating}
+//                                                     edit={false}
+//                                                     size={24}
+//                                                     color2={'#ffd700'} 
+//                                                     color1={'#e4e5e9'}
+
+//                                                     />
+//                                                 </div>
+                                                
+//                                              )}
+                                            
+
+// <p className="mt-0 text-xl">
+//                {Price !==displayedPrice ?(
+//                  <p><span className="line-through">{Price}</span>{displayedPrice} </p>
+
+//                ):(<span>{Price}</span>)}
+                  
+
+//                 </p>
+
+
+//                                         </Link>
+
+                                       
+                                       
+//                                         </>
+//                                     </div>
+//                                 </animated.div>
+//                             );
+//                         })}
+
+// {isModalOpen && selectedProduct &&(
+//                                      <ProductQuickView isOpen={isModalOpen} classNames={classNames} product={selectedProduct} onClose={closeModal}/>
+//                                    )
+//                                    }
+//                     </div>
+//                 )}
+                
+//                 {products.length < productsCount && (
+//                     <div className="flex justify-center mt-8">
+//                         <button
+//                             className="btn btn-primary"
+//                             onClick={handleLoadMore}
+//                             disabled={loading}
+//                         >
+//                             {loading ? "Loading..." : "Load More"}
+//                         </button>
+//                     </div>
+//                 )}
+//             </div>
+//         </div>
+//     );
+// };
+
+// export default NewArrivals;
+
 
 import React, { useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
@@ -764,7 +1262,8 @@ const NewArrivals = () => {
         return(
             <div 
             // className='relative w-full overflow-hidden bg-gray-200 xl:aspect-h-8 xl:aspect-w-7'
-            className="relative w-full h-80  "
+            // className="relative w-full h-80  "
+               className="relative w-full aspect-square overflow-hidden bg-gray-200 transition-all duration-300"
                 onMouseEnter={() => setIsHovered(true)}
                 onMouseLeave={() => setIsHovered(false)}
             >
@@ -927,17 +1426,24 @@ const addToWishList=async(userId,productId)=>{
    
 
     return (
-        <div className='pt-10'>
+        <div 
+        // className='pt-10'
+        className="pt-6 sm:pt-8 lg:pt-10"
+        >
             <h1 className='text-center'>
             <SectionTitle text='New Arrivals'/>
             </h1>
-            <div className='mx-auto max-w-2xl px-4 py-16 sm:px-6 sm:py-24 lg:max-w-7xl lg:px-8'>
+            <div 
+            // className='mx-auto max-w-2xl px-4 py-16 sm:px-6 sm:py-24 lg:max-w-7xl lg:px-8'
+            className="mx-auto max-w-[1440px] px-4 py-8 sm:px-6 sm:py-12 lg:px-8"
+            >
                 {loading ? (
                     <LoadingCard count={3} />
                 ) : (
                     <div 
                     // className='grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 xl:gap-x-8'
-                    className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-x-4 gap-y-6"
+                    //className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-x-4 gap-y-6"
+                    className="grid grid-cols-2 gap-x-2 gap-y-4 sm:grid-cols-2 sm:gap-x-4 sm:gap-y-6 md:grid-cols-3 lg:grid-cols-4 lg:gap-x-6 lg:gap-y-8"
                     >
                         {springs.map((styles, index) => {
                             const product = products[index];
@@ -957,14 +1463,16 @@ const addToWishList=async(userId,productId)=>{
 
                             return (
                                 <animated.div key={_id} style={styles}
-                                 className="w-full sm:w-56 md:w-64 lg:w-72"
+                                 //className="w-full sm:w-56 md:w-64 lg:w-72"
+                                 className="w-full flex flex-col"
                                 
                                 >
                                     <div>
                                         <>
                                         <div 
-                                             className=' relative w-60 overflow-hidden bg-gray-200  xl:aspect-h-8 xl:aspect-w-7 group'
-                                           
+                                            //  className=' relative w-60 overflow-hidden bg-gray-200  xl:aspect-h-8 xl:aspect-w-7 group'
+
+                                           className="group relative"
                                             >
                                         <Link key={_id} to={`/products/${_id}`} >
                                            
@@ -1030,11 +1538,19 @@ const addToWishList=async(userId,productId)=>{
                                     
  
                                             </div>
-                                            <Link key={_id} to={`/products/${_id}`} className='group'>
+                                            <Link key={_id} to={`/products/${_id}`}
+                                            //  className='group'
+                                            className="mt-2 sm:mt-3"
+                                             >
                                             
-                                             <h3 className='mt-4 text-sm '>{title}</h3>
+                                             <h3 
+                                            //  className='mt-4 text-sm '
+                                            className="text-xs sm:text-sm line-clamp-2"
+                                             >{title}</h3>
                                              {averageRating >0 &&(
-                                                <div>
+                                                <div
+                                                className="scale-75 sm:scale-90 origin-left"
+                                                >
                                                     <ReactStars
                                                     count={5}
                                                     value={averageRating}
@@ -1049,9 +1565,15 @@ const addToWishList=async(userId,productId)=>{
                                              )}
                                             
 
-<p className="mt-0 text-xl">
+<p
+//  className="mt-0 text-xl"
+className="mt-1 text-sm sm:text-base lg:text-lg"
+ >
                {Price !==displayedPrice ?(
-                 <p><span className="line-through">{Price}</span>{displayedPrice} </p>
+                 <p><span 
+                //  className="line-through"
+                className="line-through mr-2"
+                 >{Price}</span>{displayedPrice} </p>
 
                ):(<span>{Price}</span>)}
                   
