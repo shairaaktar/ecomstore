@@ -9,6 +9,9 @@ export default {
       // maxWidth: {
       //   '8xl': '92rem', // You can set the width to your desired value
       // },
+      screens:{
+        'xs':'10rem',
+      }
     },
   },
   plugins: [require("@tailwindcss/typography"), require("daisyui")],
