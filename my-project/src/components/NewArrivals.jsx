@@ -1263,7 +1263,7 @@ const NewArrivals = () => {
             <div 
             // className='relative w-full overflow-hidden bg-gray-200 xl:aspect-h-8 xl:aspect-w-7'
             // className="relative w-full h-80  "
-               className="relative w-full aspect-square overflow-hidden bg-gray-200 transition-all duration-300"
+               className="relative w-full h-[260px] aspect-square overflow-hidden bg-gray-200 transition-all duration-300"
                 onMouseEnter={() => setIsHovered(true)}
                 onMouseLeave={() => setIsHovered(false)}
             >
@@ -1272,7 +1272,8 @@ const NewArrivals = () => {
                      src={images[currentImageIndex]?.url}
                      alt={`Product Image ${currentImageIndex + 1}`}
                     //  className="h-full w-full object-cover object-center group-hover:opacity-"
-                    className='absolute w-full h-80 object-cover  transition-opacity  duration-1000 ease-in-out  group-hover:opacity-80 group-hover:border border-grey'
+                    // className='absolute w-full h-80 object-cover  transition-opacity  duration-1000 ease-in-out  group-hover:opacity-80 group-hover:border border-grey'
+                     className="absolute inset-0 w-full  object-cover transition-opacity duration-1000 ease-in-out group-hover:opacity-80"
                  />
 
                 ):(
@@ -1428,14 +1429,14 @@ const addToWishList=async(userId,productId)=>{
     return (
         <div 
         // className='pt-10'
-        className="pt-6 sm:pt-8 lg:pt-10"
+        className="pt-0 sm:pt-8  lg:pt-10"
         >
             <h1 className='text-center'>
             <SectionTitle text='New Arrivals'/>
             </h1>
             <div 
             // className='mx-auto max-w-2xl px-4 py-16 sm:px-6 sm:py-24 lg:max-w-7xl lg:px-8'
-            className="mx-auto max-w-[1440px] px-4 py-8 sm:px-6 sm:py-12 lg:px-8"
+            className="mx-auto max-w-[1199px]  px-4 py-8 sm:px-6 sm:py-12 lg:px-8"
             >
                 {loading ? (
                     <LoadingCard count={3} />
@@ -1443,7 +1444,7 @@ const addToWishList=async(userId,productId)=>{
                     <div 
                     // className='grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 xl:gap-x-8'
                     //className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-x-4 gap-y-6"
-                    className="grid grid-cols-2 gap-x-2 gap-y-4 sm:grid-cols-2 sm:gap-x-4 sm:gap-y-6 md:grid-cols-3 lg:grid-cols-4 lg:gap-x-6 lg:gap-y-8"
+                    className="grid grid-cols-2 gap-x-2 gap-y-4 sm:grid-cols-2 sm:gap-x-4 sm:gap-y-6 md:grid-cols-3 lg:grid-cols-5 lg:gap-x-6 lg:gap-y-8"
                     >
                         {springs.map((styles, index) => {
                             const product = products[index];
@@ -1464,7 +1465,7 @@ const addToWishList=async(userId,productId)=>{
                             return (
                                 <animated.div key={_id} style={styles}
                                  //className="w-full sm:w-56 md:w-64 lg:w-72"
-                                 className="w-full flex flex-col"
+                                 className="w-full h-full flex flex-col"
                                 
                                 >
                                     <div>
@@ -1484,15 +1485,18 @@ const addToWishList=async(userId,productId)=>{
 
                  {discountPercentage ? (
                           <div
-                           className="absolute top-2 left-2 bg-blue-500 text-white text-sm font-bold px-2 py-1 rounded"
-                                    >
+                        //    className="absolute top-2 left-2 bg-blue-500 text-white text-sm font-bold px-2 py-1 rounded"
+                        // className="absolute top-2 left-2 bg-blue-500 text-white text-xs sm:text-sm font-bold px-1.5 py-0.5 sm:px-2 sm:py-1 rounded"
+                         className="absolute top-2 left-2 bg-blue-500 text-white text-xs sm:text-sm font-bold px-1.5 py-0.5 sm:px-2 sm:py-1 rounded"
+                                     >
                                   -{discountPercentage}%
                            </div>
                              ) : (
                               quantity === 0 ? (
                                         <div 
 
-                        className="absolute top-2 left-2   text-white text-sm font-bold px-2 py-1 rounded "
+                        // className="absolute top-2 left-2   text-white text-sm font-bold px-2 py-1 rounded "
+                        className="absolute top-2 left-2 text-white text-xs sm:text-sm font-bold px-1.5 py-0.5 sm:px-2 sm:py-1 rounded"
                         style={{ backgroundColor: 'oklch(76.66% 0.135 135 / 1)' }}
                        
                            >
@@ -1504,8 +1508,14 @@ const addToWishList=async(userId,productId)=>{
                                 
 </Link>
                                 
-                                    <div className=' absolute bottom-2 right-2 mb-2 flex items-center justify-center opacity-0 group-hover:opacity-85 transition-opacity duration-300'>
-                                        <div className='space-x-4 bg-gray-800 rounded'>
+                                    <div 
+                                    // className=' absolute bottom-2 right-2 mb-2 flex items-center justify-center opacity-0 group-hover:opacity-85 transition-opacity duration-300'>
+                                    className="absolute bottom-2 right-2 opacity-0 group-hover:opacity-85 transition-opacity duration-300"
+                                    >
+                                        <div 
+                                        // className='space-x-4 bg-gray-800 rounded'
+                                        className="space-x-2 bg-gray-800 rounded"
+                                        >
                                             <ul>
                                              
                                             <li>
@@ -1542,11 +1552,16 @@ const addToWishList=async(userId,productId)=>{
                                             //  className='group'
                                             className="mt-2 sm:mt-3"
                                              >
+
+                                                <div className="flex flex-col items-center justify-center mt-4" >
+                                                    <div className='w-full'>
                                             
                                              <h3 
                                             //  className='mt-4 text-sm '
-                                            className="text-xs sm:text-sm line-clamp-2"
+                                            // className="text-xs sm:text-sm line-clamp-2"
+                                            className="text-sm font-medium text-gray-900 text-center  overflow-hidden text-ellipsis whitespace-nowrap  "
                                              >{title}</h3>
+                                             </div>
                                              {averageRating >0 &&(
                                                 <div
                                                 className="scale-75 sm:scale-90 origin-left"
@@ -1567,10 +1582,13 @@ const addToWishList=async(userId,productId)=>{
 
 <p
 //  className="mt-0 text-xl"
-className="mt-1 text-sm sm:text-base lg:text-lg"
+// className="mt-1 text-sm sm:text-base lg:text-lg"
+ className="text-lg font-semibold text-gray-600"
  >
                {Price !==displayedPrice ?(
-                 <p><span 
+                 <p  
+                
+                 ><span 
                 //  className="line-through"
                 className="line-through mr-2"
                  >{Price}</span>{displayedPrice} </p>
@@ -1579,6 +1597,7 @@ className="mt-1 text-sm sm:text-base lg:text-lg"
                   
 
                 </p>
+                </div>
 
 
                                         </Link>

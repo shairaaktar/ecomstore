@@ -216,13 +216,13 @@ const HeroSection=()=>{
     <div 
     // className='w-500 lg:w-[1213px] lg:h-[500px] flex  '
     // className="w-full max-w-[1213px] mx-auto h-[400px]  sm:h-[450px] md:h-[500px]  flex flex-col lg:flex-row"
-    className='w-[300px] h-[300px] 
+    className='w-[400px] h-[300px] 
      
       sm:w-[500px] sm:h-[400px] 
       md:w-[800px] md:h-[450px] 
       lg:w-[1213px] lg:h-[500px] 
       
-      mx-auto flex flex-col lg:flex-row'
+      mx-auto flex  lg:flex-row'
     >
 
     
@@ -232,7 +232,7 @@ const HeroSection=()=>{
 
         // className="w-full  lg:w-1/2 h-full   relative bg-[#6C2E2F]"
         className="
-        w-full h-full 
+        w-1/2 h-full 
         lg:w-1/2 
         relative bg-[#6C2E2F]
       "
@@ -262,7 +262,7 @@ const HeroSection=()=>{
             // className="text-white text-xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold tracking-tight max-w-xl"
             className="
               text-white font-bold tracking-tight
-              text-lg max-w-[200px]
+              text-xl max-w-[200px]
               sm:text-xl sm:max-w-[300px]
               md:text-3xl md:max-w-[400px]
               lg:text-5xl lg:max-w-[500px]
@@ -314,8 +314,9 @@ const HeroSection=()=>{
 //         flex
 //       "
 className="
-        hidden lg:flex
-        w-full lg:w-1/2 
+        
+       flex
+        w-1/2 lg:w-1/2 
         h-full 
       "
  >

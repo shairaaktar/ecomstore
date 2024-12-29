@@ -39,7 +39,7 @@ const Navbar=()=>{
 const numItemsInCart=useSelector((state)=>state.cartState.numItemsInCart)
 console.log('numberItemsInCart',numItemsInCart)
     return(
-       <nav className='bg-base-200'>
+       <nav className='bg-base-200  shadow sticky top-[40px] z-40'>
         <div className="navbar align-element">
             <div className="navbar-start">
                 <NavLink to="/"

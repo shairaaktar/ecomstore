@@ -8,7 +8,7 @@ const HomeLayout=()=>{
        <Header/>
        <Navbar/>
        {isPageLoading ?(<Loading/>):(
-         <section className="align-element py-10">
+         <section className="align-element py-4">
          <Outlet/>
   
          </section>

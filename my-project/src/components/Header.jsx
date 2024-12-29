@@ -19,32 +19,8 @@ const Header=()=>{
    // const {user}=useSelector((state)=>({...state}));
     console.log('User||',user)
 
-//   const handleLogout=()=>{
-//     navigate('/')
-//     dispatch(clearCart())
-//     dispatch(logoutUser())
-//   }
-// const handleLogout=()=>{
-//     firebase.auth().signOut();
-//     dispatch({
-//       type:"LOGGED_OUT_USER",
-//       payload:null,
-//     });
-//    navigate('/')
  
-//   }
-// const handleLogout = async () => {
-//     try {
-//       await firebase.auth().signOut();
-//       dispatch({
-//         type: "LOGGED_OUT_USER",
-//         payload: null,
-//       });
-//       navigate('/login');
-//     } catch (error) {
-//       console.error("Error signing out:", error);
-//     }
-//   };
+
 
 const handleLogout = () => {
     firebase
@@ -66,84 +42,31 @@ const handleLogout = () => {
   
     return(
         <>
-        <header className="bg-neutral py-2 text-neutral-content">
+        <header className="bg-neutral py-2 text-neutral-content  sticky top-0 z-50 shadow-md ">
             <div className="align-element flex justify-between items-center">
                 <div className="w-1/2 flex justify-start items-center">
-                {/* {user.name?(
-                     <div className="flex gap-x-2 sm:gap-x-8 items-center">
-                    <p className="text-xs sm:text-sm">
-                        Hello, {user.name}
-                    </p>
-                    
-                    <button className="btn btn-xs btn-outline text-white" onClick={handleLogout}>
-                        logout
-
-                    </button>
-
-                </div>
-                ):(
-                      <div className="flex gap-x-6 justify-center items-center">
-                      <Link to="/login" className="link link-hover text-xs sm:text-sm">
-                      Sign in / Guest
-                      </Link >
-                      <Link to="/register" className="link link-hover text-xs sm:text-sm">
-                      Create Account
-                      </Link >
-
-                     
-  
-  
-                  </div>
                 
-                
-                
-                )} */}
 
 {user.role==='admin' &&(
                 
-                <div className="flex gap-x-2 sm:gap-x-8 ">
-                  {/* <div className="dropdown dropdown-hover">
-                     <div tabIndex={0} role="button" className="text-xs sm:text-sm" >Dashboard</div> */}
-                     {/* <nav> 
-                    <ul  tabIndex={0} className="dropdown-content menu bg-base-100 rounded-box z-[1] w-52 p-2 shadow">  */}
+               
+                  
+        
+
+
                      
-                     {/* <li><Link to="/admin/dashboard">Admin Dashboard</Link></li>
-                     <li><Link to="/admin/products">Manage Products</Link></li>
-                             <li><Link to="/admin/orders">Manage Orders</Link></li>
-                             <li><Link to="/admin/customers">Manage Customers</Link></li>
-                             <li><Link to="/admin/category/createcategory">Manage Category</Link></li>
-                             <li><Link to='admin/Admin-offer'>Manage Discounts</Link></li> */}
-                             
-         {/* <li className="nav-item">
-             <Link>Product</Link>
-
-         </li>
-         <li className="nav-item"> <Link>Product</Link></li>
-         <li className="nav-item"> <Link>Product</Link></li>
-         <li className="nav-item"> <Link>Product</Link></li>
-         <li className="nav-item"> <Link>Product</Link></li> */}
-
-
-                      {/* </ul> 
-                     </nav>  */}
-
-
-                 {/* </div>
-                </div> */}
               <button className="text-xs sm:text-sm" >
                 <Link to={`/admindash`}>Admin Dashboard</Link>
                 
 
               </button>
 
-                </div>
+                
              )}
 
 </div>
 
 
-
-              
 
             
            <div className="w-1/2 flex justify-end items-center"
@@ -157,16 +80,20 @@ const handleLogout = () => {
                     <p className="text-xs sm:text-sm">
                        <div className="dropdown dropdown-hover">
                         <div tabIndex={0} role="button" > Hello, {user.name}</div>
-                        <ul tabIndex={0}  className="dropdown-content menu bg-base-100 text-black z-[1] w-52 p-2 shadow" >
-                            <li><Link to={`/dashboard`}>
+                        <ul tabIndex={0} 
+                         className="dropdown-content menu bg-base-100 text-black z-[1] w-52 p-2 shadow" >
+                            <li>
+                            <Link to={`/dashboard`}>
                             My Dashboard
-                            </Link></li>
+                            </Link>
+                            </li>
                         </ul>
 
                        </div>
                     </p>
                     
-                    <button className="btn btn-xs btn-outline text-white" onClick={handleLogout}>
+                    <button className="btn btn-xs btn-outline text-white" 
+                    onClick={handleLogout}>
                         logout
 
                     </button>
@@ -194,12 +121,7 @@ const handleLogout = () => {
 
         </header>
         <div
-        //  className={`fixed top-0 right-0 w-64 bg-gray-800 text-white h-full shadow-lg transition-transform transform ${
-        //     isSidebarOpen ? "translate-x-0" : "translate-x-full"
-        //   }`}
-        // className={`fixed top-0 left-0 w-64 bg-gray-800 text-white h-full shadow-lg transition-transform transform ${
-        //     isSidebarOpen ? "translate-x-0" : "-translate-x-full"
-        //   }`}
+       
         className={
             `fixed top-0 left-0 w-74 bg-base-100 text-primary h-full shadow-lg transition-transform transform ${
             isSidebarOpen ? "translate-x-0" : "-translate-x-full"
@@ -225,7 +147,7 @@ const handleLogout = () => {
         </div>
         {isSidebarOpen &&(
             <div
-            className="fixed inset-0 bg-black opacity-50"
+            className="fixed inset-0 bg-black opacity-50 z-40"
             onClick={toggleSidebar}
             >
 
