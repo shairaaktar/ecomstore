@@ -1263,7 +1263,7 @@ const NewArrivals = () => {
             <div 
             // className='relative w-full overflow-hidden bg-gray-200 xl:aspect-h-8 xl:aspect-w-7'
             // className="relative w-full h-80  "
-               className="relative w-full h-[260px] aspect-square overflow-hidden bg-gray-200 transition-all duration-300"
+               className="relative w-full h-[200px] lg:h-[270px] aspect-square overflow-hidden bg-gray-200 transition-all duration-300"
                 onMouseEnter={() => setIsHovered(true)}
                 onMouseLeave={() => setIsHovered(false)}
             >
@@ -1436,7 +1436,7 @@ const addToWishList=async(userId,productId)=>{
             </h1>
             <div 
             // className='mx-auto max-w-2xl px-4 py-16 sm:px-6 sm:py-24 lg:max-w-7xl lg:px-8'
-            className="mx-auto max-w-[1199px]  px-4 py-8 sm:px-6 sm:py-12 lg:px-8"
+            className="mx-auto max-w-[1199px]  px-4 py-8  sm:px-6 sm:py-12 lg:px-8"
             >
                 {loading ? (
                     <LoadingCard count={3} />
@@ -1473,13 +1473,13 @@ const addToWishList=async(userId,productId)=>{
                                         <div 
                                             //  className=' relative w-60 overflow-hidden bg-gray-200  xl:aspect-h-8 xl:aspect-w-7 group'
 
-                                           className="group relative"
+                                           className="group relative max-w-[160px] max-h[90px] lg:max-w-[250px] lg:max-h-[250px]"
                                             >
                                         <Link key={_id} to={`/products/${_id}`} >
                                            
                                                
 
-                                                <ImageCarousel images={images}/>
+                                                <ImageCarousel  images={images}/>
 
                                                 
 
@@ -1559,7 +1559,7 @@ const addToWishList=async(userId,productId)=>{
                                              <h3 
                                             //  className='mt-4 text-sm '
                                             // className="text-xs sm:text-sm line-clamp-2"
-                                            className="text-sm font-medium text-gray-900 text-center  overflow-hidden text-ellipsis whitespace-nowrap  "
+                                            className="text-sm font-medium text-gray-900 text-center pt-2 overflow-hidden text-ellipsis whitespace-nowrap  "
                                              >{title}</h3>
                                              </div>
                                              {averageRating >0 &&(
