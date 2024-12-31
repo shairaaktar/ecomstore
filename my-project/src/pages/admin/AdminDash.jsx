@@ -466,7 +466,7 @@ const AdminNav = () => {
         <>
         <Box
         sx={{
-          position:"fixed",
+          // position:"fixed",
           bottom:492,
         
         left:1,

@@ -5,7 +5,7 @@ import { MonthlySalesGraph } from "../components";
 
 const UserDashboard = () => {
   return (
-    <Box display="flex" height="100vh" overflow="hidden" sx={{ backgroundColor: "#f4f5f7" }}>
+    <Box display="flex" height="100vh" overflow="auto" sx={{ backgroundColor: "#f4f5f7" }}>
       {/* Sidebar */}
       <Box
         width="250px"
@@ -21,16 +21,16 @@ const UserDashboard = () => {
         <Box>
           
           <Typography variant="body1" sx={{ cursor: "pointer", mb: 2 }}>
-            Orders
+          <Link to={`/orders`}>
+           Orders
+           </Link>
           </Typography>
           <Typography variant="body1" sx={{ cursor: "pointer", mb: 2 }}>
            <Link to={`/wishlist`}>
            WishList
            </Link>
           </Typography>
-          <Typography variant="body1" sx={{ cursor: "pointer", mb: 2 }}>
-            Products
-          </Typography>
+          
           <Typography variant="body1" sx={{ cursor: "pointer", mb: 2 }}>
            <Link >
            Account Details
@@ -50,11 +50,13 @@ const UserDashboard = () => {
             <Card sx={{ backgroundColor: "#ffffff", boxShadow: "0 2px 4px rgba(0, 0, 0, 0.1)" }}>
               <CardContent>
                 <Typography variant="h6" fontWeight="bold">
-                  Orders
+                <Link to={`/orders`}>
+           Orders
+           </Link>
                 </Typography>
-                <Typography variant="body1" color="text.secondary">
+                {/* <Typography variant="body1" color="text.secondary">
                   150 total orders
-                </Typography>
+                </Typography> */}
               </CardContent>
             </Card>
           </Grid>
@@ -66,24 +68,13 @@ const UserDashboard = () => {
                  WishList
                  </Link>
                 </Typography>
-                <Typography variant="body1" color="text.secondary">
+                {/* <Typography variant="body1" color="text.secondary">
                   75 items in wishlist
-                </Typography>
+                </Typography> */}
               </CardContent>
             </Card>
           </Grid>
-          <Grid item xs={12} sm={6} md={4}>
-            <Card sx={{ backgroundColor: "#ffffff", boxShadow: "0 2px 4px rgba(0, 0, 0, 0.1)" }}>
-              <CardContent>
-                <Typography variant="h6" fontWeight="bold">
-                  Products
-                </Typography>
-                <Typography variant="body1" color="text.secondary">
-                  120 total products
-                </Typography>
-              </CardContent>
-            </Card>
-          </Grid>
+         
           <Grid item xs={12} sm={6} md={4}>
             <Card sx={{ backgroundColor: "#ffffff", boxShadow: "0 2px 4px rgba(0, 0, 0, 0.1)" }}>
               <CardContent>
@@ -92,9 +83,7 @@ const UserDashboard = () => {
                 Account Details
                 </Link>
                 </Typography>
-                <Typography variant="body1" color="text.secondary">
-                  200 customers
-                </Typography>
+               
               </CardContent>
             </Card>
           </Grid>

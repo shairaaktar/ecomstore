@@ -512,7 +512,7 @@ const OrdersList = () => {
   className="flex justify-between items-center  mt-4 p-4      "
 >
   {/* Left Side: Order Details */}
-  <div className="grid grid-cols-3 mr-3 ">
+  <div className="grid grid-cols-2 lg:grid-cols-4 mr-3 overflow-auto">
     <div>
       <h2 className="font-semibold">Order Number</h2>
       <p
@@ -524,7 +524,7 @@ const OrdersList = () => {
     <div>
       <h2>Date</h2>
       <p
-       className=" mr-3"
+       className=" mr-12"
       >{formattedDate}</p>
     </div>
    
@@ -556,7 +556,9 @@ const OrdersList = () => {
            
             
             <div className="ml-5 mr-5">
-            <div className="overflow-x-auto">
+            <div 
+            className="overflow-x-auto"
+            >
               <table className="table w-full  mx-auto border border-gray">
                 <thead>
                   <tr>
@@ -577,11 +579,11 @@ const OrdersList = () => {
                         <div  
                         //  className="mb-12 flex flex-col gap-y-4 sm:flex-row flex-wrap border-b border-base-300 pb-6 last:border-b-0"
                         >
-                        <td>
+                        <td className=" w-auto h-auto lg:w-[170px] lg:h-[100px] ">
                           <img
                             src={image}
                             alt={title}
-                            className="w-40 h-40 object-cover rounded-md"
+                            className=" lg:w-40 lg:h-40 object-cover rounded-md max-w-full h-auto"
                           />
                          
                         </td>
@@ -637,11 +639,7 @@ const OrdersList = () => {
             
             </div>
             </div>
-            {/* <div className="mt-4 ml-12">
-              <h2>Order Status</h2>
-              <p>{orderStatus}</p>
-            </div> */}
-            {/* <hr/> */}
+           
           </div>
            
         );
