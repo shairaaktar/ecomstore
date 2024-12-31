@@ -60,6 +60,19 @@ const Customers=()=>{
 
     return (
         <>
+         <div className="text-md breadcrumbs bg-primary mt-10 mb-5 pt-10 pb-10 pl-2">
+            <ul>
+                <li>
+                    <Link to='/admindash'>Admin Dashboard</Link>
+                </li>
+                <li>
+                    <Link to='/allcustomers'>
+                     All Customers
+                    </Link>
+                </li>
+            </ul>
+
+        </div>
         <div className="mt-8">
             <div className="mb-4 capitalize">
                 {allUsers <1 ? (
@@ -73,7 +86,7 @@ const Customers=()=>{
                 )}
 
             </div>
-            <div className="over-flow-x-auto">
+            <div className="over-flow-x-auto overflow-auto">
                 <table className="table table-zebra">
                     <thead>
                         <tr>

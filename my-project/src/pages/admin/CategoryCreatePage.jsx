@@ -6,6 +6,7 @@ import axios from "axios";
 import {LoadingOutlined} from '@ant-design/icons'
 import { getParentCategories } from "../../functions/parentcategories";
 import BASE_URL from "../../config";
+import { Link } from "react-router-dom";
 
 const CategoryCreatePage = () => {
   const [name, setName] = useState('');
@@ -100,6 +101,20 @@ const response = await axios.post(`${BASE_URL}/api/category`, {categoryData,emai
 
   return (
     <>
+     <div className="text-md breadcrumbs bg-primary mt-10 mb-5 pt-10 pb-10 pl-2">
+            <ul>
+                <li>
+                    <Link to='/admindash'>Admin Dashboard</Link>
+                </li>
+                <li>
+                    <Link to='/createcategory'>
+                    Create Category
+                    </Link>
+                </li>
+            </ul>
+
+        </div>
+
     <SectionTitle text='Product Category'/>
     <form className="bg-base-200 rounded-md px-40 py-4  gap-x-4 gap-y-8 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 items-center" >
       {/* title */}

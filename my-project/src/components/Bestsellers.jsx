@@ -9,6 +9,7 @@ import day from 'dayjs';
 import advancedFormat from 'dayjs/plugin/advancedFormat'
 day.extend(advancedFormat);
 import BASE_URL from '../config';
+import { Link } from 'react-router-dom';
 
 const PRODUCT_PER_PAGE=3;
 
@@ -46,6 +47,20 @@ const BestSeller=()=>{
     }
 
     return(
+        <>
+        <div className="text-md breadcrumbs bg-primary mt-10 mb-5 pt-10 pb-10 pl-2">
+                    <ul>
+                        <li>
+                            <Link to='/admindash'>Admin Dashboard</Link>
+                        </li>
+                        <li>
+                            <Link to='/bestsellingproducts'>
+                            Best Selling Products
+                            </Link>
+                        </li>
+                    </ul>
+        
+                </div>
         <div className='mt-8'>
             <div className='mb-4 capitalize'>
                 {bestsellingProducts <1 ?(
@@ -123,6 +138,7 @@ const BestSeller=()=>{
             </div>
 
         </div>
+        </>
     )
     
 

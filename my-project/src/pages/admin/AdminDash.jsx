@@ -460,112 +460,19 @@ const AdminNav = () => {
 
 
   return (
-//     <Box display="flex" height="100vh" overflow="hidden" sx={{ backgroundColor: "#f4f5f7", marginTop:"2px" }}>
-//     <Box
-//       sx={{
-//         width: "300px",
-//         maxHeight: "80vh",
-//         overflowY: "auto",
-//         borderRight: "1px solid #ddd",
-//         p: 2,
-//         backgroundColor: "#f9f9f9",
-//         "&::-webkit-scrollbar": {
-//           width: "8px",
-//         },
-//         "&::-webkit-scrollbar-thumb": {
-//           backgroundColor: "rgba(0, 0, 0, 0.3)",
-//           borderRadius: "4px",
-//         },
-//         "&::-webkit-scrollbar-thumb:hover": {
-//           backgroundColor: "rgba(0, 0, 0, 0.5)",
-//         },
-//       }}
-//     >
-//          <Button
-//         variant="outlined"
-//         onClick={()=>setDetailedView((prev)=>!prev)}
-//         sx={{
-//             mb: 2,
-//             width: "100%",
-//             textTransform: "none",
-//           }}
-
-//         >
-//  {detailedView ? "Explain Less" : "Explain More"}
-//         </Button> 
-//       <List>
-//         {navItems.map(({ section, icon, items }) => (
-//           <Box key={section}>
-//             <ListItem
-//               disablePadding
-//               sx={{
-//                 display: "flex",
-//                 justifyContent: "space-between",
-//                 alignItems: "center",
-//               }}
-//             >
-//               <ListItemButton onClick={() => toggleSection(section)}>
-//                 <ListItemIcon>{icon}</ListItemIcon>
-//                 <ListItemText
-//                   primary={section}
-//                   primaryTypographyProps={{
-//                     variant: "body2",
-//                     sx: { fontWeight: "bold", color: "rgba(0, 0, 0, 0.87)" },
-//                   }}
-//                 />
-//               </ListItemButton>
-
-
-//               <IconButton onClick={() => toggleSection(section)}>
-//                 {expandedSections[section] ? <ExpandLessIcon /> : <ExpandMoreIcon />}
-//               </IconButton>
-//             </ListItem>
-
-
-//             {expandedSections[section] && (
-//               <List component="div" disablePadding>
-//                 {items.map(({text,description}) => {
-//                 //   const lcText = text.toLowerCase().replace(" "," ");
-//                 const lcText = text.toLowerCase().replace(/\s+/g, "");
-
-//                   console.log('lvText',lcText)
-//                   return (
-//                     <ListItem
-//                       key={text}
-//                       disablePadding
-//                       sx={{
-//                         pl: 4,
-//                         "&:hover": {
-//                           backgroundColor: "#f1f1f1",
-//                         },
-//                       }}
-//                     >
-//                       <ListItemButton
-//                         onClick={() => navigate(`/${lcText}`)}
-//                       >
-//                         <ListItemText
-//                           primary={text}
-//                           secondary={detailedView ?description:null}
-//                           primaryTypographyProps={{
-//                             variant: "body2",
-//                             sx: { color: "rgba(0, 0, 0, 0.87)" },
-//                           }}
-//                         />
-//                       </ListItemButton>
-//                     </ListItem>
-//                   );
-//                 })}
-//               </List>
-//             )}
-//             <Divider />
-//           </Box>
-//         ))}
-//       </List>
-//     </Box>
-
+    
 <Box display="flex" height="120vh">
       {isMobile ? (
         <>
+        <Box
+        sx={{
+          position:"fixed",
+          bottom:492,
+        
+        left:1,
+          zIndex:400,
+        }}
+        >
           <IconButton
             color="inherit"
             aria-label="open drawer"
@@ -575,6 +482,7 @@ const AdminNav = () => {
           >
             <MenuIcon />
           </IconButton>
+          </Box>
           <Drawer
             anchor="left"
             open={mobileOpen}

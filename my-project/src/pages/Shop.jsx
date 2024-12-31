@@ -580,7 +580,7 @@ const ImageCarousel=({images})=>{
     return(
         <div 
         // className='relative w-full overflow-hidden bg-gray-200 xl:aspect-h-8 xl:aspect-w-7'
-        className="relative w-full h-80"
+        className="relative w-[167px] h-[200px] lg:h-[320px] lg:w-full"
             onMouseEnter={() => setIsHovered(true)}
             onMouseLeave={() => setIsHovered(false)}
         >
@@ -589,7 +589,7 @@ const ImageCarousel=({images})=>{
                  src={images[currentImageIndex]?.url}
                  alt={`Product Image ${currentImageIndex + 1}`}
                 //  className="h-full w-full object-cover object-center group-hover:opacity-"
-                className='absolute w-full h-80 object-cover transition-opacity  duration-1000 ease-in-out  group-hover:opacity-80 group-hover:border border-grey'
+                className='absolute  object-cover transition-opacity  duration-1000 ease-in-out  group-hover:opacity-80 group-hover:border border-grey'
              />
 
             ):(
@@ -631,6 +631,7 @@ const handleModalToggle=()=>{
           onClick={toggleMenu}
         >
           {menuOpen ? "^" : "Filter"}
+
         </button>
         
 
@@ -737,7 +738,7 @@ const handleModalToggle=()=>{
 
         </div>
         </div>
-        <div className="w-3/4 p-4" >
+        <div className="w-4/4 lg:w-3/4 p-4" >
        
                 <div className='mx-auto max-w-2xl px-4 py-2 sm:px-6 sm:pb-24 sm:pt-8 lg:max-w-7xl lg:px-8'>
         <div className='grid grid-cols-2 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 xl:gap-x-8'>
@@ -766,8 +767,10 @@ const handleModalToggle=()=>{
                 <>
                
                
-                    <div className='relative  w-full overflow-hidden bg-gray-200 xl:aspect-h-8 xl:aspect-w-7 group'>
-                        <div className='aspect-w-1 aspect-h-1'>
+                    <div className='relative  w-full overflow-hidden  bg-gray-200 xl:aspect-h-8 xl:aspect-w-7 group'>
+                        <div 
+                         className='aspect-w-1 aspect-h-1 w-[200px] lg:w-full'
+                        >
                         <Link
                  key={_id} to={`/products/${_id}`}
                 //  className='group'

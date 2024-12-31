@@ -10,6 +10,7 @@ import Swal from 'sweetalert2'
 import ShowPaymentInfo from "./Admin/ShowPaymentInfo";
 import PaginationContainer from "./PaginationContainer";
 import BASE_URL from "../config";
+import { Link } from "react-router-dom";
 const ORDER_PER_PAGE=10;
 
 day.extend(advancedFormat);
@@ -174,6 +175,20 @@ const AllOrdersList=()=>{
       };
 
     return(
+      <>
+       <div className="text-md breadcrumbs bg-primary mt-10 mb-5 pt-10 pb-10 pl-2">
+                  <ul>
+                      <li>
+                          <Link to='/admindash'>Admin Dashboard</Link>
+                      </li>
+                      <li>
+                          <Link to='/allorders'>
+                          All Orders
+                          </Link>
+                      </li>
+                  </ul>
+      
+              </div>
         <div className="mt-8">
             <div className="mb-4 capitalize">
                 {allOrders <1 ?(
@@ -309,6 +324,7 @@ const AllOrdersList=()=>{
 
 
         </div>
+        </>
     )
 
 }

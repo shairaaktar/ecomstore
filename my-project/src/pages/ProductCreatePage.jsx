@@ -720,7 +720,7 @@ const ProductCreatePage = () => {
 
   return (
     <>
-      <div className="text-md breadcrumbs">
+      <div className="text-md breadcrumbs bg-primary mt-10 mb-5 pt-10 pb-10 pl-2">
             <ul>
                 <li>
                     <Link to='/admindash'>Admin Dashboard</Link>

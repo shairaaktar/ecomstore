@@ -53,6 +53,19 @@ const UserReviews=()=>{
 
     return(
       <>
+      <div className="text-md breadcrumbs bg-primary mt-10 mb-5 pt-10 pb-10 pl-2">
+            <ul>
+                <li>
+                    <Link to='/admindash'>Admin Dashboard</Link>
+                </li>
+                <li>
+                    <Link to='/createproducts'>
+                    Create Products
+                    </Link>
+                </li>
+            </ul>
+
+        </div>
       <div className='mt-8'>
         <div className='mb-4 capitalize'>
             { reviews<1 ?(
