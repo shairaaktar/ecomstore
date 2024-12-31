@@ -1559,7 +1559,7 @@ const addToWishList=async(userId,productId)=>{
                                              <h3 
                                             //  className='mt-4 text-sm '
                                             // className="text-xs sm:text-sm line-clamp-2"
-                                            className="text-sm font-medium text-gray-900 text-center pt-2 overflow-hidden text-ellipsis whitespace-nowrap  "
+                                            className="text-md font-medium text-gray-900 text-center pt-2 overflow-hidden text-ellipsis whitespace-nowrap  "
                                              >{title}</h3>
                                              </div>
                                              {averageRating >0 &&(

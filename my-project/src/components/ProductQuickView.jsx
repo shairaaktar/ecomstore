@@ -59,7 +59,7 @@ const ProductQuickView=({isOpen,product,onClose,classNames})=>{
     return(
         <Dialog  open={isOpen} onClose={onClose}
         //  className='fixed inset-0 z-10 flex justify-center items-center bg-gray-500/75'
-        className="relative z-10"
+        className="relative z-10 "
          >
             {/* <div className='bg-white p-8 rounded-lg shadow-2xl'> */}
             <DialogBackdrop

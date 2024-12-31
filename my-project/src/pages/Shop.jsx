@@ -3,7 +3,6 @@ import { getProductsByCount,fetchProductsByFilter, getProductsFilters,getGridPro
 import { getCategories } from "../functions/category";
 import { useSelector,useDispatch } from "react-redux";
 import { FaHourglassEnd } from "react-icons/fa6";
-// import { formatPrice } from "../utils";
 import { Link, useSearchParams } from "react-router-dom";
 import { Menu ,Slider,Checkbox,Radio, Button } from "antd";
 import { DollarOutlined,DownSquareOutlined } from "@ant-design/icons";
@@ -46,6 +45,9 @@ const Shop=()=>{
   const [wishlist,setWishlist]=useState([])
   const [isModalOpen,setIsModalOpen]=useState(false)
   const [selectedProduct,setSelectedProduct]=useState([])
+  const [menuOpen,setMenuOpen]=useState(false)
+
+
 
 
   
@@ -65,6 +67,10 @@ useEffect(()=>{
     loadAllProducts()
 
 },[page])
+
+const toggleMenu=()=>{
+    setMenuOpen(!menuOpen)
+}
 
 
   useEffect(()=>{
@@ -618,19 +624,35 @@ const handleModalToggle=()=>{
 
   return(
     <div>
-    <div className="flex" >
+    <div className="block lg:flex" >
         <div className="w-1/4 p-4 bg-base-100 "  >
-           
+        <button
+          className="block lg:hidden  text-black  rounded-md border-b-2"
+          onClick={toggleMenu}
+        >
+          {menuOpen ? "^" : "Filter"}
+        </button>
+        
+
+
+
+           <div className={`${menuOpen ? "block" : "hidden"} lg:block`}>
             <div className="bg-base-100" >
            <h4 className="font-semibold text-lg mb-4  text-neutral">Search/Filter</h4>
             </div>
             <hr />
-            <Menu className="bg-base-100 text-based-content"
+          
+            <Menu className="bg-base-100 text-based-content flex flex-wrap
+              w-[500px]  
+             lg:block 
+            //  lg:w-[300px]
+             "
             defaultOpenKeys={["1","2","3","4","5","6","7"]}
              mode="inline"
             >
+                
                 <SubMenu 
-                className="bg-base-100"
+                className="bg-base-100 "
                 
                             key="1"
                             title={
@@ -703,9 +725,10 @@ const handleModalToggle=()=>{
                             </div>
                         </SubMenu>
                        
-
+                       
 
             </Menu>
+           
             <br/>         
            <Button  className="bg-neutral text-white hover:bg-neutral-focus" onClick={handleReset} type="default" block>
             Reset
@@ -713,10 +736,11 @@ const handleModalToggle=()=>{
            </Button>
 
         </div>
+        </div>
         <div className="w-3/4 p-4" >
        
                 <div className='mx-auto max-w-2xl px-4 py-2 sm:px-6 sm:pb-24 sm:pt-8 lg:max-w-7xl lg:px-8'>
-        <div className='grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 xl:gap-x-8'>
+        <div className='grid grid-cols-2 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 xl:gap-x-8'>
     
                 {springs.map((styles,index)=>{
                     const product=products[index];
@@ -810,8 +834,19 @@ const handleModalToggle=()=>{
 
 
                     </div>
-                   <Link key={_id} to={`/products/${_id}`} className="group">
-                    <h3 className='mt-4 text-sm '>{title}</h3>
+                   <Link key={_id} to={`/products/${_id}`}
+                    // className="group"
+                    className="mt-2 sm:mt-3"
+                    >
+                   <div
+                   className="flex flex-col items-center justify-center mt-2"
+                   >
+                   <div className="w-full">
+                    <h3 
+                    // className='mt-4 text-sm '
+                     className="text-md font-medium text-gray-900 text-center  overflow-hidden text-ellipsis whitespace-nowrap  "
+                    >{title}</h3>
+                    </div>
                     {averageRating >0 &&(
                         <div>
                             <ReactStars
@@ -827,7 +862,10 @@ const handleModalToggle=()=>{
 
                     }
 
-<p className="mt-0 text-xl">
+<p 
+// className="mt-0 text-xl"
+className="text-lg font-semibold text-gray-600"
+>
                {Price !==displayedPrice ?(
                  <p><span className="line-through">{Price}</span>{displayedPrice} </p>
 
@@ -835,6 +873,7 @@ const handleModalToggle=()=>{
                    
 
                 </p>
+                </div>
 
                 </Link>
 
