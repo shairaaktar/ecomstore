@@ -79,7 +79,7 @@ const UserDashboard = () => {
             <Card sx={{ backgroundColor: "#ffffff", boxShadow: "0 2px 4px rgba(0, 0, 0, 0.1)" }}>
               <CardContent>
                 <Typography variant="h6" fontWeight="bold">
-                <Link>
+                <Link to={`/account-details`}>
                 Account Details
                 </Link>
                 </Typography>

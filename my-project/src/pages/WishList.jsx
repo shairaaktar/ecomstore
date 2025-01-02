@@ -176,7 +176,7 @@ const WishList = () => {
                                         <img
                                         src={images[0].url}
                                         alt={null}
-                                        className="w-40 h-40 object-cover rounded-md"
+                                        className="w-100px h-50px lg:h-[160px] lg:w-[160px] object-cover rounded-md"
                                         />
                                     )}
 
@@ -198,7 +198,7 @@ const WishList = () => {
                         )} 
                                 </td>
                                 <td>
-                        <button className="btn btn-primary">Add to Cart</button>
+                        <button className="btn btn-primary ">Add to Cart</button>
                       </td>
                             </tr>
                           )

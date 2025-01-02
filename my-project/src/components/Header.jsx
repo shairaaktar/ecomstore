@@ -7,17 +7,53 @@ import { auth } from "../firebase";
 import firebase from "firebase/compat/app";
 import { logoutUser } from "../features/user/userSlice";
 import AdminNav from "./AdminNav"
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import axios from "axios";
+import BASE_URL from "../config";
 
 
 
 const Header=()=>{
+  const [userDetails,setUserDetails]=useState('')
     const navigate=useNavigate()
     const dispatch=useDispatch()
     const [isSidebarOpen,setIsSidebarOpen]=useState(false);
       const user=useSelector((state)=>state.userState);
    // const {user}=useSelector((state)=>({...state}));
     console.log('User||',user)
+
+    const {token}=user
+
+
+    
+   
+    useEffect(() => {
+      
+      fetchUserDetails(token)
+    }, [ token]);
+
+
+    const fetchUserDetails=async (token)=>{
+  
+
+      try{
+  
+          const response=await axios.get(`${BASE_URL}/api/get-account-details`,{
+              headers:{
+                  authtoken:token,
+              },
+          })
+          console.log('userdetails',response)
+          setUserDetails(response.data)
+          return response.data;
+        
+  
+      }catch(error){
+          console.error("Error fetching user details:", error);
+      return null;
+  
+      }
+    }
 
  
 
@@ -79,7 +115,7 @@ const handleLogout = () => {
                      <div className="flex gap-x-2 sm:gap-x-8 items-center">
                     <p className="text-xs sm:text-sm">
                        <div className="dropdown dropdown-hover">
-                        <div tabIndex={0} role="button" > Hello, {user.name}</div>
+                        <div tabIndex={0} role="button" > Hello, {userDetails.name || user.name }</div>
                         <ul tabIndex={0} 
                          className="dropdown-content menu bg-base-100 text-black z-[1] w-52 p-2 shadow" >
                             <li>

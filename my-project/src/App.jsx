@@ -313,7 +313,8 @@ import {CategoryList,
   NewCustomersByMonth,
   NewCustomers,
   OrdersByDate,
-  EveryDaysOrders
+  EveryDaysOrders,
+  UserAccountDetails
 } from "./components"
 
 import { themeSettings } from './theme'; 
@@ -561,6 +562,12 @@ const router = createBrowserRouter([
         element: <UserOrders />,
        
        },
+       {
+        path: '/account-details',
+        element: <UserAccountDetails />,
+       
+      },
+
     ],
   },
   {
