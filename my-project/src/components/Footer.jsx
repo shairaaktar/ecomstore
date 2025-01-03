@@ -325,9 +325,9 @@ const Footer = () => {
   return (
     <>
       <FooterWrapper>
-        <div className="bg-base-200">
+        <div className="bg-neutral">
           <div className="align-element">
-            <footer className="footer bg-base-200 text-base-content p-10 ">
+            <footer className="footer bg-neutral text-base-content text-white p-10 ">
               <div className="footer-colum first">
               <aside>
                 <svg
@@ -444,10 +444,10 @@ const Footer = () => {
             </footer>
           </div>
         </div>
-        <div className="bg-base-200">
+        <div className="bg-neutral">
           <div className="navbar align-element">
             <footer className="footer  items-center p-4">
-              <aside className="grid-flow-col items-center">
+              <aside className="grid-flow-col items-center text-white">
                 <p>Copyright © {new Date().getFullYear()} - All rights reserved</p>
               </aside>
               {/* <nav className="grid-flow-col gap-4 md:place-self-center md:justify-self-end"> */}

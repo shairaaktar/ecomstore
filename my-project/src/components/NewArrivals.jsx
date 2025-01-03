@@ -1273,7 +1273,7 @@ const NewArrivals = () => {
                      alt={`Product Image ${currentImageIndex + 1}`}
                     //  className="h-full w-full object-cover object-center group-hover:opacity-"
                     // className='absolute w-full h-80 object-cover  transition-opacity  duration-1000 ease-in-out  group-hover:opacity-80 group-hover:border border-grey'
-                     className="absolute inset-0 w-full  object-cover transition-opacity duration-1000 ease-in-out group-hover:opacity-80"
+                     className="absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 ease-in-out group-hover:opacity-80"
                  />
 
                 ):(
@@ -1473,13 +1473,13 @@ const addToWishList=async(userId,productId)=>{
                                         <div 
                                             //  className=' relative w-60 overflow-hidden bg-gray-200  xl:aspect-h-8 xl:aspect-w-7 group'
 
-                                           className="group relative max-w-[160px] max-h[90px] lg:max-w-[250px] lg:max-h-[250px]"
+                                           className="group relative  max-w-[160px] max-h[90px] lg:max-w-[250px] lg:max-h-[250px]"
                                             >
                                         <Link key={_id} to={`/products/${_id}`} >
                                            
                                                
 
-                                                <ImageCarousel  images={images}/>
+                                                <ImageCarousel   images={images}/>
 
                                                 
 

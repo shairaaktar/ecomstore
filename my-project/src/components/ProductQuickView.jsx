@@ -24,10 +24,7 @@ const ProductQuickView=({isOpen,product,onClose,classNames})=>{
     event.preventDefault(); // Prevent form submission
     if (!product) return;
   
-    // if (product.quantity <= 0 || amount > product.quantity) {
-    //   alert("The selected amount exceeds the available stock");
-    //   return;
-    // }
+    
   
     const currentDate = new Date();
     const discountStartDate = new Date(product.discountStartDate);
@@ -59,15 +56,15 @@ const ProductQuickView=({isOpen,product,onClose,classNames})=>{
     return(
         <Dialog  open={isOpen} onClose={onClose}
         //  className='fixed inset-0 z-10 flex justify-center items-center bg-gray-500/75'
-        className="relative z-10 "
+        className="relative z-10  "
          >
             {/* <div className='bg-white p-8 rounded-lg shadow-2xl'> */}
             <DialogBackdrop
     transition
-    className="fixed inset-0 hidden bg-gray-500/75 transition-opacity data-[closed]:opacity-0 data-[enter]:duration-300 data-[leave]:duration-200 data-[enter]:ease-out data-[leave]:ease-in md:block"
+    className="fixed    inset-0 hidden bg-gray-500/75 transition-opacity data-[closed]:opacity-0 data-[enter]:duration-300 data-[leave]:duration-200 data-[enter]:ease-out data-[leave]:ease-in md:block"
   />
-        <div className="fixed inset-0 z-10 w-screen overflow-y-auto">
-        <div className="flex min-h-full items-stretch justify-center text-center md:items-center md:px-2 lg:px-4">
+        <div className="fixed inset-0 z-10  w-screen overflow-y-auto">
+        <div className="flex min-h-full items-stretch justify-center text-center md:items-center md:px-2 lg:px-4 mt-16">
         <DialogPanel
         transition
         className="flex w-full transform text-left text-base transition data-[closed]:translate-y-4 data-[closed]:opacity-0 data-[enter]:duration-300 data-[leave]:duration-200 data-[enter]:ease-out data-[leave]:ease-in md:my-8 md:max-w-2xl md:px-4 data-[closed]:md:translate-y-0 data-[closed]:md:scale-95 lg:max-w-4xl"
@@ -135,28 +132,7 @@ const ProductQuickView=({isOpen,product,onClose,classNames})=>{
                 <fieldset aria-label="Choose a color">
                 <legend className="text-sm font-medium text-gray-900">Color</legend>
 
-                {/* <RadioGroup
-                      value={selectedColor}
-                      onChange={setSelectedColor}
-                      className="mt-4 flex items-center space-x-3"
-                    >
-                      {product.colors.map((color) => (
-                        <Radio
-                          key={color}
-                          value={color}
-                          aria-label={color}
-                          className={classNames(
-                            color.selectedClass,
-                            'relative -m-0.5 flex cursor-pointer items-center justify-center rounded-full p-0.5 focus:outline-none data-[checked]:ring-2 data-[focus]:data-[checked]:ring data-[focus]:data-[checked]:ring-offset-1',
-                          )}
-                        >
-                          <span
-                            aria-hidden="true"
-                            className={classNames(color.class, 'size-8 rounded-full border border-black/10')}
-                          />
-                        </Radio>
-                      ))}
-                    </RadioGroup> */}
+               
 
 <RadioGroup
 value={selectedColor}
@@ -192,47 +168,7 @@ className="mt-4 flex items-center space-x-3"
                       </Link>
                     </div>
 
-                    {/* <RadioGroup
-                      value={selectedSize}
-                      onChange={setSelectedSize}
-                      className="mt-4 grid grid-cols-4 gap-4"
-                    >
-                      {product.sizes.map((size) => (
-                        <Radio
-                          key={size}
-                          value={size}
-                          disabled={!size.inStock}
-                          className={classNames(
-                            size.inStock
-                              ? 'cursor-pointer bg-white text-gray-900 shadow-sm'
-                              : 'cursor-not-allowed bg-gray-50 text-gray-200',
-                            'group relative flex items-center justify-center rounded-md border px-4 py-3 text-sm font-medium uppercase hover:bg-gray-50 focus:outline-none data-[focus]:ring-2 data-[focus]:ring-indigo-500 sm:flex-1',
-                          )}
-                        >
-                          <span>{size}</span>
-                          {size.inStock ? (
-                            <span
-                              aria-hidden="true"
-                              className="pointer-events-none absolute -inset-px rounded-md border-2 border-transparent group-data-[focus]:border group-data-[checked]:border-indigo-500"
-                            />
-                          ) : (
-                            <span
-                              aria-hidden="true"
-                              className="pointer-events-none absolute -inset-px rounded-md border-2 border-gray-200"
-                            >
-                              <svg
-                                stroke="currentColor"
-                                viewBox="0 0 100 100"
-                                preserveAspectRatio="none"
-                                className="absolute inset-0 size-full stroke-2 text-gray-200"
-                              >
-                                <line x1={0} x2={100} y1={100} y2={0} vectorEffect="non-scaling-stroke" />
-                              </svg>
-                            </span>
-                          )}
-                        </Radio>
-                      ))}
-                    </RadioGroup> */}
+                   
 
 <RadioGroup
 value={selectedSize}
@@ -259,29 +195,7 @@ className="mt-4 grid grid-cols-4 gap-4"
 
                   </fieldset>
 
-                  {/* <button
-                    type="submit"
-                    className="mt-6 flex w-full items-center justify-center rounded-md border border-transparent bg-indigo-600 px-8 py-3 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
-                  >
-                    Add to cart
-                  </button> */}
-
-                  {/* {product.quantity >0 ?(
-                     <button 
-                     className="mt-6 flex w-full items-center justify-center rounded-md border border-transparent bg-indigo-600 px-8 py-3 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
-                     onClick={addToCart}
-                     disabled={product.quantity===0 || product.amount>product.quantity}>
-                         Add to Cart
-                     </button>
-
-                  ):(
-                    <button
-                     className="mt-6 flex w-full items-center justify-center rounded-md border border-transparent bg-indigo-600 px-8 py-3 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
-                     >
-                            Sold Out
-                        </button>
-
-                  )} */}
+                 
 
 {product.quantity > 0 ? (
 <button

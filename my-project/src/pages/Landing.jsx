@@ -19,11 +19,12 @@ const Landing=()=>{
        {/* <Hero1/> */}
         <HeroSection/> 
        
-       <Inceptives/>
+       
       
        {/* <FeaturedProducts/> */}
        {/* <Categories/> */}
        <NewArrivals/>
+       <Inceptives/>
 
        </>
     )

@@ -124,7 +124,7 @@ const productSchema=new mongoose.Schema({
         
     },
     sizes:{
-        type:[Number],
+        type:[String],
        
     },
     publishedAt:{

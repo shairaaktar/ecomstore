@@ -335,30 +335,7 @@ const handleColor=(e)=>{
     fetchProducts({color:e.target.value})
 }
 
-// const showShipping=()=>(
-   
-//         <>
-//         <Checkbox
-//         className="pb-2 pl-4 pr-4"
-//         onChange={handleShippingChange}
-//         value="No"
-//         checked={shipping==="No"}
-//         >
-//           Yes
-//         </Checkbox>
-    
-//         <Checkbox
-//         className="pb-2 pl-4 pr-4"
-//         onChange={handleShippingChange}
-//         value="No"
-//         checked={shipping==="No"}
-//         >
-//         No
-//         </Checkbox>
-//         </>
-    
-   
-// )
+
 
 const showShipping = () => (
     <>
@@ -383,24 +360,7 @@ const showShipping = () => (
 );
 
 useEffect(() => {
-    // const fetchUserWishList =  () => {
-    //   try {
-    //     const response =  axios.post(
-    //       `${BASE_URL}/api/wishlist/${userId}`,
-    //       { email },
-    //       {
-    //         headers: {
-    //           Authorization: `Bearer ${token}`,
-    //           authtoken: token,
-    //         },
-    //       }
-    //     );
-    //     console.log('Fetched Wishlist:', response.data);
-    //     setWishlist(response.data?.products || []);
-    //   } catch (error) {
-    //     console.error('Error fetching wishlist:', error);
-    //   }
-    // };
+   
 
     const fetchUserWishList = async () => {
         try {
@@ -589,7 +549,7 @@ const ImageCarousel=({images})=>{
                  src={images[currentImageIndex]?.url}
                  alt={`Product Image ${currentImageIndex + 1}`}
                 //  className="h-full w-full object-cover object-center group-hover:opacity-"
-                className='absolute  object-cover transition-opacity  duration-1000 ease-in-out  group-hover:opacity-80 group-hover:border border-grey'
+                className='absolute h-full w-full object-cover  transition-opacity  duration-1000 ease-in-out  group-hover:opacity-80 group-hover:border border-grey'
              />
 
             ):(
@@ -741,7 +701,7 @@ const handleModalToggle=()=>{
         <div className="w-4/4 lg:w-3/4 p-4" >
        
                 <div className='mx-auto max-w-2xl px-4 py-2 sm:px-6 sm:pb-24 sm:pt-8 lg:max-w-7xl lg:px-8'>
-        <div className='grid grid-cols-2 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 xl:gap-x-8'>
+        <div className='grid grid-cols-2 gap-x-6 gap-y-10 sm:grid-cols-3 lg:grid-cols-3 xl:grid-cols-3 xl:gap-x-8'>
     
                 {springs.map((styles,index)=>{
                     const product=products[index];
@@ -767,7 +727,7 @@ const handleModalToggle=()=>{
                 <>
                
                
-                    <div className='relative  w-full overflow-hidden  bg-gray-200 xl:aspect-h-8 xl:aspect-w-7 group'>
+                    <div className='relative  w-full overflow-hidden object-fit:cover  bg-gray-200 xl:aspect-h-8 xl:aspect-w-7 group'>
                         <div 
                          className='aspect-w-1 aspect-h-1 w-[200px] lg:w-full'
                         >
@@ -777,7 +737,7 @@ const handleModalToggle=()=>{
                  
                 >
 
-                                                    <ImageCarousel images={images}/> 
+                                                    <ImageCarousel  images={images} /> 
                                                       
                                                     
                                                     
