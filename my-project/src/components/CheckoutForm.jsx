@@ -336,6 +336,7 @@ import axios from 'axios';
 import { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import CartTotals from './CartTotals';
+import { useEffect } from 'react';
 import BASE_URL from '../config';
 
 // export const action = (store) => async ({ request }) => {
@@ -393,13 +394,59 @@ import BASE_URL from '../config';
 //     }
 // };
 
-const CheckoutForm = ({formData,handleInputChange,setSelectedPaymentMethod,selectedPaymentMethod}) => {
+const CheckoutForm = ({formData,setFormData,handleInputChange,setSelectedPaymentMethod,selectedPaymentMethod}) => {
     // const [selectedPaymentMethod, setSelectedPaymentMethod] = useState('');
+    const [userDetails,setUserDetails]=useState('')
      const navigate = useNavigate();
     // const user = useSelector((state) => state.userState);
     // const { cartItems, orderTotal, numItemsInCart } = useSelector((state) => state.cartState);
     // const dispatch = useDispatch();
     // const [formData, setFormData] = useState({ name: '', address: '',number:'' });
+    const user=useSelector((state)=>state.userState);
+    const {token,email}=user
+
+
+    useEffect(() => {
+      
+       if(token){
+        fetchUserDetails(token)
+       }
+      }, [ token]);
+
+      useEffect(() => {
+        if (userDetails) {
+          setFormData({
+            name: userDetails.name || '',
+            address: userDetails.address || '',
+            number: userDetails.number || '',
+          });
+        }
+      }, [userDetails]);
+      
+  
+  
+      const fetchUserDetails=async (token)=>{
+    
+  
+        try{
+    
+            const response=await axios.get(`${BASE_URL}/api/get-account-details`,{
+                headers:{
+                    authtoken:token,
+                },
+            })
+            console.log('userdetails',response)
+            setUserDetails(response.data)
+           
+          
+    
+        }catch(error){
+            console.error("Error fetching user details:", error);
+            setUserDetails(null)
+      
+    
+        }
+      }
 
      const handleSubmit = async (event) => {
          event.preventDefault();
@@ -472,9 +519,35 @@ const CheckoutForm = ({formData,handleInputChange,setSelectedPaymentMethod,selec
           onSubmit={handleSubmit}
          >
             <h4 className="font-medium text-xl capitalize">Shipping Information</h4>
-            <FormInput label="First Name" name="name" type="text" value={formData.name} onChange={handleInputChange}/>
-            <FormInput label="Address" name="address" type="text" value={formData.address} onChange={handleInputChange} />
-            <FormInput label="Mobile Number *" name="number" type="number" value={formData.number} onChange={handleInputChange} />
+            <FormInput
+             label="First Name"
+              name="name" 
+              type="text" 
+             // value={formData.name} 
+            //  value={formData.name || userDetails?.name || ' '}
+            value={formData.name || ''}
+              onChange={handleInputChange} 
+            //   defaultValue={userDetails?.name || ''}
+              />
+
+            <FormInput 
+            label="Address"
+             name="address" 
+             type="text" 
+            //  value={formData.address || userDetails?.address || ' '} 
+            value={formData.address || ''}
+             onChange={handleInputChange}
+            
+              />
+            <FormInput 
+            label="Mobile Number *" 
+            name="number"
+             type="number"
+            //   value={formData.number || userDetails?.number || ''}
+            value={formData.number || ''}
+               onChange={handleInputChange}
+            //    defaultValue={userDetails?.number || ''}
+                />
 
 
             {/* Payment Method */}

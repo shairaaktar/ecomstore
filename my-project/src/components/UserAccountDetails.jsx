@@ -112,7 +112,7 @@ const UserAccountDetails = () => {
      className="h-screen  w-3/4 "
      >
       <div 
-      className='card  w-130 p-8 bg-base-100 shadow-lg flex flex-col gap-y-4'
+      className='card  w-80 lg:w-130 p-8 bg-base-100 shadow-lg flex flex-col gap-y-4'
       >
 
         <h4 className='text-3xl font-bold'>

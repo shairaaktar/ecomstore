@@ -116,7 +116,7 @@ const handleLogout = () => {
                      <div className="flex gap-x-2 sm:gap-x-8 items-center">
                     <p className="text-xs sm:text-sm">
                        <div className="dropdown dropdown-hover">
-                        <div tabIndex={0} role="button" > Hello, {userDetails.name || user.name }</div>
+                        <div tabIndex={0} role="button" > Hello, {userDetails?.name || user.name || "User" }</div>
                         <ul tabIndex={0} 
                          className="dropdown-content menu bg-base-100 text-black z-[1] w-52 p-2 shadow" >
                             <li>

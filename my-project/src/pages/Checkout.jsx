@@ -117,7 +117,7 @@ const Checkout=()=>{
         <>
         <SectionTitle text='place your order'/>
         <div className="mt-8 grid gap-8 md:grid-cols-2 items-start">
-            <CheckoutForm formData={formData} handleInputChange={handleInputChange} selectedPaymentMethod={selectedPaymentMethod} setSelectedPaymentMethod={setSelectedPaymentMethod}/>
+            <CheckoutForm formData={formData}  setFormData={setFormData} handleInputChange={handleInputChange} selectedPaymentMethod={selectedPaymentMethod} setSelectedPaymentMethod={setSelectedPaymentMethod}/>
             <CartTotals handleSubmit={handleSubmit}/>
         </div>
         </>
