@@ -484,13 +484,15 @@ const ImageCarousel = ({ images }) => {
             </ul>
 
         </div>
-        <div className="mt-6 w-full 
-        // sm:w-[300px] md:w-[600px] 
-        sm:w-10 md:w-20
-        grid gap-y-7 
-        // lg:w-[1200px]
-        lg:w-40 
-         lg:grid-cols-2 lg:gap-x-10"
+        <div 
+        // className="mt-6 w-[300px] grid
+        // // sm:w-[300px] md:w-[600px] 
+        // sm:w-10 md:w-20
+        //  gap-y-7 
+        // // lg:w-[1200px]
+        // lg:w-40  lg:grid
+        //  lg:grid-cols-2 lg:gap-x-10"
+        className="mt-6 w-full sm:w-full md:w-3/5 lg:w-full lg:grid gap-y-7 lg:grid-cols-2 lg:gap-x-10"
          >
            <ImageCarousel  images={images}/>
               {/* PRODUCTS */}
@@ -512,10 +514,7 @@ const ImageCarousel = ({ images }) => {
     </div>
 )}
 
-                {/* <h4 className="text-xl  font-bold mt-2">
-                    {company}
-
-                </h4> */}
+                
               
                 <p className="mt-1 text-md  pb-6">
                
@@ -541,29 +540,7 @@ const ImageCarousel = ({ images }) => {
 
                 <p className="mt-6 leading-8 font-normal tracking-tighter">{description || ''}</p>
 
-                {/* <div className="mt-5">
-  <h3 className="text-sm font-medium text-gray-900">Highlights</h3>
-
-  <div className="mt-4">
-    <ul role="list" className="list-disc space-y-2 pl-4 text-sm block ">
-      {Array.isArray(product.highlights) && product.highlights.length > 0 ? (
-        product.highlights.map((highlight, index) => (
-          <li key={index} 
-          role="list"
-          // className="text-gray-400 mb-4"
-          className="list-disc space-y-2 pl-4 text-sm mb-4 block"
-          >
-            <span className="text-gray-600">{highlight}</span>
-          </li>
-        ))
-      ) : (
-        <li className="text-gray-400">
-          <span className="text-gray-600">No highlights available</span>
-        </li>
-      )}
-    </ul>
-  </div>
-</div> */}
+              
 
 <div className="mt-5 mb-7">
  
@@ -617,13 +594,7 @@ const ImageCarousel = ({ images }) => {
         // style={{
        
 
-        // backgroundColor: isLightColor || isDarkColor ? color : 'white',  // Default to white if unknown
-        // color: isLightColor 
-        //   ? 'black' // Use dark text for light background
-        //   : isDarkColor
-        //   ? 'white' // Use light text for dark background
-        //   : 'black', // Fallb
-        // }}
+       
         style={{ backgroundColor: color.toLowerCase() }}
         onClick={() => setProductColor(color)}  // Set selected color on click
       >
@@ -664,24 +635,7 @@ const ImageCarousel = ({ images }) => {
                 </div>
 
                
-                {/* AMOUNT */}
-                {/* <div className="form-control w-full max-w-xs">
-                    <label className="label" htmlFor="amount">
-
-                        <h4 className="text-md font-normal tracking-tighter capitalize">
-                            amount:
-                        </h4>
-                    </label>
-                    
-                    <select className="select select-primary select-bordered select-md"
-                     id="amount" value={amount} onChange={handleAmount}
-                     disabled={quantity===0}
-                    >
-                       {generateAmountOptions(quantity)}
-
-                    </select>
-                </div> */}
-
+               
 <div className="form-control w-full max-w-xs">
   <label className="label" htmlFor="amount">
     <h4 className="text-md font-normal tracking-tighter capitalize">
