@@ -60,6 +60,10 @@ const productSchema=new mongoose.Schema({
     description:{
         type:String
     },
+    highlights:{
+        type:[String],
+        default:[],
+    },
     featured:{
         type:Boolean,
         default:false,

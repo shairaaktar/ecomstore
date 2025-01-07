@@ -537,6 +537,7 @@ const ProductCreatePage = () => {
   const [title, setTitle] = useState('');
   const [company, setCompany] = useState('');
   const [description, setDescription] = useState('');
+  const [highlights,setHighlights]=useState([])
   const [featured, setFeatured] = useState(false);
   const [price, setPrice] = useState('');
   const [discountPrice,setDiscountPrice]=useState("");
@@ -639,6 +640,7 @@ const ProductCreatePage = () => {
       title,
       company,
       description,
+      highlights,
       featured,
       price,
       discountPrice,
@@ -676,6 +678,7 @@ const ProductCreatePage = () => {
         setTitle('');
         setCompany('');
         setDescription('');
+        setHighlights([]);
         setFeatured(false);
         setPrice('');
         setDiscountPrice("");
@@ -717,6 +720,10 @@ const ProductCreatePage = () => {
 
   }
   console.log('loadCategories',categories)
+
+
+  
+  
 
   return (
     <>
@@ -764,11 +771,23 @@ const ProductCreatePage = () => {
       <FormInput
         label='Description'
         name='description'
-        type='text'
+        type='textarea'
         value={description}
-        size='input-sm'
+       
+        size='input-xl'
         onChange={(e) => setDescription(e.target.value)}
       />
+     
+     <FormInput
+  label="Highlights"
+  name="highlights"
+  type="textarea"
+  value={highlights.join("\n")}
+  onChange={(e) => setHighlights(e.target.value.split("\n"))}
+ 
+  size="input-xl"
+/>
+
        {/* price */}
        <FormInput
         label='Price'
@@ -841,17 +860,7 @@ const ProductCreatePage = () => {
         list={featureOption.map((item) => ({ label: item.toString(), value: item }))}
         
       />
-      {/* category */}
-      {/* <div className="form-control">
-        <FormSelect
-          label='Category'
-          name='category'
-          size='input-sm'
-          value={category}
-          onChange={handleCategoryChange}
-          list={categories.map((cat) => ({ label: cat.name, value: cat._id }))}
-        />
-      </div> */}
+    
       <div className="form-control">
           <FormSelect
             label='Category'

@@ -229,15 +229,41 @@ const addToWishList=async(userId,productId)=>{
      if (!product) return <p>Product not found</p>;
 
      console.log('Product',product);
-     const {images ,_id,title,price,description,colors,company,quantity,sizes,sizeChart,averageRating}=product;
+     const {images ,_id,title,price,description,colors,company,quantity,sizes,sizeChart,averageRating,highlights}=product;
      console.log('averageRating',averageRating)
      console.log('images',images)
    
-     const displayedPrice=showDiscount ? formattedPrice(product.discountPrice):formattedPrice(product.price);
-     const discountPercentage=showDiscount ? product.discountPercentage:null;
-     const Price=formattedPrice(price)
-     console.log('formattedPrice',Price)
+    //  const displayedPrice=showDiscount ? formattedPrice(product.discountPrice):formattedPrice(product.price);
+     console.log('price',price)
+   
+    //  const Price=formattedPrice(price)
+    const Price=formattedPrice(price)
+     
 
+
+
+      const getDisplayedPrice = (product) => {
+             const currentDate = new Date();
+             const discountStartDate = product.discountStartDate ? new Date(product.discountStartDate) : null;
+             const discountEndDate = product.discountEndDate ? new Date(product.discountEndDate) : null;
+     
+             // Check if the product is in the discount period
+             const isDiscountActive = discountStartDate && discountEndDate &&
+                 currentDate >= discountStartDate && currentDate <= discountEndDate;
+     
+             const displayedPrice = isDiscountActive && product.discountPrice
+                 ? formattedPrice(product.discountPrice)
+                 : formattedPrice(product.price);
+     
+             const discountPercentage = isDiscountActive && product.discountPercentage
+                 ? product.discountPercentage
+                 : null;
+     
+             return { displayedPrice, discountPercentage };
+         };
+
+
+         const {displayedPrice,discountPercentage}=getDisplayedPrice(product)
 
 
   const submitFeedback=async(e)=>{
@@ -299,369 +325,7 @@ const addToWishList=async(userId,productId)=>{
 
  
 
-//   const ImageCarousel = ({ images }) => {
-//     const [zoom, setZoom] = useState(false);
-//     const [zoomImage, setZoomImage] = useState(null);
-//     const [offset, setOffset] = useState({ x: 0, y: 0 });
-  
-//     const handleMouseMove = (e, imageUrl) => {
-//       setZoom(true);
-//       setZoomImage(imageUrl);
-  
-//       const { left, top, width, height } = e.currentTarget.getBoundingClientRect();
-//       const x = ((e.pageX - left) / width) * 100;
-//       const y = ((e.pageY - top) / height) * 100;
-//       setOffset({ x, y });
-//     };
-  
-//     const handleMouseLeave = () => {
-//       setZoom(false);
-//       setZoomImage(null);
-//     };
-  
-//     const settings = {
-//       dots: true, // Enable dots (pagination)
-//     //   infinite: true,
-//     infinite: images.length > 1,
-//       speed: 500,
-//       slidesToShow: 1, // Display one image at a time
-//       slidesToScroll: 1, // Scroll one image at a time
-//       autoplay: true,
-//       autoplaySpeed: 3000, // Autoplay interval in milliseconds
-//       arrows: true, // Show arrows for navigation
-//       responsive: [
-//         {
-//           breakpoint: 768,
-//           settings: {
-//             slidesToShow: 1, // Adjust for smaller screens
-//           },
-//         },
-//       ],
-//     };
-  
-//     return (
-//       <div className="carousel-container">
-//         {/* Slick Carousel */}
-//         <Slider {...settings}>
-//           {images.map((i) => (
-//             <div
-//               key={i.public_id}
-//               className="relative"
-//               onMouseMove={(e) => handleMouseMove(e, i.url)}
-//               onMouseLeave={handleMouseLeave}
-//               style={{
-//                 backgroundImage: `url(${i.url})`,
-//                 backgroundSize: "cover",
-//                 backgroundPosition: "center",
-//                 width: "100%",
-//                 height: "400px", // Adjust the carousel height as needed
-//               }}
-//             >
-//               {/* Image for Carousel */}
-//               <img
-//                 src={i.url}
-//                 alt="Carousel slide"
-//                 className="w-full h-full object-cover rounded-lg"
-//                 style={{
-//                     width: "100%",
-//                     height: "80%",
-//                 }}
-//               />
-  
-//               {/* Zoom Effect on Hover */}
-//               {zoom && zoomImage === i.url && (
-//                 <div
-//                   className="absolute top-0 left-0 w-full h-full"
-//                   style={{
-//                     backgroundImage: `url(${i.url})`,
-//                     backgroundSize: "200%", // Zoom effect size
-//                     backgroundPosition: `${offset.x}% ${offset.y}%`,
-//                     pointerEvents: "none", // Prevent the zoomed image from interfering with carousel navigation
-//                   }}
-//                 />
-//               )}
-//             </div>
-//           ))}
-//         </Slider>
-//       </div>
-//     );
-//   };
-// const ImageCarousel = ({ images }) => {
-//     const [zoom, setZoom] = useState(false);
-//     const [zoomImage, setZoomImage] = useState(null);
-//     const [offset, setOffset] = useState({ x: 0, y: 0 });
-  
-//     const handleMouseMove = (e, imageUrl) => {
-//       setZoom(true);
-//       setZoomImage(imageUrl);
-  
-//       const { left, top, width, height } = e.currentTarget.getBoundingClientRect();
-//       const x = ((e.pageX - left) / width) * 100;
-//       const y = ((e.pageY - top) / height) * 100;
-//       setOffset({ x, y });
-//     };
-  
-//     const handleMouseLeave = () => {
-//       setZoom(false);
-//       setZoomImage(null);
-//     };
-  
-//     // Slick settings
-//     const settings = {
-//       dots: true, // Enable dots (pagination)
-//       infinite: images.length > 1, // Disable infinite loop if there's only one image
-//       speed: 500,
-//       slidesToShow: 1, // Display one image at a time
-//       slidesToScroll: 1, // Scroll one image at a time
-//       autoplay: true,
-//       autoplaySpeed: 3000, // Autoplay interval in milliseconds
-//       arrows: true, // Show arrows for navigation
-//       responsive: [
-//         {
-//           breakpoint: 768,
-//           settings: {
-//             slidesToShow: 1, // Adjust for smaller screens
-//           },
-//         },
-//       ],
-//     };
-  
-//     return (
-//       <div style={{ width: "100%", maxWidth: "800px", margin: "auto" }}>
-//         {/* Conditionally use Slider only if there are multiple images */}
-//         {images.length > 1 ? (
-//           <Slider {...settings}>
-//             {images.map((i) => (
-//               <div
-//                 key={i.public_id}
-//                 style={{
-//                   position: "relative",
-//                   backgroundImage: `url(${i.url})`,
-//                   backgroundSize: "cover",
-//                   backgroundPosition: "center",
-//                   width: "100%",
-//                   height: "400px", // Adjust the carousel height as needed
-//                   display: "flex",
-//                   justifyContent: "center",
-//                   alignItems: "center",
-//                 }}
-//                 onMouseMove={(e) => handleMouseMove(e, i.url)}
-//                 onMouseLeave={handleMouseLeave}
-//               >
-//                 {/* Image for Carousel */}
-//                 <img
-//                   src={i.url}
-//                   alt="Carousel slide"
-//                   style={{
-//                     width: "100%",
-//                     height: "100%",
-//                     objectFit: "contain", // Ensures the image fits within the container without stretching
-//                     borderRadius: "8px", // Optional: add rounded corners to the image
-//                   }}
-//                 />
-  
-//                 {/* Zoom Effect on Hover */}
-//                 {zoom && zoomImage === i.url && (
-//                   <div
-//                     style={{
-//                       position: "absolute",
-//                       top: 0,
-//                       left: 0,
-//                       width: "100%",
-//                       height: "100%",
-//                       backgroundImage: `url(${i.url})`,
-//                       backgroundSize: "200%", // Zoom effect size
-//                       backgroundPosition: `${offset.x}% ${offset.y}%`,
-//                       pointerEvents: "none", // Prevent the zoomed image from interfering with carousel navigation
-//                     }}
-//                   />
-//                 )}
-//               </div>
-//             ))}
-//           </Slider>
-//         ) : (
-//           // For single image, display without carousel functionality
-//           <div
-//             key={images[0].public_id}
-//             style={{
-//               position: "relative",
-//               backgroundImage: `url(${images[0].url})`,
-//               backgroundSize: "cover",
-//               backgroundPosition: "center",
-//               width: "100%",
-//               height: "400px", // Adjust the image height as needed
-//               display: "flex",
-//               justifyContent: "center",
-//               alignItems: "center",
-//             }}
-//             onMouseMove={(e) => handleMouseMove(e, images[0].url)}
-//             onMouseLeave={handleMouseLeave}
-//           >
-//             {/* Image without Carousel */}
-//             <img
-//               src={images[0].url}
-//               alt="Single Image"
-//               style={{
-//                 width: "100%",
-//                 height: "100%",
-//                 objectFit: "contain", // Ensures the image fits within the container without stretching
-//                 borderRadius: "8px", // Optional: add rounded corners to the image
-//               }}
-//             />
-  
-//             {/* Zoom Effect on Hover */}
-//             {zoom && zoomImage === images[0].url && (
-//               <div
-//                 style={{
-//                   position: "absolute",
-//                   top: 0,
-//                   left: 0,
-//                   width: "100%",
-//                   height: "100%",
-//                   backgroundImage: `url(${images[0].url})`,
-//                   backgroundSize: "200%", // Zoom effect size
-//                   backgroundPosition: `${offset.x}% ${offset.y}%`,
-//                   pointerEvents: "none", // Prevent the zoomed image from interfering with carousel navigation
-//                 }}
-//               />
-//             )}
-//           </div>
-//         )}
-//       </div>
-//     );
-//   };
-// const ImageCarousel = ({ images }) => {
-//     const [zoom, setZoom] = useState(false);
-//     const [zoomImage, setZoomImage] = useState(null);
-//     const [offset, setOffset] = useState({ x: 0, y: 0 });
-//     const [currentSlide, setCurrentSlide] = useState(0); // Track the current slide
-  
-//     const handleMouseMove = (e, imageUrl) => {
-//       setZoom(true);
-//       setZoomImage(imageUrl);
-  
-//       const { left, top, width, height } = e.currentTarget.getBoundingClientRect();
-//       const x = ((e.pageX - left) / width) * 100;
-//       const y = ((e.pageY - top) / height) * 100;
-//       setOffset({ x, y });
-//     };
-  
-//     const handleMouseLeave = () => {
-//       setZoom(false);
-//       setZoomImage(null);
-//     };
-  
-//     const handleThumbnailClick = (index) => {
-//       setCurrentSlide(index); // Set the current slide to the clicked thumbnail
-//     };
-  
-//     // Slick settings
-//     const settings = {
-//       dots: true, // Enable dots (pagination)
-//       infinite: images.length > 1, // Disable infinite loop if there's only one image
-//       speed: 500,
-//       slidesToShow: 1, // Display one image at a time
-//       slidesToScroll: 1, // Scroll one image at a time
-//       autoplay: true,
-//       autoplaySpeed: 3000, // Autoplay interval in milliseconds
-//       arrows: true, // Show arrows for navigation
-//       beforeChange: (current, next) => setCurrentSlide(next), // Update current slide when the main carousel changes
-//       responsive: [
-//         {
-//           breakpoint: 768,
-//           settings: {
-//             slidesToShow: 1, // Adjust for smaller screens
-//           },
-//         },
-//       ],
-//     };
-  
-//     return (
-//       <div style={{ width: "100%", maxWidth: "800px", margin: "auto" }}>
-//         {/* Main Carousel */}
-//         <Slider {...settings}>
-//           {images.map((i, index) => (
-//             <div
-//               key={i.public_id}
-//               style={{
-//                 position: "relative",
-//                 backgroundImage: `url(${i.url})`,
-//                 backgroundSize: "cover",
-//                 backgroundPosition: "center",
-//                 width: "100%",
-//                 height: "400px", // Adjust the carousel height as needed
-//                 display: "flex",
-//                 justifyContent: "center",
-//                 alignItems: "center",
-//               }}
-//               onMouseMove={(e) => handleMouseMove(e, i.url)}
-//               onMouseLeave={handleMouseLeave}
-//             >
-//               {/* Image for Carousel */}
-//               <img
-//                 src={i.url}
-//                 alt="Carousel slide"
-//                 style={{
-//                   width: "100%",
-//                   height: "100%",
-//                   objectFit: "contain", // Ensures the image fits within the container without stretching
-//                   borderRadius: "8px", // Optional: add rounded corners to the image
-//                 }}
-//               />
-  
-//               {/* Zoom Effect on Hover */}
-//               {zoom && zoomImage === i.url && (
-//                 <div
-//                   style={{
-//                     position: "absolute",
-//                     top: 0,
-//                     left: 0,
-//                     width: "100%",
-//                     height: "100%",
-//                     backgroundImage: `url(${i.url})`,
-//                     backgroundSize: "200%", // Zoom effect size
-//                     backgroundPosition: `${offset.x}% ${offset.y}%`,
-//                     pointerEvents: "none", // Prevent the zoomed image from interfering with carousel navigation
-//                   }}
-//                 />
-//               )}
-//             </div>
-//           ))}
-//         </Slider>
-  
-//         {/* Thumbnail Navigation */}
-//         {images.length > 1 && (
-//           <div style={{ display: "flex", justifyContent: "center", marginTop: "10px" }}>
-//             {images.map((i, index) => (
-//               <div
-//                 key={i.public_id}
-//                 style={{
-//                   width: "60px",
-//                   height: "60px",
-//                   margin: "0 5px",
-//                   cursor: "pointer",
-//                   borderRadius: "8px", // Optional: rounded corners for thumbnails
-//                   overflow: "hidden",
-//                   border: index === currentSlide ? "2px solid #000" : "none", // Highlight the active thumbnail
-//                 }}
-//                 onClick={() => handleThumbnailClick(index)} // Update main carousel when thumbnail is clicked
-//               >
-//                 <img
-//                   src={i.url}
-//                   alt={`Thumbnail ${index}`}
-//                   style={{
-//                     width: "100%",
-//                     height: "100%",
-//                     objectFit: "cover", // Make sure the thumbnail images are properly cropped
-//                   }}
-//                 />
-//               </div>
-//             ))}
-//           </div>
-//         )}
-//       </div>
-//     );
-//   };
+
   
 const ImageCarousel = ({ images }) => {
     const [zoom, setZoom] = useState(false);
@@ -820,12 +484,19 @@ const ImageCarousel = ({ images }) => {
             </ul>
 
         </div>
-        <div className="mt-6 grid gap-y-7 lg:grid-cols-2 lg:gap-x-10">
+        <div className="mt-6 w-full 
+        // sm:w-[300px] md:w-[600px] 
+        sm:w-10 md:w-20
+        grid gap-y-7 
+        // lg:w-[1200px]
+        lg:w-40 
+         lg:grid-cols-2 lg:gap-x-10"
+         >
            <ImageCarousel  images={images}/>
               {/* PRODUCTS */}
             <div>
               
-                <h1 className="capitalize text-3xl font-bold">{title}</h1>
+                <h1 className="capitalize text-2xl font-size-20px font-weight-500 font-semibold">{title}</h1>
 
                 {averageRating >0 && (
     <div className="flex items-center">
@@ -841,34 +512,88 @@ const ImageCarousel = ({ images }) => {
     </div>
 )}
 
-                <h4 className="text-xl  font-bold mt-2">
+                {/* <h4 className="text-xl  font-bold mt-2">
                     {company}
 
-                </h4>
+                </h4> */}
               
-                <p className="mt-3 text-xl">
-               {Price !==displayedPrice ?(
-                 <p><span className="line-through">{Price}</span>{displayedPrice} 
-                 {/* {averageRating &&(
-                    <span>
-                        {averageRating}
-                    </span>
-                 )} */}
-                 </p>
+                <p className="mt-1 text-md  pb-6">
+               
 
-               ):(<span>{Price}</span>)}
-                    {showDiscount && (
+                    { Price !==displayedPrice ? (
+                      <span>
+                      <span className="line-through mr-2">{Price}</span>
+                     <span className="font-bold">{displayedPrice}</span> 
+                    </span>
+
+                    ):(
+                      <span className="font-bold">{Price}</span>
+                    )}
+                     {/* {showDiscount && (
                         <span className="text-sm text-red-500 ml-2">
                             -{discountPercentage}%
                         </span>
-                    )}
+                    )} */}
 
                 </p>
 
-                <p className="mt-6 leading-8">{description}</p>
+                <hr/>
+
+                <p className="mt-6 leading-8 font-normal tracking-tighter">{description || ''}</p>
+
+                {/* <div className="mt-5">
+  <h3 className="text-sm font-medium text-gray-900">Highlights</h3>
+
+  <div className="mt-4">
+    <ul role="list" className="list-disc space-y-2 pl-4 text-sm block ">
+      {Array.isArray(product.highlights) && product.highlights.length > 0 ? (
+        product.highlights.map((highlight, index) => (
+          <li key={index} 
+          role="list"
+          // className="text-gray-400 mb-4"
+          className="list-disc space-y-2 pl-4 text-sm mb-4 block"
+          >
+            <span className="text-gray-600">{highlight}</span>
+          </li>
+        ))
+      ) : (
+        <li className="text-gray-400">
+          <span className="text-gray-600">No highlights available</span>
+        </li>
+      )}
+    </ul>
+  </div>
+</div> */}
+
+<div className="mt-5 mb-7">
+ 
+
+  <div className="mt-4">
+    <ul className="list-disc space-y-2 pl-4 text-sm">
+      {Array.isArray(product.highlights) && product.highlights.length > 0 ? (
+        product.highlights.map((highlight, index) => {
+          const trimmedHighlight = highlight.trim(); // Trim whitespace
+          return trimmedHighlight ? ( // Check if the highlight is not empty
+            <li key={index} className="text-gray-600 font-normal tracking-tighter">
+              {trimmedHighlight}
+            </li>
+          ) : null;
+        })
+      ) : (
+       
+          <span className="text-gray-600"></span>
+       
+      )}
+    </ul>
+  </div>
+</div>
+
+<hr/>
+
+
                 {/* COLORS */}
                 <div className="mt-6">
-                    <h4 className="text-md font-medium tracking-wider capitalize">
+                    <h4 className="text-md font-normal   tracking-tighter capitalize">
                         colors:
 
                     </h4>
@@ -911,18 +636,21 @@ const ImageCarousel = ({ images }) => {
 
                 </div>
                 {/* {Size} */}
-                <div className="mt-6">
-                    <h4 className="text-md font-medium tracking-wider capitalize">
+                <div className="mt-3">
+                    <h4 className="text-md font-normal tracking-tighter capitalize">
                         sizes:
 
                     </h4>
-                    <div className="mt-2">
+                    <div className="mt-2 flex flex-wrap gap-4">
                         {sizes.map((size)=>{
                             return<button
                              key={size}
                               type="button" 
-                              className={`badge w-6 h-6 mr-2 ${
-                                size===productSize && 'border-2 border-radius-2 border-secondary'
+                              className={`badge  aspect-square w-10  flex items-center justify-center text-sm font-normal ${
+                                size===productSize
+                                ? 'border-2 border-black'
+                                :'border border-gray-100'
+                                 && 'border-2 '
                               }`}
                             //   style={{backgroundSize:size}}
                               onClick={()=>setProductSize(size)}
@@ -937,11 +665,11 @@ const ImageCarousel = ({ images }) => {
 
                
                 {/* AMOUNT */}
-                <div className="form-control w-full max-w-xs">
+                {/* <div className="form-control w-full max-w-xs">
                     <label className="label" htmlFor="amount">
 
-                        <h4 className="text-md font-medium -tracking-wider capitalize">
-                            amount
+                        <h4 className="text-md font-normal tracking-tighter capitalize">
+                            amount:
                         </h4>
                     </label>
                     
@@ -952,7 +680,45 @@ const ImageCarousel = ({ images }) => {
                        {generateAmountOptions(quantity)}
 
                     </select>
-                </div>
+                </div> */}
+
+<div className="form-control w-full max-w-xs">
+  <label className="label" htmlFor="amount">
+    <h4 className="text-md font-normal tracking-tighter capitalize">
+      Amount:
+    </h4>
+  </label>
+
+  {/* Square Button with Three Sections */}
+  <div className="flex justify-center items-center mt-2 border border-gray-300 rounded-lg w-24 h-12">
+    {/* Decrement Button */}
+    <button
+      type="button"
+      className="w-1/3 h-full text-center text-gray-600 hover:bg-gray-200"
+      onClick={() => setAmount((prev) => Math.max(prev - 1, 1))}
+      disabled={amount <= 1}
+    >
+      -
+    </button>
+
+    {/* Quantity Display */}
+    <span className="w-1/3 h-full flex justify-center items-center text-md font-medium text-gray-800 border-x border-gray-300">
+      {amount}
+    </span>
+
+    {/* Increment Button */}
+    <button
+      type="button"
+      className="w-1/3 h-full text-center text-gray-600 hover:bg-gray-200"
+      onClick={() => setAmount((prev) => Math.min(prev + 1, quantity))}
+      disabled={amount >= quantity}
+    >
+      +
+    </button>
+  </div>
+</div>
+
+
 
                 {/* <div className="mt-2"><MeasurementList/></div> */}
 

@@ -72,7 +72,8 @@ exports.createProduct = async (req, res) => {
   const
    { title,
      company, 
-     description, 
+     description,
+     highlights, 
      featured, 
      category,
       images,
@@ -100,6 +101,7 @@ exports.createProduct = async (req, res) => {
     slug,
     company,
     description,
+    highlights,
     featured,
     category,
     images,
