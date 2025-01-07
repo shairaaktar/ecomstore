@@ -101,7 +101,7 @@ const response = await axios.post(`${BASE_URL}/api/category`, {categoryData,emai
 
   return (
     <>
-     <div className="text-md breadcrumbs bg-primary mt-10 mb-5 pt-10 pb-10 pl-2">
+     <div className="text-md breadcrumbs bg-primary pt-5 pb-5  lg:mt-10 mb-5 lg:pt-10 lg:pb-10 pl-2">
             <ul>
                 <li>
                     <Link to='/admindash'>Admin Dashboard</Link>
@@ -116,7 +116,7 @@ const response = await axios.post(`${BASE_URL}/api/category`, {categoryData,emai
         </div>
 
     <SectionTitle text='Product Category'/>
-    <form className="bg-base-200 rounded-md px-40 py-4  gap-x-4 gap-y-8 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 items-center" >
+    <form className="bg-base-200 rounded-md  px-20 lg:px-40 py-4  gap-x-4 gap-y-8 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 items-center" >
       {/* title */}
       <FormInput
         type='text'

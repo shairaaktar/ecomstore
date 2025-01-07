@@ -743,7 +743,7 @@ const handleModalToggle=()=>{
                                                     
 {discountPercentage ? (
     <div
-     className="absolute top-2 left-2 bg-blue-500 text-white text-sm font-bold px-2 py-1 rounded"
+     className="absolute top-2 left-2 bg-primary text-white text-xs sm:text-sm  font-bold px-1.5  py-0.5 sm:px-2 sm:py-1 rounded"
      >
         -{discountPercentage}%
     </div>
@@ -768,7 +768,7 @@ const handleModalToggle=()=>{
                                              
                                             <li>
                                             <button
-                                             className=" text-white py-2 px-4 rounded hover:bg-gray-600" 
+                                             className=" text-white py-1 px-2 lg:py-2 lg:px-4 rounded hover:bg-gray-600" 
                                              onClick={()=>handleAddToWishList(product)}
                                              data-tooltip-id={`wishlist-tooltip-${_id}`}
                                               >
@@ -782,7 +782,7 @@ const handleModalToggle=()=>{
                                             />
                                             </li>
                                             <li>
-                                            <button className=" text-white py-2 px-4 rounded hover:bg-gray-600 hover:shadow-lg transition-all" onClick={()=>handleQuickView(product)} >
+                                            <button className=" text-white py-1 px-2 lg:py-2 lg:px-4 rounded hover:bg-gray-600 hover:shadow-lg transition-all" onClick={()=>handleQuickView(product)} >
                                                <ZoomIn/>
                                             </button>
                                             </li>

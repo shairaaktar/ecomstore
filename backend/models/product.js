@@ -53,10 +53,7 @@ const productSchema=new mongoose.Schema({
         lowercase: true,
         index: true,
     },
-    company:{
-        type:String,
-       
-    },
+   
     description:{
         type:String
     },

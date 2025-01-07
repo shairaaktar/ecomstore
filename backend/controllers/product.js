@@ -22,22 +22,7 @@ const calculateDiscountPercentage = (price, discountPrice) => {
 
 
 
-// const applyDiscountIfNeeded=(product)=>{
-//   const now=new Date();
 
-//   if(product.discountStartDate && product.discountEndDate){
-//     if(now>=product.discountStartDate && now <=product.discountEndDate){
-//       product.price=product.discountPrice;
-//       console.log('product.price',product.price)
-//       product.discountPercentage=calculateDiscountPercentage(product.price,product.discountPrice);
-//       console.log('product.discountPercentage',product.discountPercentage)
-//     }else{
-    
-//       product.discountPercentage=null;
-//     }
-
-//   }
-// }
 
 
 const applyDiscountIfNeeded = (product) => {
@@ -71,7 +56,7 @@ exports.createProduct = async (req, res) => {
   const slug = slugify(req.body.title);
   const
    { title,
-     company, 
+    
      description,
      highlights, 
      featured, 
@@ -99,7 +84,7 @@ exports.createProduct = async (req, res) => {
   const newProduct = new Product({
     title,
     slug,
-    company,
+   
     description,
     highlights,
     featured,
@@ -127,37 +112,6 @@ exports.createProduct = async (req, res) => {
 };
 
 
-// exports.update=async(req,res)=>{
-//   try{
-  
-   
-//     const {product}=req.body;
-
-//     console.log('product',product)
-
-//      let productData=await Product.findByIdAndUpdate({_id:req.params.id});
-
-//      console.log('productData',productData)
-
-//     if(!productData){
-//       return res.status(404).json({error:"Product not found"});
-//     }
-
-//     Object.assign(productData,product);
-
-//     applyDiscountIfNeeded(productData);
-
-//     await productData.save();
-
-//     console.log('newproductData',productData)
-//     res.status(200).json(productData);
-    
-
-//   }catch(error){
-//     console.error("Error updating product:",error);
-//     res.status(500).json({error:"Product update failed."});
-//   }
-// }
 
 
 exports.update = async (req, res) => {

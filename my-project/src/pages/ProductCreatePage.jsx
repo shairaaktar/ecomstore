@@ -638,7 +638,7 @@ const ProductCreatePage = () => {
 
     const productData = {
       title,
-      company,
+     
       description,
       highlights,
       featured,
@@ -676,7 +676,7 @@ const ProductCreatePage = () => {
         toast.success('Product created successfully!');
         // Clear form fields
         setTitle('');
-        setCompany('');
+       
         setDescription('');
         setHighlights([]);
         setFeatured(false);
@@ -727,7 +727,7 @@ const ProductCreatePage = () => {
 
   return (
     <>
-      <div className="text-md breadcrumbs bg-primary mt-10 mb-5 pt-10 pb-10 pl-2">
+      <div className="text-md breadcrumbs bg-primary mt-10 mb-5 pt-5 pb-5 pl-2 lg:mt-10 lg:mb-5 lg:pt-10 lg:pb-10 lg:pl-2 ">
             <ul>
                 <li>
                     <Link to='/admindash'>Admin Dashboard</Link>
@@ -741,7 +741,7 @@ const ProductCreatePage = () => {
 
         </div>
     <SectionTitle text='Product Create page'/>
-    <form className="bg-base-200 rounded-md px-40 py-4  gap-x-4 gap-y-8 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 items-center" >
+    <form className="bg-base-200 rounded-md px-14 py-4 lg:px-40 lg:py-4  gap-x-4 gap-y-8 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 lg:items-center" >
       {/* title */}
       <FormInput
         type='text'
@@ -757,14 +757,14 @@ const ProductCreatePage = () => {
 
 <div className="divider lg:divider"></div>
       {/* company */}
-      <FormInput
+      {/* <FormInput
         label='Company'
         name='company'
         type='text'
         value={company}
         size='input-sm'
         onChange={(e) => setCompany(e.target.value)}
-      />
+      /> */}
 
       
       {/* description */}
@@ -777,6 +777,11 @@ const ProductCreatePage = () => {
         size='input-xl'
         onChange={(e) => setDescription(e.target.value)}
       />
+
+<p style={{ fontSize: '12px', color: '#555',marginTop: '10px' }}>The description is how it appears on your site as the description of the product</p>
+
+
+<div className="divider lg:divider"></div>
      
      <FormInput
   label="Highlights"
@@ -788,6 +793,11 @@ const ProductCreatePage = () => {
   size="input-xl"
 />
 
+<p style={{ fontSize: '12px', color: '#555',marginTop: '10px' }}>The highlights is how it appears on your site</p>
+
+
+<div className="divider lg:divider"></div>
+
        {/* price */}
        <FormInput
         label='Price'
@@ -797,6 +807,10 @@ const ProductCreatePage = () => {
         size='input-sm'
         onChange={(e) => setPrice(e.target.value)}
       />
+      <p style={{ fontSize: '12px', color: '#555',marginTop: '10px' }}>This  is the price of the product that  appears on your site</p>
+
+
+<div className="divider lg:divider"></div>
 
       {/* Discount Price */}
       <FormInput
@@ -807,6 +821,11 @@ const ProductCreatePage = () => {
       size="input-sm"
       onChange={(e)=>setDiscountPrice(e.target.value)}
       />
+
+<p style={{ fontSize: '12px', color: '#555',marginTop: '10px' }}>The is the discount price that appears on your site</p>
+
+
+<div className="divider lg:divider"></div>
 {/* 
       Display Discount Percentage if applicable */}
 
@@ -817,38 +836,45 @@ const ProductCreatePage = () => {
         </div>
       )}
 
-      <div className="mt-5">
-        <label>Schedule Discount Price (Optional)</label>
+     <div className="border border-2 pl-2 pb-2 mt-2 border-gray-300 bg-white">
+     <div className="mt-5">
+        <label className="text-sm/6">Schedule Discount Price (Optional)</label>
 
      
 
       {/* Discount start date */}
       <div className="mt-2">
-        <label>Start Date</label>
+        <label className="font-thin text-sm/6">Start Date:</label>
         <DatePicker
         selected={discountStartDate}
         onChange={(date)=>setDiscountStartDate(date)}
         showTimeSelect
         dateFormat="Pp"
-        className="input input-bordered input-sm w-full"
+        className="input input-bordered input-sm ml-2 w-full"
         placeholderText="Select Discount Start Date and Time"
         />
       </div>
 
       {/* Discount End Date */}
-      <div className="mt-2">
-        <label>End Date</label>
+      <div className="mt-2 ">
+        <label className="font-thin text-sm/6">End Date:</label>
         <DatePicker
         selected={discountEndDate}
         onChange={(date)=>setDiscountEndDate(date)}
         showTimeSelect
         dateFormat="Pp"
-        className="input input-bordered input-sm w-full"
+        className="input input-bordered input-sm ml-3 w-full"
         placeholderText="Select discount End Date and Time"
         />
 
       </div>
       </div>
+     </div>
+
+     <p style={{ fontSize: '12px', color: '#555',marginTop: '10px' }}>The  is the time limit within which the discount price is valid </p>
+
+
+<div className="divider lg:divider"></div>
 
       {/* featured */}
       <FormSelect
@@ -860,6 +886,11 @@ const ProductCreatePage = () => {
         list={featureOption.map((item) => ({ label: item.toString(), value: item }))}
         
       />
+
+<p style={{ fontSize: '12px', color: '#555',marginTop: '10px' }}>If true the product will be in the featured product</p>
+
+
+<div className="divider lg:divider"></div>
     
       <div className="form-control">
           <FormSelect
@@ -875,6 +906,11 @@ const ProductCreatePage = () => {
           />
         </div>
 
+        <p style={{ fontSize: '12px', color: '#555',marginTop: '10px' }}>The Category of the product</p>
+
+
+<div className="divider lg:divider"></div>
+
      
       {/* shipping */}
       <FormSelect
@@ -885,6 +921,11 @@ const ProductCreatePage = () => {
         onChange={(e) => setShipping(e.target.value)}
         list={featureOption.map((item) => ({ label: item.toString(), value: item }))}
       />
+
+<p style={{ fontSize: '12px', color: '#555',marginTop: '10px' }}>The name is how it appears on your site</p>
+
+
+<div className="divider lg:divider"></div>
         {/* Quantity */}
         <FormInput
         label='Quantity'
@@ -895,6 +936,10 @@ const ProductCreatePage = () => {
         onChange={(e) => setQuantity(e.target.value)}
        
       />
+      <p style={{ fontSize: '12px', color: '#555',marginTop: '10px' }}>The quatity of product available in the inventory</p>
+
+
+<div className="divider lg:divider"></div>
       {/* colors */}
       <FormInput
         label='Colors'
@@ -905,6 +950,10 @@ const ProductCreatePage = () => {
         placeholder='Comma separated values'
         onChange={(e) => setColors(e.target.value)}
       />
+      <p style={{ fontSize: '12px', color: '#555',marginTop: '10px' }}>The colors available in the inventory</p>
+
+
+<div className="divider lg:divider"></div>
        {/* size */}
        <FormInput
         label='Sizes'
@@ -916,7 +965,7 @@ const ProductCreatePage = () => {
         onChange={(e) => setSizes(e.target.value)}
       />
 
-<p style={{ fontSize: '12px', color: '#555',marginTop: '10px' }}>The name is how it appears on your site</p>
+<p style={{ fontSize: '12px', color: '#555',marginTop: '10px' }}>The sizes available in the inventory</p>
 
 
 <div className="divider lg:divider"></div>
@@ -924,7 +973,7 @@ const ProductCreatePage = () => {
       {/* Size Chart-Dynamic Columns */}
 
       <div className="p-4 bg-gray-100 rounded-lg shadow-lg">
-        <h3 className="text-xl font-bold mb-4">Size Chart Columns</h3>
+        <h3 className="text-md font-normal mb-4">Size Chart Columns</h3>
         <div className="grid grid-cols-2 md:grid-cols-3 gap-4 mb-6">
           {sizeChartColumns.map((column,index)=>(
             <div key={index} className="flex items-center space-x-2">
@@ -940,7 +989,7 @@ const ProductCreatePage = () => {
                  handleRemoveColumn(index);
 
               }} 
-              className="btn  btn-sm "
+              className="btn text-sm font-normal btn-sm "
               >
                 Remove
                 </button>
@@ -953,13 +1002,18 @@ const ProductCreatePage = () => {
             handleAddColumn();
 
            }}
-            className="btn  btn-sm col-span-2 md:col-span-1"
+            className="btn text-sm font-normal btn-sm col-span-2 md:col-span-1"
             >
               Add Column
               </button>
 
         </div>
       </div>
+
+      <p style={{ fontSize: '12px', color: '#555',marginTop: '10px' }}>The number of column in the size chart</p>
+
+
+<div className="divider lg:divider"></div>
 
       {/* Size Chaty-Dynamic Rows */}
 
@@ -990,7 +1044,7 @@ const ProductCreatePage = () => {
       </div> */}
 
 <div> <div className="p-4 bg-gray-100 rounded-lg shadow-lg">
-          <h3 className="text-xl font-bold mb-4">Size Chart Rows</h3>
+          <h3 className="text-md font-normal mb-4">Size Chart Rows</h3>
           <div className="grid grid-cols-1 gap-4 mb-6">
             {sizeChartRows.map((row, rowIndex) => (
               <div key={rowIndex} className="flex flex-wrap items-center space-x-2 bg-white p-4 rounded-lg shadow">
@@ -1010,7 +1064,7 @@ const ProductCreatePage = () => {
                     handleRemoveRow(rowIndex)
 
                   }} 
-                   className="btn  btn-sm ml-2">Remove Row</button>
+                   className="btn  btn-sm ml-2 text-sm font-normal">Remove Row</button>
               </div>
             ))}
             <button 
@@ -1019,7 +1073,7 @@ const ProductCreatePage = () => {
                 e.preventDefault(); 
                 handleAddRow();
             }} 
-            className="btn  btn-sm col-span-2 md:col-span-1"
+            className="btn text-sm font-normal btn-sm col-span-2 md:col-span-1"
             >
               Add Row
               </button>
@@ -1027,7 +1081,7 @@ const ProductCreatePage = () => {
         </div>
         </div>
 
-        <p style={{ fontSize: '12px', color: '#555',marginTop: '10px' }}>The name is how it appears on your site</p>
+        <p style={{ fontSize: '12px', color: '#555',marginTop: '10px' }}>The number of row in the size chart </p>
 
 
       <div className="divider lg:divider"></div>
@@ -1037,6 +1091,12 @@ const ProductCreatePage = () => {
        setValues={(val)=>setImages(val.images)}
         setLoading={setLoading}
       />
+      
+      <p style={{ fontSize: '12px', color: '#555',marginTop: '10px' }}>The image that will appear on your site </p>
+
+
+<div className="divider lg:divider"></div>
+
       <button type="submit" className="btn btn-primary btn-sm mt-7" onClick={handleSubmit}>
         Submit
       </button>
