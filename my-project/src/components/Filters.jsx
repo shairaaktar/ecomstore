@@ -332,13 +332,13 @@ const Filters = () => {
         list={categories.map((cat) => ({ label: cat.name, value: cat.name }))}
       />
       {/* COMPANY */}
-      <FormSelect
+      {/* <FormSelect
         label='select company'
         name='company'
         list={meta.companies}
         size='select-sm'
         defaultValue={company}
-      />
+      /> */}
       {/* ORDER */}
       <FormSelect
         label='sort by'
