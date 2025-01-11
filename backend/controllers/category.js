@@ -119,3 +119,15 @@ exports.update=async(req,res)=>{
 
     }
 }
+
+exports.fetured=async (req,res)=>{
+    try{
+        const {categoryId}=req.params;
+        const products=await Product.find({category:categoryId});
+        res.json(products);
+
+
+    }catch(error){
+        res.status(500).json({message:'Failed to fetch products'})
+    }
+}

@@ -1,4 +1,4 @@
-import { FeaturedProducts,NewArrivals,Categories, HeroZero,Inceptives, HeroSection, CustomCarousel } from "../components";
+import { FeaturedProducts,NewArrivals,Categories,FeaturedCategory, HeroZero,Inceptives, HeroSection, CustomCarousel } from "../components";
 import { customFetch } from "../utils";
 const url='/products?featured=true';
 
@@ -19,7 +19,7 @@ const Landing=()=>{
        {/* <Hero1/> */}
         <HeroSection/> 
        
-       
+       <FeaturedCategory/>
       
        {/* <FeaturedProducts/> */}
        {/* <Categories/> */}

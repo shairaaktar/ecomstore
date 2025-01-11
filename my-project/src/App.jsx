@@ -314,7 +314,8 @@ import {CategoryList,
   NewCustomers,
   OrdersByDate,
   EveryDaysOrders,
-  UserAccountDetails
+  UserAccountDetails,
+  FeaturedCategory
 } from "./components"
 
 import { themeSettings } from './theme'; 
@@ -390,6 +391,12 @@ const router = createBrowserRouter([
         path: 'category/:slug',
         element: <CategoryProductsPage />,
         errorElement: <ErrorElement />,
+        // loader: singleProductLoader,
+      },
+      {
+        path: 'category/:slug',
+        element: <FeaturedCategory />,
+       
         // loader: singleProductLoader,
       },
       {

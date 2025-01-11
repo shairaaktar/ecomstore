@@ -1557,13 +1557,13 @@ const addToWishList=async(userId,productId)=>{
                                             className="mt-2 sm:mt-3"
                                              >
 
-                                                <div className="flex flex-col items-center justify-center mt-4" >
+                                                <div className="flex flex-col items-center justify-center  mt-2 lg:mt-4" >
                                                     <div className='w-full'>
                                             
                                              <h3 
                                             //  className='mt-4 text-sm '
                                             // className="text-xs sm:text-sm line-clamp-2"
-                                            className="text-md font-medium text-gray-900 text-center pt-2 overflow-hidden text-ellipsis whitespace-nowrap  "
+                                            className="text-md font-medium text-gray-900 text-center pt-1 overflow-hidden text-ellipsis whitespace-nowrap  "
                                              >{title}</h3>
                                              </div>
                                              {averageRating >0 &&(
@@ -1602,6 +1602,7 @@ const addToWishList=async(userId,productId)=>{
 
                 </p>
                 </div>
+                
 
 
                                         </Link>

@@ -284,6 +284,7 @@ const ProducUpdate = () => {
   const [discountStartDate,setDiscountStartDate]=useState(null);
   const [discountEndDate,setDiscountEndDate]=useState(null);
   const [discountPercentage,setDiscountPercentage]=useState(null)
+  const [highlights,setHighlights]=useState([])
 
   
   
@@ -338,8 +339,9 @@ const ProducUpdate = () => {
 
       setTitle(data.title);
       
-      setCompany(data.company);
+      
       setDescription(data.description);
+      setHighlights(data.highlights);
       setFeatured(data.featured);
       setPrice(data.price);
       setDiscountPrice(data.discountPrice);
@@ -370,8 +372,9 @@ const ProducUpdate = () => {
 
     const productData = {
       title,
-      company,
+     
       description,
+      highlights,
       featured,
       price,
       discountPrice,
@@ -468,7 +471,7 @@ const ProducUpdate = () => {
   return (
     <>
       <SectionTitle text="Product Update Page" />
-      <form onSubmit={handleSubmit} className="bg-base-200 rounded-md px-40 py-4 gap-x-4 gap-y-8 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 items-center">
+      <form onSubmit={handleSubmit} className="bg-base-200 rounded-md px-20 lg:px-40 lg:py-4 gap-x-4 gap-y-8 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 items-center">
         {/* title */}
         <FormInput
           type="text"
@@ -479,22 +482,31 @@ const ProducUpdate = () => {
           onChange={(e) => setTitle(e.target.value)}
         />
         {/* company */}
-        <FormInput
+        {/* <FormInput
           label="Company"
           name="company"
           type="text"
           value={company}
           size="input-sm"
           onChange={(e) => setCompany(e.target.value)}
-        />
+        /> */}
         {/* description */}
         <FormInput
           label="Description"
           name="description"
-          type="text"
+          type="textarea"
           value={description}
           size="input-sm"
           onChange={(e) => setDescription(e.target.value)}
+        />
+
+<FormInput
+          label="Highlights"
+          name="highlights"
+          type="textarea"
+          value={highlights}
+          size="input-sm"
+          onChange={(e) => setHighlights(e.target.value)}
         />
         {/* featured */}
         <FormSelect
@@ -528,7 +540,7 @@ const ProducUpdate = () => {
         label="Discount Price" value={discountPrice} onChange={(e) => setDiscountPrice(e.target.value)} type="number"
         />
         {discountPercentage && <p>Discount: {discountPercentage}% off</p>}
-        <div className="discount-schedule">
+        <div className="discount-schedule mt-2 font-thin text-sm">
           <DatePicker selected={discountStartDate} onChange={(date) => setDiscountStartDate(date)} placeholderText="Start Date" />
           <DatePicker selected={discountEndDate} onChange={(date) => setDiscountEndDate(date)} placeholderText="End Date" />
         </div>
@@ -562,15 +574,15 @@ const ProducUpdate = () => {
           <FormInput label="Sizes" value={sizes} onChange={(e) => setSizes(e.target.value)} placeholder="Comma separated values" />
         
         {/* Size Chart: Dynamic Columns and Rows */}
-        <div className="size-chart">
+        <div className="size-chart mt-2 mb-2">
           <div className="columns">
             {sizeChartColumns.map((col, index) => (
               <div key={index}>
                 <input value={col} onChange={(e) => handleColumnChange(index, e.target.value)} placeholder={`Column ${index + 1}`} />
-                <button onClick={() => handleRemoveColumn(index)}>Remove</button>
+                <button className="font-normal text-sm " onClick={() => handleRemoveColumn(index)}>Remove</button>
               </div>
             ))}
-            <button onClick={handleAddColumn}>Add Column</button>
+            <button className="font-normal text-sm "onClick={handleAddColumn}>Add Column</button>
           </div>
 
           <div className="rows">
@@ -579,10 +591,10 @@ const ProducUpdate = () => {
                 {sizeChartColumns.map((col, colIndex) => (
                   <input key={colIndex} value={row[col] || ""} onChange={(e) => handleRowChange(rowIndex, col, e.target.value)} />
                 ))}
-                <button onClick={() => handleRemoveRow(rowIndex)}>Remove Row</button>
+                <button className="font-normal text-sm " onClick={() => handleRemoveRow(rowIndex)}>Remove Row</button>
               </div>
             ))}
-            <button onClick={handleAddRow}>Add Row</button>
+            <button className="font-normal text-sm " onClick={handleAddRow}>Add Row</button>
           </div>
         </div>
 
