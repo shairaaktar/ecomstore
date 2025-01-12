@@ -2,7 +2,7 @@ const express=require('express');
 const  router=express.Router();
 const {authCheck,adminCheck}=require('../middlewares/auth')
 
-const {createProduct,getAllProducts, getSingleProduct,list,listRelated,getAllProductsCount, listAll,listGrid,update,read,fetchCertainInfo, searchFilters,getReviews,reviews,getAllReviews,deleteReview,getReviewsByUser,searchResults,getBestSellingProducts}=require('../controllers/product')
+const {createProduct,getAllProducts, getSingleProduct,getSingleProductBySlug,list,listRelated,getAllProductsCount, listAll,listGrid,update,read,fetchCertainInfo, searchFilters,getReviews,reviews,getAllReviews,deleteReview,getReviewsByUser,searchResults,getBestSellingProducts}=require('../controllers/product')
 const {remove}=require('../controllers/product')
 
 router.get('/products/filters',fetchCertainInfo)
@@ -10,6 +10,7 @@ router.post('/create-product',adminCheck,authCheck,createProduct)
 router.get('/products',getAllProducts)
 router.get('/productscounts',getAllProductsCount)
 router.get('/products/:id',getSingleProduct);
+// router.get('/products/:slug',getSingleProductBySlug);
 // router.get('/products/count',productsCount);
 router.get('/product/:count',listAll);
 router.post('/productss',list);

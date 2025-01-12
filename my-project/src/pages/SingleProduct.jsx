@@ -44,7 +44,8 @@ const SingleProduct=()=>{
     const [zoomImage,setZoomImage]=useState("");
     const [showDiscount,setShowDiscount]=useState(false);
     
-
+ console.log('id',id)
+ 
 
     const user=useSelector((state)=>state.userState);
     console.log('user',user)
@@ -77,34 +78,49 @@ const handleMouseMove = (e, imageUrl) => {
     
 
     useEffect(() => {
-        const fetchProduct = async () => {
-            try {
-                const response = await axios.get(`${BASE_URL}/api/products/${id}`);
-                setProduct(response.data);
-                console.log('response data',response.data)
-
-                const currentDate=new Date();
-                const discountStartDate=new Date(response.data.discountStartDate);
-                const discountEndDate=new Date(response.data.discountEndDate);
-
-                if(currentDate>=discountStartDate && currentDate<=discountEndDate){
-                    setShowDiscount(true);
-                }
-
-                setProductColor(response.data.colors[0]);
-                getRelatedProduct(response.data._id).then((res)=>setRelated(res.data))
-                setAmount(response.data.quantity>0?1:0);
-
-                setLoading(false);
-                fetchReviews()
-                
-            } catch (error) {
-                setError(error.message);
-                setLoading(false);
-            }
-        };
+       
+       if(id){
         fetchProduct();
+       }
     }, [id]);
+
+
+
+    const fetchProduct = async () => {
+      try {
+          const response = await axios.get(`${BASE_URL}/api/single-product/${id}`,{
+
+            headers: {
+              'Cache-Control': 'no-cache',
+            },
+
+          });
+          //const response = await axios.get(`${BASE_URL}/api/products/${id}?_=${new Date().getTime()}`);
+
+          setProduct(response.data);
+          console.log('response data11',response)
+
+          const currentDate=new Date();
+          const discountStartDate=new Date(response.data.discountStartDate);
+          const discountEndDate=new Date(response.data.discountEndDate);
+
+          if(currentDate>=discountStartDate && currentDate<=discountEndDate){
+              setShowDiscount(true);
+          }
+
+          setProductColor(response.data.colors[0]);
+          getRelatedProduct(response.data._id).then((res)=>setRelated(res.data))
+          setAmount(response.data.quantity>0?1:0);
+
+          setLoading(false);
+          fetchReviews()
+          
+      } catch (error) {
+          setError(error.message);
+          setLoading(false);
+      }
+  };
+
 
     console.log('Product',product)
 

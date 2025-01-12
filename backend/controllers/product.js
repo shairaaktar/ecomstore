@@ -4,6 +4,12 @@ const Product = require('../models/product');
 const slugify=require('slugify')
 
 
+
+// At the top of your file
+console.log('Product Schema:', Product.schema.obj);
+console.log('Product Collection:', Product.collection.name);
+
+
 // const calculateDiscountPercentage=(price,discountPrice)=>{
 //   if(!price || !discountPrice || discountPrice>=price)
 //     return null;
@@ -166,20 +172,125 @@ exports.getAllProducts=async(req,res)=>{
    }
 }
 
-exports.getSingleProduct=async(req,res,next)=>{
-  try{
-    const product=await Product.findById(req.params.id);
-    if(product==null){
-      return res.status(404).json({message:'Product not found'});
-    }
-    res.product=product;
-    res.json(res.product);
-    next();
+// exports.getSingleProduct=async(req,res)=>{
 
-  }catch(err){
-    return res.status(500).json({message:err.message});
+//   onsole.log('Product model:', Product);
+
+//   console.log('MongoDB connection state:', mongoose.connection.readyState);
+   
+//   console.log('Received ID:', req.params.id);
+  
+//   console.log('req',req)
+//   try{
+
+//     if (!mongoose.isValidObjectId(req.params.id)) {
+//       return res.status(400).json({ message: 'Invalid product ID format' });
+//     }
+//     // const product=await Product.findById(req.params.id);
+//     const product = await Product.findOne({ _id: req.params.id });
+
+//     console.log('prodyct',product)
+
+  
+   
+
+//     if (!product) {
+//       return res.status(404).json({ message: 'Product not found' });
+//     }
+
+   
+    
+    
+
+//     res.json(product);
+   
+
+//   }catch(err){
+//     return res.status(500).json({message:err.message});
+//   }
+// }
+
+
+exports.getSingleProduct = async (req, res) => {
+  try {
+    console.log('1. Request ID:', req.params.id);
+    console.log('2. Database connection state:', mongoose.connection.readyState);
+
+    if (!mongoose.isValidObjectId(req.params.id)) {
+      console.log('3. Invalid ObjectId format');
+      return res.status(400).json({ message: 'Invalid product ID format' });
+    }
+
+    console.log('4. Attempting to find product...');
+    const product = await Product.findById(req.params.id).lean();
+    console.log('5. Query result:', JSON.stringify(product, null, 2));
+
+    if (!product) {
+      console.log('6. Product not found');
+      return res.status(404).json({ message: 'Product not found' });
+    }
+
+    // Add cache control headers to manage 304 responses
+    res.set('Cache-Control', 'no-cache');
+    res.set('ETag', Math.random().toString()); // Force fresh response
+
+    console.log('7. Sending response');
+    res.json(product);
+  } catch (err) {
+    console.error('8. Error:', err);
+    return res.status(500).json({ message: err.message });
   }
 }
+
+// exports.getSingleProductBySlug=async(req,res,)=>{
+
+ 
+//   console.log('req',req)
+//   try{
+//     const product=await Product.findOne({ slug: req.params.slug });
+
+//     console.log('prodyct',product)
+//     if(product==null){
+//       return res.status(404).json({message:'Product not found'});
+//     }
+
+//     if (!product) {
+//       return res.status(404).json({ message: 'Product not found' });
+//     }
+
+   
+    
+//     console.log('product',product)
+//     res.product=product;
+
+
+//     res.json(res.product);
+    
+
+//   }catch(err){
+//     return res.status(500).json({message:err.message});
+//   }
+// }
+
+exports.getSingleProductBySlug = async (req, res) => {
+  console.log('Request received for slug:', req.params.slug);
+  try {
+    const product = await Product.findOne({ slug: req.params.slug });
+
+    if (!product) {
+      return res.status(404).json({ message: 'Product not found' });
+    }
+
+    res.json(product);
+
+  } catch (err) {
+    console.error('Error fetching product by slug:', err);
+    return res.status(500).json({ message: err.message });
+  }
+};
+
+
+
 
 exports.listAll=async (req,res)=>{
   let products=await Product.find({})
