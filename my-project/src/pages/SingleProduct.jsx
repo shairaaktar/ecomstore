@@ -216,7 +216,7 @@ const addToWishList=async(userId,productId)=>{
             image: product.images[0]?.url,
             title: product.title,
             price: finalPrice,
-            company: product.company,
+            // company: product.company,
             productColor: productColor,
             productSize:productSize,
             amount: amount,
@@ -245,7 +245,7 @@ const addToWishList=async(userId,productId)=>{
      if (!product) return <p>Product not found</p>;
 
      console.log('Product',product);
-     const {images ,_id,title,price,description,colors,company,quantity,sizes,sizeChart,averageRating,highlights}=product;
+     const {images ,_id,title,price,description,colors,quantity,sizes,sizeChart,averageRating,highlights}=product;
      console.log('averageRating',averageRating)
      console.log('images',images)
    
