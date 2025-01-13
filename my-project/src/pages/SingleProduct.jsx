@@ -5,7 +5,7 @@ import { useState,useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { addItem } from "../features/cart/cartSlice";
 import { getProducts,getRelatedProduct } from "../functions/products";
-import {SectionTitle,MeasurementList, LoadingCard} from '../components'
+import {SectionTitle,MeasurementList, LoadingCard,SizeChartComponent} from '../components'
 import { Tabs } from "antd";
 import { Carousel } from "react-responsive-carousel";
 //  import 'react-responsive-carousel/lib/styles/carousel.min.css';
@@ -21,6 +21,7 @@ import assert from "assert";
 import Slider from "react-slick";
  import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
+
 import BASE_URL from "../config";
 
 
@@ -694,7 +695,7 @@ const ImageCarousel = ({ images }) => {
 
                 {/* Size Chart Table */}
 
-                {sizeChart &&(
+                {/* {sizeChart &&(
                     <div className="size-chart mt-6">
                         <h3 className="text-xl font-bold mb-4">Size Chart</h3>
                         <table className="table-auto w-full text-left border-collapse bg-gray-100 rounded-md overfloew-hidden shadow-lg">
@@ -721,7 +722,13 @@ const ImageCarousel = ({ images }) => {
                         </table>
 
                     </div>
-                )}
+                )} */}
+
+                {/* Dynamic */}
+
+               <SizeChartComponent sizeChart={sizeChart}/>
+
+
                 {/* CART BTN */}
                 <div className="mt-10">
                    
