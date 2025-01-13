@@ -272,6 +272,7 @@ import { Navigation, Pagination,Autoplay} from "swiper";
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
+import { Link } from "react-router-dom";
 
 const FeaturedCategory = () => {
   const [categories, setCategories] = useState([]);
@@ -344,7 +345,10 @@ const FeaturedCategory = () => {
         >
           {products.map((product) => (
             <SwiperSlide key={product._id}>
+               <Link to={`/products/${product._id}`}> 
               <div className="hidden lg:w-full lg:flex flex-col items-center h-[400px]">
+
+               
                 <img
                   src={product.images[0]?.url}
                   alt={product.name}
@@ -352,7 +356,9 @@ const FeaturedCategory = () => {
                 />
                 <h3 className="text-xs font-medium font-sans">{product.title}</h3>
                 <p className="text-sm text-gray-600 mb-2">${product.price}</p>
+               
               </div>
+              </Link> 
             </SwiperSlide>
           ))}
         </Swiper>
