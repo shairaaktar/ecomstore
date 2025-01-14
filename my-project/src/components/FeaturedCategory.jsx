@@ -548,7 +548,11 @@ import "swiper/css/pagination";
 import { useNavigate } from "react-router-dom";
 import { ZoomIn } from "@mui/icons-material";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
+import FavoriteIcon from '@mui/icons-material/Favorite';
 import ProductQuickView from "./ProductQuickView";
+import { useDispatch, useSelector } from "react-redux";
+import { toast } from 'react-toastify';
+
 
 const FeaturedCategory = () => {
   const [categories, setCategories] = useState([]);
@@ -556,8 +560,18 @@ const FeaturedCategory = () => {
   const [products, setProducts] = useState([]);
   const [selectedProduct, setSelectedProduct] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [wishlist,setWishlist]=useState([])
   const navigate=useNavigate()
   const swiperRef=useRef(null);
+
+
+  const user=useSelector((state)=>state.userState);
+  const userId=user.id 
+  const {email,token}=user
+
+  const dispatch=useDispatch()
+
+
 
 
 
@@ -615,7 +629,112 @@ const FeaturedCategory = () => {
   const stopAutoplay=()=>swiperRef.current?.swiper?.autoplay?.stop();
   const startAutoplay=()=>swiperRef.current?.swiper?.autoplay?.start();
 
+ 
+  useEffect(()=>{
 
+    const fetchUserWishList=async()=>{
+      try{
+        const response=await axios.post(`${BASE_URL}/api/wishlist/${userId}`,{email},{
+          headers:{
+            Authorization:`Bearer ${token}`,
+            authtoken:token,
+          },
+        });
+
+        console.log('Wishlist Response:',response.data);
+        const products=response.data?.wishlist?.products || [];
+        setWishlist(products.map(product=>product._id));
+
+      }catch(error){
+        console.error('Error fetching wishlist:',error);
+
+      }
+    };
+
+    if(token && email){
+      fetchUserWishList();
+    }
+
+  },[userId,email,token])
+
+
+  const handleAddToWishList=async(product)=>{
+    console.log('product',product)
+    const productId=product._id;
+    console.log('productId',productId)
+    
+    try{
+      if(!wishlist.includes(productId)){
+        const response=await addToWishList(userId,productId);
+        console.log('response',response)
+
+         toast.success(response.data.message || 'Product added to wishlist!');
+         setWishlist([...wishlist,productId])
+
+      }else{
+
+        await axios.delete(
+          `${BASE_URL}/api/${userId}/${productId}`,
+          {
+            data:{userId,productId},
+            headers:{
+              Authorization:`Bearer ${token}`,
+              authtoken:token,
+            }
+          }
+        );
+
+          toast.success('Product removed from wishlist!');
+          setWishlist(wishlist.filter((id)=>id !==productId))
+
+      }
+
+    }catch(error){
+
+      console.log('error',error)
+
+
+    }
+  }
+
+
+  const addToWishList=async(userId,productId)=>{
+    console.log('userId ,productId',userId,productId)
+    if (!token) {
+        throw new Error('User not authenticated!');
+    }
+    if (!email) {
+        throw new Error('User email is required!');
+    }
+
+    const WishProduct={
+      userId:userId,
+      productId:productId,
+    }
+
+    try{
+      const response=await axios.post(
+        `${BASE_URL}/api/wishlist`,
+        {
+          email,WishProduct
+
+        },
+        {
+          headers:{
+            Authorization:token,
+            authtoken: token,
+          }
+
+        }
+      )
+      return response
+
+    }catch(error){
+      throw error;
+
+    }
+
+  }
 
   return (
     <div className="container mx-auto mt-20">
@@ -674,10 +793,11 @@ const FeaturedCategory = () => {
                     onMouseLeave={startAutoplay}
                     onClick={(event) => {
                       event.stopPropagation();
+                      handleAddToWishList(product)
                       // Handle favorite logic if needed
                     }}
                   >
-                    <FavoriteBorderIcon />
+                    {wishlist.includes(product._id) ? <FavoriteIcon/> : <FavoriteBorderIcon/>}
                   </button>
                   <button
                     className="bg-white text-black py-1 px-4 mx-2 rounded-md hover:bg-gray-200"
