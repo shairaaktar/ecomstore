@@ -1135,6 +1135,7 @@ const NewArrivals = () => {
     const [isModalOpen,setIsModalOpen]=useState(false)
     const [selectedProduct,setSelectedProduct] =useState(null);
     const [wishlist,setWishlist]=useState([])
+    
 
     const user=useSelector((state)=>state.userState);
   const userId=user.id

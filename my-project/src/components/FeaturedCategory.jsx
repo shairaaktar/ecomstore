@@ -263,30 +263,328 @@
 // export default FeaturedCategory;
 
 
-import React, { useState, useEffect } from "react";
+// import React, { useState, useEffect } from "react";
+// import { getCategories } from "../functions/category";
+// import axios from "axios";
+// import BASE_URL from "../config";
+// import { Swiper, SwiperSlide } from "swiper/react";
+// import { Navigation, Pagination,Autoplay} from "swiper";
+// import "swiper/css";
+// import "swiper/css/navigation";
+// import "swiper/css/pagination";
+// import { Link } from "react-router-dom";
+
+// const FeaturedCategory = () => {
+//   const [categories, setCategories] = useState([]);
+//   const [selectedCategory, setSelectedCategory] = useState(null);
+//   const [products, setProducts] = useState([]);
+
+//   // Fetch categories and filter out empty ones
+//   useEffect(() => {
+//     const fetchData = async () => {
+//       try {
+//         const response = await getCategories();
+//         const categoryList = [];
+//         for (const category of response) {
+//           const { data } = await axios.get(`${BASE_URL}/api/products/${category._id}`);
+//           if (data.length > 0) {
+//             categoryList.push({ ...category, products: data });
+//           }
+//         }
+//         setCategories(categoryList);
+//         if (categoryList.length > 0) {
+//           setSelectedCategory(categoryList[0]);
+//           setProducts(categoryList[0].products);
+//         }
+//       } catch (error) {
+//         console.error("Error fetching categories or products:", error);
+//       }
+//     };
+//     fetchData();
+//   }, []);
+
+//   // Handle category click and set respective products
+//   const handleCategoryClick = (category) => {
+//     setSelectedCategory(category);
+//     setProducts(category.products);
+//   };
+
+//   return (
+//     <div className="container mx-auto mt-20">
+//       {/* Categories Grid */}
+//       <div className="flex flex-wrap justify-center items-center gap-4 space-x-4 mb-20 hidden lg:flex">
+//         {categories.map((category) => (
+//           <button
+//             key={category._id}
+//             onClick={() => handleCategoryClick(category)}
+//             className={`py-2 px-4 text-center rounded-md transition-all ${
+//               selectedCategory?._id === category._id
+//                 ? "font-bold font-sans"
+//                 : "bg-white font-sans italic text-gray-700 font-normal"
+//             }`}
+//           >
+//             {category.name}
+//           </button>
+//         ))}
+//       </div>
+
+//       {/* Product Carousel */}
+//       {selectedCategory && products.length > 0 && (
+//         <Swiper
+//           modules={[Navigation, Pagination,Autoplay]}
+//           navigation
+//           pagination={{ clickable: true }}
+//           spaceBetween={20}
+//           slidesPerView={1}
+//           autoplay={{delay:2000,disableOnInteraction:false}}
+//           breakpoints={{
+//             640: { slidesPerView: 2 },
+//             768: { slidesPerView: 3 },
+//             1024: { slidesPerView: 4 },
+//           }}
+//         >
+//           {products.map((product) => (
+//             <SwiperSlide key={product._id}>
+//                <Link to={`/products/${product._id}`}> 
+//               <div className="hidden lg:w-full lg:flex flex-col items-center h-[400px]">
+
+               
+//                 <img
+//                   src={product.images[0]?.url}
+//                   alt={product.name}
+//                   className="w-full h-[320px] object-cover mb-2"
+//                 />
+
+//                 {/* Hover Overlay */}
+
+//                 <div className="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+//                   <button className="bg-white text-black py-1 px-4 mx-2 rounded-md hover:bg-gray-200" >
+//                      Add to Cart
+//                   </button>
+//                   <button
+//                   className="bg-white text-black py-1 px-4 mx-2 rounded-md hover:bg-gray-200"
+//                   >
+//                     View Details
+
+//                   </button>
+//                 </div>
+//                 <h3 className="text-xs font-medium font-sans">{product.title}</h3>
+//                 <p className="text-sm text-gray-600 mb-2">${product.price}</p>
+               
+//               </div>
+//               </Link> 
+//             </SwiperSlide>
+//           ))}
+//         </Swiper>
+//       )}
+//     </div>
+//   );
+// };
+
+// export default FeaturedCategory;
+
+
+// import React, { useState, useEffect } from "react";
+// import { getCategories } from "../functions/category";
+// import axios from "axios";
+// import BASE_URL from "../config";
+// import { Swiper, SwiperSlide } from "swiper/react";
+// import { Navigation, Pagination, Autoplay } from "swiper";
+// import "swiper/css";
+// import "swiper/css/navigation";
+// import "swiper/css/pagination";
+// import { Link } from "react-router-dom";
+// import { ZoomIn } from '@mui/icons-material';
+// import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
+// import FavoriteIcon from '@mui/icons-material/Favorite';
+// import ProductQuickView from "./ProductQuickView";
+
+// const FeaturedCategory = () => {
+//   const [categories, setCategories] = useState([]);
+//   const [selectedCategory, setSelectedCategory] = useState(null);
+//   const [products, setProducts] = useState([]);
+//   const [isModalOpen,setIsModalOpen]=useState(false)
+//   const [selectedProduct,setSelectedProduct]=useState(null)
+
+
+
+//   const handleQuickView=(product)=>{
+//     setSelectedProduct(product)
+//     setIsModalOpen(true)
+//    }
+
+//   useEffect(() => {
+//     const fetchData = async () => {
+//       try {
+//         const response = await getCategories();
+//         const categoryList = [];
+//         for (const category of response) {
+//           const { data } = await axios.get(`${BASE_URL}/api/products/${category._id}`);
+//           if (data.length > 0) {
+//             categoryList.push({ ...category, products: data });
+//           }
+//         }
+//         setCategories(categoryList);
+//         if (categoryList.length > 0) {
+//           setSelectedCategory(categoryList[0]);
+//           setProducts(categoryList[0].products);
+//         }
+//       } catch (error) {
+//         console.error("Error fetching categories or products:", error);
+//       }
+//     };
+//     fetchData();
+//   }, []);
+
+//   const handleCategoryClick = (category) => {
+//     setSelectedCategory(category);
+//     setProducts(category.products);
+//   };
+
+//   return (
+//     <div className="container mx-auto mt-20">
+//       {/* Categories Grid */}
+//       <div className="flex flex-wrap justify-center items-center gap-4 space-x-4 mb-20 hidden lg:flex">
+//         {categories.map((category) => (
+//           <button
+//             key={category._id}
+//             onClick={() => handleCategoryClick(category)}
+//             className={`py-2 px-4 text-center rounded-md transition-all ${
+//               selectedCategory?._id === category._id
+//                 ? "font-bold font-sans"
+//                 : "bg-white font-sans italic text-gray-700 font-normal"
+//             }`}
+//           >
+//             {category.name}
+//           </button>
+//         ))}
+//       </div>
+
+//       {/* Product Carousel */}
+//       {selectedCategory && products.length > 0 && (
+//         <Swiper
+//           modules={[Navigation, Pagination, Autoplay]}
+//           navigation
+//           pagination={{ clickable: true }}
+//           spaceBetween={20}
+//           slidesPerView={1}
+//           autoplay={{ delay: 2000, disableOnInteraction: false }}
+//           breakpoints={{
+//             640: { slidesPerView: 2 },
+//             768: { slidesPerView: 3 },
+//             1024: { slidesPerView: 4 },
+//           }}
+//         >
+//           {products.map((product) => (
+//             <SwiperSlide key={product._id}>
+//               <Link to={`/products/${product._id}`}>
+//                 <div className="hidden lg:w-full lg:flex flex-col items-center h-[400px] group">
+//                   {/* Product Image */}
+                  
+//                   <img
+//                     src={product.images[0]?.url}
+//                     alt={product.name}
+//                     className="w-full h-[320px] object-cover mb-2"
+//                   />
+                  
+                 
+
+//                   {/* Hover Overlay */}
+//                   <div className="absolute h-[320px] inset-0 bg-black bg-opacity-50 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+//                     <button 
+//                     className="bg-white text-black py-1 px-4 mx-2 rounded-md hover:bg-gray-200"
+//                     onClick={(event)=>{
+//                       event.stopPropagation();
+//                     }}
+//                     >
+//                      <FavoriteBorderIcon/>
+//                     </button>
+//                     <button className="bg-white text-black py-1 px-4 mx-2 rounded-md hover:bg-gray-200" 
+//                     onClick={(product)=>
+//                     {
+//                       event.stopPropagation();
+//                       handleQuickView()
+
+//                     }
+//                    }>
+//                       <ZoomIn/>
+//                     </button>
+//                   </div>
+
+//                   {/* Product Info */}
+                 
+//                   <h3 className="text-xs font-medium font-sans">{product.title}</h3>
+//                   <p className="text-sm text-gray-600 mb-2">${product.price}</p>
+//                 </div>
+
+                
+//               </Link>
+//             </SwiperSlide>
+//           ))}
+          
+//         </Swiper>
+//       )}
+//       {isModalOpen && selectedProduct &&(
+//                                      <ProductQuickView isOpen={isModalOpen} classNames={classNames} product={selectedProduct} onClose={closeModal}/>
+//                                    )
+//                                    }
+      
+//     </div>
+//   );
+// };
+
+// export default FeaturedCategory;
+
+
+import React, { useState, useEffect, useRef } from "react";
 import { getCategories } from "../functions/category";
 import axios from "axios";
 import BASE_URL from "../config";
 import { Swiper, SwiperSlide } from "swiper/react";
-import { Navigation, Pagination,Autoplay} from "swiper";
+import { Navigation, Pagination, Autoplay } from "swiper";
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import { ZoomIn } from "@mui/icons-material";
+import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
+import ProductQuickView from "./ProductQuickView";
 
 const FeaturedCategory = () => {
   const [categories, setCategories] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState(null);
   const [products, setProducts] = useState([]);
+  const [selectedProduct, setSelectedProduct] = useState(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const navigate=useNavigate()
+  const swiperRef=useRef(null);
 
-  // Fetch categories and filter out empty ones
+
+
+  const handleQuickView = (product) => {
+    setSelectedProduct(product);
+    setIsModalOpen(true);
+  };
+
+  const closeModal=()=>{
+    setIsModalOpen(false)
+    setSelectedProduct(null)
+   }
+
+  function classNames(...classes) {
+    return classes.filter(Boolean).join(' ')
+  }
+
+
   useEffect(() => {
     const fetchData = async () => {
       try {
         const response = await getCategories();
         const categoryList = [];
         for (const category of response) {
-          const { data } = await axios.get(`${BASE_URL}/api/products/${category._id}`);
+          const { data } = await axios.get(
+            `${BASE_URL}/api/products/${category._id}`
+          );
           if (data.length > 0) {
             categoryList.push({ ...category, products: data });
           }
@@ -303,11 +601,21 @@ const FeaturedCategory = () => {
     fetchData();
   }, []);
 
-  // Handle category click and set respective products
   const handleCategoryClick = (category) => {
     setSelectedCategory(category);
     setProducts(category.products);
   };
+
+  const handleProductClick = (event, productId) => {
+    if (!event.defaultPrevented) {
+      navigate(`/products/${productId}`);
+    }
+  };
+
+  const stopAutoplay=()=>swiperRef.current?.swiper?.autoplay?.stop();
+  const startAutoplay=()=>swiperRef.current?.swiper?.autoplay?.start();
+
+
 
   return (
     <div className="container mx-auto mt-20">
@@ -331,12 +639,14 @@ const FeaturedCategory = () => {
       {/* Product Carousel */}
       {selectedCategory && products.length > 0 && (
         <Swiper
-          modules={[Navigation, Pagination,Autoplay]}
+
+        ref={swiperRef}
+          modules={[Navigation, Pagination, Autoplay]}
           navigation
           pagination={{ clickable: true }}
           spaceBetween={20}
           slidesPerView={1}
-          autoplay={{delay:2000,disableOnInteraction:false}}
+          autoplay={{ delay: 2000, disableOnInteraction: false }}
           breakpoints={{
             640: { slidesPerView: 2 },
             768: { slidesPerView: 3 },
@@ -345,22 +655,55 @@ const FeaturedCategory = () => {
         >
           {products.map((product) => (
             <SwiperSlide key={product._id}>
-               <Link to={`/products/${product._id}`}> 
-              <div className="hidden lg:w-full lg:flex flex-col items-center h-[400px]">
-
-               
+              <div
+                onClick={(e) => handleProductClick(e, product._id)}
+                className="hidden lg:w-full lg:flex flex-col items-center h-[400px] group relative cursor-pointer"
+              >
+                {/* Product Image */}
                 <img
                   src={product.images[0]?.url}
                   alt={product.name}
                   className="w-full h-[320px] object-cover mb-2"
                 />
-                <h3 className="text-xs font-medium font-sans">{product.title}</h3>
+
+                {/* Hover Overlay */}
+                <div className="absolute h-[320px] inset-0 bg-black bg-opacity-50 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                  <button
+                    className="bg-white text-black py-1 px-4 mx-2 rounded-md hover:bg-gray-200"
+                    onMouseEnter={stopAutoplay}
+                    onMouseLeave={startAutoplay}
+                    onClick={(event) => {
+                      event.stopPropagation();
+                      // Handle favorite logic if needed
+                    }}
+                  >
+                    <FavoriteBorderIcon />
+                  </button>
+                  <button
+                    className="bg-white text-black py-1 px-4 mx-2 rounded-md hover:bg-gray-200"
+                    onClick={(event) => {
+                      event.stopPropagation();
+                      handleQuickView(product);
+                    }}
+                    onMouseEnter={stopAutoplay}
+                    onMouseLeave={startAutoplay}
+                  >
+                    <ZoomIn />
+                  </button>
+                </div>
+
+                {/* Product Info */}
+                <h3 className="text-xs font-medium font-sans">
+                  {product.title}
+                </h3>
                 <p className="text-sm text-gray-600 mb-2">${product.price}</p>
-               
               </div>
-              </Link> 
             </SwiperSlide>
           ))}
+          {isModalOpen && selectedProduct &&(
+                                     <ProductQuickView isOpen={isModalOpen} classNames={classNames} product={selectedProduct} onClose={closeModal}/>
+                                   )
+                                   }
         </Swiper>
       )}
     </div>
