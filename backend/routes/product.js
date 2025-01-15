@@ -2,7 +2,7 @@ const express=require('express');
 const  router=express.Router();
 const {authCheck,adminCheck}=require('../middlewares/auth')
 
-const {createProduct,getAllProducts, getSingleProduct,getSingleProductBySlug,list,listRelated,getAllProductsCount, listAll,listGrid,update,read,fetchCertainInfo, searchFilters,getReviews,reviews,getAllReviews,deleteReview,getReviewsByUser,searchResults,getBestSellingProducts}=require('../controllers/product')
+const {createProduct,getAllProducts, getColors,getSingleProduct,getSingleProductBySlug,list,listRelated,getAllProductsCount, listAll,listGrid,update,read,fetchCertainInfo, searchFilters,getReviews,reviews,getAllReviews,deleteReview,getReviewsByUser,searchResults,getBestSellingProducts}=require('../controllers/product')
 const {remove}=require('../controllers/product')
 
 router.get('/products/filters',fetchCertainInfo)
@@ -27,5 +27,6 @@ router.delete('/products/:productId/reviews/:reviewId',deleteReview)
 router.get('/users/:userId/reviews',getReviewsByUser);
 router.get('/products/search',searchResults);
 router.post('/admin/best-selling-products',authCheck,adminCheck,getBestSellingProducts);
+router.get("/colors",getColors)
 
 module.exports=router

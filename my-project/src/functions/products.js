@@ -127,6 +127,7 @@ export const fetchProductsByFilter = async (arg) => {
 export const getProductsFilters=async()=>{
   try{
     const response=await axios.get(`${BASE_URL}/api/products/filters`);
+    console.log('response',response)
     return response;
 
 

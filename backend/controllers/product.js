@@ -684,6 +684,7 @@ exports.fetchCertainInfo=async(req,res)=>{
     const companies=await Product.distinct('company');
     console.log('companies-->',companies)
     const colors=await Product.distinct('colors');
+    console.log('colors',colors)
 
     res.json({companies,colors});
   }catch(err){
@@ -737,7 +738,7 @@ const handleShipping=async(req,res,shipping)=>{
   const products=await Product.find({shipping:isShipping})
   .populate('category','_id name')
   .exec();
-  res.json(products);
+  res.json(products)
 }
 
 const handleColor=async (req,res,color)=>{
@@ -745,6 +746,8 @@ const handleColor=async (req,res,color)=>{
   const products=await Product.find({colors:color})
   .populate('category','_id name')
   .exec();
+
+  console.log('productColor',products)
   res.json(products);
 }
 
@@ -1023,4 +1026,17 @@ exports.getBestSellingProducts=async (req,res)=>{
     res.status(500).json({message:error.message});
 
   }
+}
+
+
+exports.getColors=async (req,res)=>{
+  try{
+    const colors=await Product.distinct("colors",{colors:{$exists:true,$ne:[]}});
+    res.json(colors);
+
+  }catch(error){
+    res.status(500).json({ error: "Failed to fetch colors." });
+
+  }
+
 }

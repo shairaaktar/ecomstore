@@ -77,15 +77,33 @@ const toggleMenu=()=>{
     
     getCategories().then((res)=>setCategories(res));
     getProductsFilters().then((res)=>{
-        const {companies,colors}=res.data
+        const {companies}=res.data
+        console.log('colors',colors)
         setCompanies(companies)
-        setColors(colors)
+      
 
     })
     // loadFilteredInfos();
     fetchProductsCount()
   },[]);
+
+  useEffect(()=>{
+    const fetchColors=async()=>{
+        try{
+            const {data}=await axios.get(`${BASE_URL}/api/colors`)
+            console.log("colors",colors)
+            setColors(data);
+
+        }catch(error){
+            console.error("Error fetching colors:",error);
+
+        }
+    }
+    fetchColors();
+
+  },[])
   console.log('categories',categories)
+  console.log('colors',colors)
 
 //   const loadAllProducts=()=>{
 //     getProductsByCount(numofProduct).then((p)=>{
@@ -303,38 +321,76 @@ const showCompany = () => {
         fetchProducts({ company: e.target.value });
   }
   
-  const showColors = () => {
-    return Array.isArray(colors) && colors.length > 0 ? (
-        colors.map((c) => (
+//   const showColors = () => {
+//     return Array.isArray(colors) && colors.length > 0 ? (
+//         colors.map((c) => (
+//             <Radio
+//                 key={c}
+//                 value={c}
+//                 name={c}
+//                 checked={c === color}
+//                 onChange={handleColor}
+//                 className="pb-1 pl-4 pr-4  text-neutral"
+//             >
+//                 {c}
+//             </Radio>
+//         ))
+//     ) : (
+//         <p>No color available</p>
+//     );
+// };
+
+const showColors=()=>{
+    const availableColors=Array.isArray(colors)
+    ?[...new Set(colors.filter(Boolean))]:[];
+
+
+
+    return availableColors.length>0 ?(
+        availableColors.map((c)=>(
             <Radio
-                key={c}
-                value={c}
-                name={c}
-                checked={c === color}
-                onChange={handleColor}
-                className="pb-1 pl-4 pr-4  text-neutral"
+            key={c}
+            value={c}
+            checked={c===color}
+            onChange={handleColor}
+            className="pb-1 pl-4 pr-4 text-neutral"
             >
                 {c}
             </Radio>
         ))
-    ) : (
-        <p>No color available</p>
-    );
+
+    ):(
+       <p> No color available</p>
+    )
 };
+
+
+// const handleColor=(e)=>{
+//     dispatch({
+//         type: "SEARCH_QUERY",
+//         payload: { text: "" },
+//     });
+
+//     setPrice([0,0]);
+//     setCategoryIds([]);
+   
+//     setColor(e.target.value);
+//     fetchProducts({color:e.target.value})
+// }
+
 
 const handleColor=(e)=>{
     dispatch({
-        type: "SEARCH_QUERY",
-        payload: { text: "" },
+        type:"SEARCH_QUERY",
+        payload:{text:""},
     });
 
     setPrice([0,0]);
     setCategoryIds([]);
-   
     setColor(e.target.value);
-    fetchProducts({color:e.target.value})
-}
 
+    fetchProducts({color:e.target.value});
+}
 
 
 const showShipping = () => (
