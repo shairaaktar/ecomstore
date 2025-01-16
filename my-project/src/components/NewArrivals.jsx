@@ -1445,7 +1445,7 @@ const addToWishList=async(userId,productId)=>{
                     <div 
                     // className='grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 xl:gap-x-8'
                     //className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-x-4 gap-y-6"
-                    className="grid grid-cols-2 gap-x-2 gap-y-4 sm:grid-cols-3 sm:gap-x-4 sm:gap-y-6 md:grid-cols-3 lg:grid-cols-5 lg:gap-x-6 lg:gap-y-8"
+                    className="grid grid-cols-2 gap-x-8 gap-y-4 sm:grid-cols-3 sm:gap-x-4 sm:gap-y-6 md:grid-cols-3 lg:grid-cols-5 lg:gap-x-6 lg:gap-y-8"
                     >
                         {springs.map((styles, index) => {
                             const product = products[index];
@@ -1478,7 +1478,7 @@ const addToWishList=async(userId,productId)=>{
                                         <div 
                                             //  className=' relative w-60 overflow-hidden bg-gray-200  xl:aspect-h-8 xl:aspect-w-7 group'
 
-                                           className="group ml-4  relative  max-w-[160px] max-h[90px] lg:max-w-[250px] lg:ml-0  lg:max-h-[250px]"
+                                           className="group   relative  max-w-[160px] max-h[90px] lg:max-w-[250px] lg:ml-0  lg:max-h-[250px]"
                                             >
                                         <Link key={_id} to={`/products/${_id}`} >
                                            

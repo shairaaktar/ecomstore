@@ -216,7 +216,7 @@ const HeroSection=()=>{
     <div 
     // className='w-500 lg:w-[1213px] lg:h-[500px] flex  '
     // className="w-full max-w-[1213px] mx-auto h-[400px]  sm:h-[450px] md:h-[500px]  flex flex-col lg:flex-row"
-    className='w-[400px] h-[300px] 
+    className='w-[300px] h-[300px] 
      
       sm:w-[500px] sm:h-[400px] 
       md:w-[800px] md:h-[450px] 
