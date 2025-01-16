@@ -1478,7 +1478,7 @@ const addToWishList=async(userId,productId)=>{
                                         <div 
                                             //  className=' relative w-60 overflow-hidden bg-gray-200  xl:aspect-h-8 xl:aspect-w-7 group'
 
-                                           className="group relative  max-w-[160px] max-h[90px] lg:max-w-[250px] lg:max-h-[250px]"
+                                           className="group ml-4  relative  max-w-[160px] max-h[90px] lg:max-w-[250px] lg:ml-0  lg:max-h-[250px]"
                                             >
                                         <Link key={_id} to={`/products/${_id}`} >
                                            
