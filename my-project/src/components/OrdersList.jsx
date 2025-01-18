@@ -386,6 +386,278 @@
 // export default OrdersList;
 
 
+// import axios from "axios";
+// import { useEffect, useState } from "react";
+// import { useSelector } from "react-redux";
+// import day from "dayjs";
+// import advancedFormat from "dayjs/plugin/advancedFormat";
+// import SectionTitle from "./SectionTitle";
+// import PaginationContainer from "./PaginationContainer";
+// import { formattedPrice } from "../utils/index";
+// import {Link} from 'react-router-dom'
+// import { io } from "socket.io-client";
+// import BASE_URL from "../config";
+// day.extend(advancedFormat);
+
+// const ORDER_PER_PAGE = 10;
+// const socket = io("http://localhost:3000");
+
+// const OrdersList = () => {
+//   const [orders, setOrders] = useState([]);
+//   const [ordersCount, setOrdersCount] = useState(0);
+//   const [error, setError] = useState(null);
+//   const user = useSelector((state) => state.userState);
+//   const [page, setPage] = useState(1);
+//   const { token } = user;
+//   const { email } = user;
+
+//   useEffect(() => {
+//     loadUserOrders();
+//     fetchOrdersCount();
+//   }, [page, token, email]);
+
+//   const loadUserOrders = () => {
+//     axios
+//       .post(
+//         `${BASE_URL}/api/user/orders`,
+//         { email, page, limit: ORDER_PER_PAGE },
+//         {
+//           headers: {
+//             Authorization: `Bearer ${token}`,
+//             authtoken: token,
+//           },
+//         }
+//       )
+//       .then((response) => {
+//         setOrders(response.data);
+//         console.log('response',response.data)
+//       })
+//       .catch((error) => {
+//         console.error("Error fetching orders", error);
+//       });
+
+//     socket.on("orderStatusUpdated", (data) => {
+//       setOrders((prevOrders) =>
+//         prevOrders.map((order) =>
+//           order._id === data.orderId
+//             ? { ...order, orderStatus: data.orderStatus }
+//             : order
+//         )
+//       );
+//     });
+
+//     return () => {
+//       socket.off("orderStatusUpdated");
+//     };
+//   };
+
+//   const fetchOrdersCount = () => {
+//     axios
+//       .get(`${BASE_URL}/api/user/orders/count`, {
+//         headers: {
+//           Authorization: `Bearer ${token}`,
+//           authtoken: token,
+//         },
+//       })
+//       .then((response) => {
+//         setOrdersCount(response.data.totalOrders);
+//       })
+//       .catch((error) => {
+//         console.error("Error fetching orders count", error);
+//       });
+//   };
+
+//   // Group orders by order ID
+//   const groupOrdersById = (orders) => {
+//     return orders.reduce((acc, order) => {
+//       const orderId = order.orderNumber;
+//       acc[orderId] = order;
+//       return acc;
+//     }, {});
+//   };
+
+//   const groupedOrders = groupOrdersById(orders);
+
+//   return (
+//     <div className="mt-2">
+//       <div className="mb-4 capitalize">
+//         {orders.length < 1 ? (
+//           <SectionTitle text="please make an order" />
+//         ) : (
+//           <h1>Total Orders: {ordersCount}</h1>
+//         )}
+//       </div>
+//       <br />
+      
+
+//       {Object.keys(groupedOrders).map((orderId) => {
+//         const order = groupedOrders[orderId];
+//         const {
+//           name,
+//           cartItems,
+//           address,
+//           numItemsInCart,
+//           orderTotal,
+//           createdAt,
+//           orderStatus,
+//         } = order;
+//         const formattedDate = day(createdAt).format("MMM Do, YYYY");
+//         const time = day(createdAt).format("hh:mm a");
+
+//         return (
+//           <div key={orderId} className=" mb-8">
+          
+
+// <div 
+//   className="flex justify-between items-center  mt-4 p-4      "
+// >
+//   {/* Left Side: Order Details */}
+//   <div className="grid grid-cols-2 lg:grid-cols-4 mr-3 overflow-auto">
+//     <div>
+//       <h2 className="font-semibold">Order Number</h2>
+//       <p
+//       className=" mr-3 font-semibold"
+//       >
+//         {orderId}
+//         </p>
+//     </div>
+//     <div>
+//       <h2>Date</h2>
+//       <p
+//        className=" mr-12"
+//       >{formattedDate}</p>
+//     </div>
+   
+//   </div>
+
+//   {/* Right Side: Buttons */}
+//   <div className="flex gap-4">
+//     {/* <button className="px-4 py-2  bg-white rounded hover:underline">
+//       <Link to={`/orderDetails/${orderId}`}>
+//       View Order
+//       </Link>
+    
+//     </button> */}
+
+// <div>
+//       <h2>Total Amount</h2>
+//       <p
+//        className=" mr-3"
+//       >{formattedPrice(orderTotal)}</p>
+//     </div>
+//     <button className="px-4 py-2   border border-gray-200 rounded hover:underline">
+//      <Link to={`/invoice/${orderId}`}>
+//      View Invoice
+//      </Link>
+//     </button>
+//   </div>
+// </div>
+
+           
+            
+//             <div className="ml-5 mr-5">
+//             <div 
+//             className="overflow-x-auto"
+//             >
+//               <table className="table w-full  mx-auto border border-gray">
+//                 <thead>
+//                   <tr>
+//                     <th>Product</th>
+//                     <th>Quantity</th>
+//                     <th>Price</th>
+//                     <th>Total</th>
+//                     <th>Order Status</th>
+//                   </tr>
+//                 </thead>
+//                 <tbody>
+//                   {cartItems.map((product) => {
+//                     const { _id: productId, title, image, price, amount ,productID} =
+//                       product;
+//                       console.log('productID',productID)
+//                     return (
+//                       <tr key={productId}>
+//                         <div  
+//                         //  className="mb-12 flex flex-col gap-y-4 sm:flex-row flex-wrap border-b border-base-300 pb-6 last:border-b-0"
+//                         >
+//                         <td className=" w-auto h-auto lg:w-[170px] lg:h-[100px] ">
+//                           <img
+//                             src={image}
+//                             alt={title}
+//                             className=" lg:w-40 lg:h-40 object-cover rounded-md max-w-full h-auto"
+//                           />
+                         
+//                         </td>
+//                         <td >
+//                             <p
+//                             //  className="text-xl font-semibold"
+//                              >
+//                                 {title}
+//                             </p>
+//                             <p >
+//                                 <button 
+//                                 // className="text-blue-500 text-sm hover:underline"
+//                                 className="text-blue-500 hover:underline"
+
+//                                 >
+//                                     <Link to={`/products/${productID}`}>
+//                                     view product
+//                                     </Link>
+//                                 </button>
+//                             </p>
+
+//                         </td>
+//                         </div>
+//                         {/* <td >{amount}</td>
+//                         <td>{formattedPrice(price)}</td> */}
+//                         <td className="sm:flex-1">
+                      
+//                                 {amount}
+                          
+//                         </td>
+//                         <td className="sm:flex-1">
+                           
+                           
+//                                 {formattedPrice(price)}
+                          
+                           
+//                         </td>
+//                         <td>
+//                             <p className="text-sm font-normal">
+//                             {formattedPrice(price*amount)}
+//                             </p>
+
+//                         </td>
+//                         <td>
+//                            <p > {orderStatus}</p>
+//                         </td>
+                       
+//                       </tr>
+//                     );
+//                   })}
+//                 </tbody>
+//               </table>
+            
+//             </div>
+//             </div>
+           
+//           </div>
+           
+//         );
+//       })}
+
+//       <PaginationContainer
+//         current={page}
+//         total={ordersCount}
+//         pageSize={ORDER_PER_PAGE}
+//         onChange={(value) => setPage(value)}
+//       />
+//     </div>
+//   );
+// };
+
+// export default OrdersList;
+
+
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
@@ -394,7 +666,7 @@ import advancedFormat from "dayjs/plugin/advancedFormat";
 import SectionTitle from "./SectionTitle";
 import PaginationContainer from "./PaginationContainer";
 import { formattedPrice } from "../utils/index";
-import {Link} from 'react-router-dom'
+import { Link } from "react-router-dom";
 import { io } from "socket.io-client";
 import BASE_URL from "../config";
 day.extend(advancedFormat);
@@ -430,7 +702,6 @@ const OrdersList = () => {
       )
       .then((response) => {
         setOrders(response.data);
-        console.log('response',response.data)
       })
       .catch((error) => {
         console.error("Error fetching orders", error);
@@ -479,16 +750,15 @@ const OrdersList = () => {
   const groupedOrders = groupOrdersById(orders);
 
   return (
-    <div className="mt-2">
+    <div className="mt-2 px-4">
       <div className="mb-4 capitalize">
         {orders.length < 1 ? (
           <SectionTitle text="please make an order" />
         ) : (
-          <h1>Total Orders: {ordersCount}</h1>
+          <h1 className="text-lg font-semibold">Total Orders: {ordersCount}</h1>
         )}
       </div>
       <br />
-      
 
       {Object.keys(groupedOrders).map((orderId) => {
         const order = groupedOrders[orderId];
@@ -505,143 +775,78 @@ const OrdersList = () => {
         const time = day(createdAt).format("hh:mm a");
 
         return (
-          <div key={orderId} className=" mb-8">
-          
+          <div key={orderId} className="mb-8 border rounded-lg shadow-sm p-4">
+            <div className="flex flex-wrap justify-between items-center gap-4">
+              <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 w-full sm:w-auto">
+                <div>
+                  <h2 className="font-semibold">Order Number</h2>
+                  <p className="font-semibold">{orderId}</p>
+                </div>
+                <div>
+                  <h2>Date</h2>
+                  <p>{formattedDate}</p>
+                </div>
+                <div>
+                  <h2>Total Amount</h2>
+                  <p>{formattedPrice(orderTotal)}</p>
+                </div>
+                <div>
+                  <h2>Order Status</h2>
+                  <p>{orderStatus}</p>
+                </div>
+              </div>
+              <div>
+                <button className="px-4 py-2 text-sm bg-white border border-gray-200 rounded hover:underline">
+                  <Link to={`/invoice/${orderId}`}>View Invoice</Link>
+                </button>
+              </div>
+            </div>
 
-<div 
-  className="flex justify-between items-center  mt-4 p-4      "
->
-  {/* Left Side: Order Details */}
-  <div className="grid grid-cols-2 lg:grid-cols-4 mr-3 overflow-auto">
-    <div>
-      <h2 className="font-semibold">Order Number</h2>
-      <p
-      className=" mr-3 font-semibold"
-      >
-        {orderId}
-        </p>
-    </div>
-    <div>
-      <h2>Date</h2>
-      <p
-       className=" mr-12"
-      >{formattedDate}</p>
-    </div>
-   
-  </div>
-
-  {/* Right Side: Buttons */}
-  <div className="flex gap-4">
-    {/* <button className="px-4 py-2  bg-white rounded hover:underline">
-      <Link to={`/orderDetails/${orderId}`}>
-      View Order
-      </Link>
-    
-    </button> */}
-
-<div>
-      <h2>Total Amount</h2>
-      <p
-       className=" mr-3"
-      >{formattedPrice(orderTotal)}</p>
-    </div>
-    <button className="px-4 py-2   border border-gray-200 rounded hover:underline">
-     <Link to={`/invoice/${orderId}`}>
-     View Invoice
-     </Link>
-    </button>
-  </div>
-</div>
-
-           
-            
-            <div className="ml-5 mr-5">
-            <div 
-            className="overflow-x-auto"
-            >
-              <table className="table w-full  mx-auto border border-gray">
+            <div className="mt-4 overflow-x-auto">
+              <table className="table-auto w-full border border-gray-200">
                 <thead>
                   <tr>
-                    <th>Product</th>
-                    <th>Quantity</th>
-                    <th>Price</th>
-                    <th>Total</th>
-                    <th>Order Status</th>
+                    <th className="px-4 py-2">Product</th>
+                    <th className="px-4 py-2">Quantity</th>
+                    <th className="px-4 py-2">Price</th>
+                    <th className="px-4 py-2">Total</th>
                   </tr>
                 </thead>
                 <tbody>
                   {cartItems.map((product) => {
-                    const { _id: productId, title, image, price, amount ,productID} =
+                    const { _id: productId, title, image, price, amount, productID } =
                       product;
-                      console.log('productID',productID)
+
                     return (
                       <tr key={productId}>
-                        <div  
-                        //  className="mb-12 flex flex-col gap-y-4 sm:flex-row flex-wrap border-b border-base-300 pb-6 last:border-b-0"
-                        >
-                        <td className=" w-auto h-auto lg:w-[170px] lg:h-[100px] ">
+                        <td className="px-4 py-2 flex items-center gap-4">
                           <img
                             src={image}
                             alt={title}
-                            className=" lg:w-40 lg:h-40 object-cover rounded-md max-w-full h-auto"
+                            className="w-16 h-16 object-cover rounded-md"
                           />
-                         
+                          <div>
+                            <p className="font-medium">{title}</p>
+                            <Link
+                              to={`/products/${productID}`}
+                              className="text-blue-500 hover:underline text-sm"
+                            >
+                              View Product
+                            </Link>
+                          </div>
                         </td>
-                        <td >
-                            <p
-                            //  className="text-xl font-semibold"
-                             >
-                                {title}
-                            </p>
-                            <p >
-                                <button 
-                                // className="text-blue-500 text-sm hover:underline"
-                                className="text-blue-500 hover:underline"
-
-                                >
-                                    <Link to={`/products/${productID}`}>
-                                    view product
-                                    </Link>
-                                </button>
-                            </p>
-
+                        <td className="px-4 py-2">{amount}</td>
+                        <td className="px-4 py-2">{formattedPrice(price)}</td>
+                        <td className="px-4 py-2">
+                          {formattedPrice(price * amount)}
                         </td>
-                        </div>
-                        {/* <td >{amount}</td>
-                        <td>{formattedPrice(price)}</td> */}
-                        <td className="sm:flex-1">
-                      
-                                {amount}
-                          
-                        </td>
-                        <td className="sm:flex-1">
-                           
-                           
-                                {formattedPrice(price)}
-                          
-                           
-                        </td>
-                        <td>
-                            <p className="text-sm font-normal">
-                            {formattedPrice(price*amount)}
-                            </p>
-
-                        </td>
-                        <td>
-                           <p > {orderStatus}</p>
-                        </td>
-                       
                       </tr>
                     );
                   })}
                 </tbody>
               </table>
-            
             </div>
-            </div>
-           
           </div>
-           
         );
       })}
 

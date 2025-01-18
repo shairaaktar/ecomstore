@@ -605,7 +605,7 @@ const ImageCarousel=({images})=>{
                  src={images[currentImageIndex]?.url}
                  alt={`Product Image ${currentImageIndex + 1}`}
                 //  className="h-full w-full object-cover object-center group-hover:opacity-"
-                className='absolute h-full w-full object-cover  transition-opacity  duration-1000 ease-in-out  group-hover:opacity-80 group-hover:border border-grey'
+                className='absolute h-full w-full object-cover lg:object-cover  transition-opacity  duration-1000 ease-in-out  group-hover:opacity-80 group-hover:border border-grey'
              />
 
             ):(
@@ -756,8 +756,8 @@ const handleModalToggle=()=>{
         </div>
         <div className="w-4/4 lg:w-3/4 p-4" >
        
-                <div className='mx-auto max-w-2xl px-4 py-2 sm:px-6 sm:pb-24 sm:pt-8 lg:max-w-7xl lg:px-8'>
-        <div className='grid grid-cols-2 gap-x-6 gap-y-10 sm:grid-cols-3 lg:grid-cols-3 xl:grid-cols-3 xl:gap-x-8'>
+                <div className='mx-auto max-w-4xl px-4 py-2 sm:px-6 sm:pb-24 sm:pt-8 lg:max-w-7xl lg:px-8'>
+        <div className='grid grid-cols-2 gap-x-9 lg:gap-x-6 gap-y-10 sm:grid-cols-3 lg:grid-cols-3 xl:grid-cols-3 xl:gap-x-8'>
     
                 {springs.map((styles,index)=>{
                     const product=products[index];
