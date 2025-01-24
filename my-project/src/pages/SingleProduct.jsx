@@ -5,7 +5,7 @@ import { useState,useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { addItem } from "../features/cart/cartSlice";
 import { getProducts,getRelatedProduct } from "../functions/products";
-import {SectionTitle,MeasurementList, LoadingCard,SizeChartComponent} from '../components'
+import {SectionTitle,MeasurementList, LoadingCard,SizeChartComponent,ProductQuickView} from '../components'
 import { Tabs } from "antd";
 import { Carousel } from "react-responsive-carousel";
 //  import 'react-responsive-carousel/lib/styles/carousel.min.css';
@@ -23,6 +23,12 @@ import Slider from "react-slick";
 import "slick-carousel/slick/slick-theme.css";
 
 import BASE_URL from "../config";
+import { spring } from "framer-motion";
+import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
+import FavoriteIcon from '@mui/icons-material/Favorite';
+import { Tooltip } from 'antd';
+import { ZoomIn } from '@mui/icons-material';
+
 
 
 
@@ -44,6 +50,15 @@ const SingleProduct=()=>{
     const [offset,setOffset]=useState({x:0,y:0});
     const [zoomImage,setZoomImage]=useState("");
     const [showDiscount,setShowDiscount]=useState(false);
+    const [products,setProducts]=useState([]);
+    const [page,setPage]=useState(1);
+    const [wishlist ,setWishlist]=useState([])
+    const [selectedProduct,setSelectedProduct]=useState(null)
+    const [isModalOpen,setIsModalOpen]=useState(false)
+
+
+
+
     
  console.log('id',id)
  
@@ -57,8 +72,71 @@ const SingleProduct=()=>{
     const ID=user.id;
 
 
+    useEffect(()=>{
+   loadAllProducts()
+    },[page])
 
 
+
+const loadAllProducts=()=>{
+  const sort ="createdAt";
+  const order="desc"
+
+  setLoading(true);
+  getProducts(sort,order,page).then((res)=>{
+    setProducts(prevProducts=>{
+      const newProducts=res.data.products.filter(
+        (newProduct)=>!prevProducts.some((prevProduct)=>prevProduct._id===newProduct._id)
+
+
+      );
+
+      return [...prevProducts,...newProducts];
+    })
+
+    console.log('response.data||',res.data)
+    setLoading(false);
+  }).catch((error)=>{
+    console.error("Error loading products:",error);
+    setLoading(false);
+  })
+};
+
+
+useEffect(()=>{
+  const fetchUserWishList=async()=>{
+    try{
+      const response=await axios.post(`${BASE_URL}/api/wishlist/${ID}`,{email},{
+        headers:{
+          Authorization:`Bearer ${token}`,
+          authtoken:token,
+        }
+      });
+      console.log('Wishlist Response:',response.data);
+      const products=response.data?.wishlist?.products || [];
+      setWishlist(products.map(product=>product._id));
+
+
+    }catch(error){
+      console.error('Error fetching wishlist:', error);
+    }
+  };
+  if(token && email){
+    fetchUserWishList()
+  }
+},[ID,email,token]);
+
+
+const springs=useSprings(
+  products.length,
+  products.map((product,index)=>({
+    from: { opacity: 0, transform: 'translateY(20px)' },
+    to: { opacity: 1, transform: 'translateY(0px)' },
+    delay: index * 100,
+    config: { tension: 200, friction: 20 }
+
+  }))
+)
 
 
 const handleMouseMove = (e, imageUrl) => {
@@ -74,6 +152,20 @@ const handleMouseMove = (e, imageUrl) => {
     setZoom(false); // Disable zoom when mouse leaves
   };
   
+
+  const handleQuickView=(product)=>{
+    setSelectedProduct(product)
+    setIsModalOpen(true)
+  }
+
+  const closeModal=()=>{
+    setIsModalOpen(false)
+    setSelectedProduct(null)
+  }
+  
+  function classNames(...classes) {
+    return classes.filter(Boolean).join(' ')
+  }
 
 
     
@@ -139,12 +231,35 @@ const handleMouseMove = (e, imageUrl) => {
 
 
 
-const handleAddToWishList= async()=>{
-    try{
-        const response=await addToWishList(ID,id);
-        console.log('response',response)
+const handleAddToWishList= async(product)=>{
 
-        toast.success(response.data.message || 'Product added to wishlist!');
+  console.log('product',product)
+  const productId=product._id;
+  console.log('productId',productId)
+    try{
+        if(!wishlist.includes(productId)){
+          const response=await addToWishList(ID,productId);
+          console.log('response',response)
+          toast.success(response.data.message || 'Product added to wishlist!');
+          setWishlist([...wishlist,productId])
+
+
+        }else{
+          await axios.delete(
+            `${BASE_URL}/api/${ID}/${productId}`,
+            {
+              data:{ID,productId},
+              headers:{
+                Authorization:`Bearer ${token}`,
+                authtoken:token,
+              }
+            }
+          );
+             toast.success('Product removed from wishlist!');
+                      setWishlist(wishlist.filter((id)=>id !==productId))
+        }
+
+      
 
     }catch(error){
         // const errorMsg =
@@ -341,7 +456,49 @@ const addToWishList=async(userId,productId)=>{
 
 
  
+ const ImageCarousels=({images})=>{
+        const [currentImageIndex,setCurrentImageIndex]=useState(0);
+        const [isHovered,setIsHovered]=useState(false);
 
+        useEffect(()=>{
+            let intervalId;
+
+            if(isHovered && images.length>1){
+                intervalId=setInterval(()=>{
+                    setCurrentImageIndex((prevIndex)=>(prevIndex+1)%images.length)
+
+                },2000)
+            }else{
+                setCurrentImageIndex(0)
+            }
+            return()=>clearInterval(intervalId);
+        },[isHovered,images.length]);
+
+        return(
+            <div 
+            // className='relative w-full overflow-hidden bg-gray-200 xl:aspect-h-8 xl:aspect-w-7'
+            // className="relative w-full h-80  "
+               className="relative w-full h-[200px] lg:h-[270px] aspect-square overflow-hidden bg-gray-200 transition-all duration-300"
+                onMouseEnter={() => setIsHovered(true)}
+                onMouseLeave={() => setIsHovered(false)}
+            >
+                {images.length>0 ?(
+                     <img
+                     src={images[currentImageIndex]?.url}
+                     alt={`Product Image ${currentImageIndex + 1}`}
+                    //  className="h-full w-full object-cover object-center group-hover:opacity-"
+                    // className='absolute w-full h-80 object-cover  transition-opacity  duration-1000 ease-in-out  group-hover:opacity-80 group-hover:border border-grey'
+                     className="absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 ease-in-out group-hover:opacity-80"
+                 />
+
+                ):(
+                    <div className="h-full w-full flex items-center justify-center bg-gray-200">
+                    <span className="text-gray-500">No Image</span>
+                </div>
+                )}
+            </div>
+        )
+    }
 
   
 const ImageCarousel = ({ images }) => {
@@ -850,99 +1007,161 @@ const ImageCarousel = ({ images }) => {
 
       
 
-         <SectionTitle text="Related Products"/>
+         <h1 className="text-center text-sm">
+         <SectionTitle text="You May Also Like"/>
+         </h1>
          <div
         //   className="mx-auto max-w-2xl px-4 py-16 sm:px-6 sm:py-24 lg:max-w-2xl lg:px-8"
-        className="pt-12 grid gap-4 md:grid-cols-2 lg:grid-cols-4"
+        // className="pt-12 grid gap-4 md:grid-cols-2 lg:grid-cols-4"
+         className="mx-auto max-w-[1199px]  px-4 py-8  sm:px-6 sm:py-12 lg:px-8"
           >
-           
+            <div
+             className="grid grid-cols-2 gap-x-8 gap-y-4 sm:grid-cols-3 sm:gap-x-4 sm:gap-y-6 md:grid-cols-3 lg:grid-cols-5 lg:gap-x-6 lg:gap-y-8"
+            >
             {related.length ?(
-               related.map((r)=>{
-                const {title,price,_id,quantity,images}=r
+               related.map((r,index)=>{
+                // const {title,price,_id,quantity,images}=r
+                const { title, price, images, _id, quantity,discountStartDate,discountEndDate,averageRating } = r;
+                const {displayedPrice,discountPercentage}=getDisplayedPrice(r)
                 console.log('title',title)
                 const image=images[0]?.url;
                 console.log('image',image)
 
                 const Price=formattedPrice(price)
-                return(
-                    <div>
-                        <Link key={_id} to={`/products/${_id}`} className="group">
-                        <div className='relative w-full overflow-hidden bg-gray-200 xl:aspect-h-8 xl:aspect-w-7'>
-                            {image ?(
-                                <img
-                                src={image}
-                               alt={title}
-                                 className='h-80 w-80 object-cover object-center group-hover:opacity-75'
-                                />
-
-                            ):(
-                                <div className="h-full w-full flex items-center justify-center bg-gray-200">
-                                                        <span className="text-gray-500">No Image</span>
-                                                    </div>
-
-                            )}
-                            {
-                                discountPercentage?(
-                                    <div className="absolute top-2 left-2 bg-blue-500 text-white text-sm font-bold px-2 py-1 rounded">
-                                        -{discountPercentage}%
-
-                                    </div>
-
-                                ):(
-                                    quantity===0 ?(
-                                        <div 
-
-         className="absolute top-2 left-2 bg-white text-grey-800 text-sm font-bold px-2 py-1 rounded"
-       
-        >
-            Sold Out
+  
+          return(
+         
+          <div
+          // className="mx-auto max-w-[1199px]  px-4 py-8  sm:px-6 sm:py-12 lg:px-8" 
+          >
+          <div 
+          //  className="grid grid-cols-2 gap-x-8 gap-y-4 sm:grid-cols-3 sm:gap-x-4 sm:gap-y-6 md:grid-cols-3 lg:grid-cols-5 lg:gap-x-6 lg:gap-y-8"
+          >
+             <animated.div
+  key={_id}
+  style={springs[index]}
+  className="w-full h-full flex flex-col  "
+>
+  {/* Image Container */}
+  <div className="relative group max-w-[160px] max-h[90px] lg:max-w-[250px] lg:ml-7  lg:max-h-[250px]">
+    <Link to={`/products/${_id}`}>
+      {/* {image ? (
+        <img
+          src={image}
+          alt={title}
+          className="w-80 h-80 object-cover group-hover:opacity-75"
+        />
+      ) : (
+        <div className="w-80 h-80 flex items-center justify-center bg-gray-200">
+          <span className="text-gray-500">No Image</span>
         </div>
+      )} */}
 
-                                    ):null
-                                )
-                            }
+      <ImageCarousels images={images}/>
 
+      {/* Discount or Sold Out Badge */}
+      {discountPercentage ? (
+        <div className="absolute top-2 right-2 bg-red-600 text-white text-xs sm:text-sm font-bold px-2 py-1 rounded">
+          -{discountPercentage}%
+        </div>
+      ) : (
+        quantity === 0 && (
+          <div
+            className="absolute top-2 left-2 bg-gray-500 text-white text-xs sm:text-sm font-bold px-2 py-1 rounded"
+          >
+            Sold Out
+          </div>
+        )
+      )}
+    </Link>
 
+    {/* Wishlist and Quick View Buttons */}
+    <div className="absolute flex flex-col bottom-2 right-2 opacity-0 group-hover:opacity-85 transition-opacity duration-300">
+      <div className=" flex bg-gray-800 rounded p-2 space-y-2 flex-col">
+        <ul>
+      <li>
+        
+        <button
+          className="text-white py-1 px-1 lg:py-1 lg:px-2 rounded hover:bg-gray-600 rounded"
+          onClick={() => handleAddToWishList(r)}
+          data-tooltip-id={`wishlist-tooltip-${_id}`}
+        >
+          {wishlist.includes(_id) ? <FavoriteIcon /> : <FavoriteBorderIcon />}
+        </button>
+        <Tooltip
+          id={`wishlist-tooltip-${_id}`}
+          place="top"
+          effect="solid"
+          content={wishlist.includes(_id) ? 'Added to Wishlist' : 'Add to Wishlist'}
+        />
+        </li>
+        <li>
+        <button
+          className="text-white py-1 px-1 lg:py-1 lg:px-2 rounded hover:bg-gray-600 hover:shadow-lg transition-all"
+          onClick={() => handleQuickView(r)}
+        >
+          <ZoomIn />
+        </button>
+        </li>
+        </ul>
+      </div>
+    </div>
+  </div>
 
-                        </div>
-                        <h3>{title}</h3>
-                        {averageRating >0 &&(
-                                                <div>
-                                                    <ReactStars
-                                                    count={5}
-                                                    value={averageRating}
-                                                    edit={false}
-                                                    size={24}
-                                                    color2={'#ffd700'} 
-                                                    color1={'#e4e5e9'}
+  {/* Title, Rating, and Price */}
+  <Link to={`/products/${_id}`} className="mt-4 text-center w-full">
+    {/* Title */}
+    <h3 className="text-md font-medium text-gray-900 truncate">{title}</h3>
 
-                                                    />
-                                                </div>
-                                                
-                                             )}
-                                             <p className="mt-0 text-xl">
-               {Price !==displayedPrice ?(
-                 <p><span className="line-through">{Price}</span>{displayedPrice} </p>
+    {/* Rating */}
+    {averageRating > 0 && (
+      <div className="flex justify-center my-1">
+        <ReactStars
+          count={5}
+          value={averageRating}
+          edit={false}
+          size={24}
+          color2="#ffd700"
+          color1="#e4e5e9"
+        />
+      </div>
+    )}
 
-               ):(<span>{Price}</span>)}
-                    {/* {discountPercentage && (
-                        <span className="text-sm text-red-500 ml-2">
-                             -{discountPercentage}%
-                        </span>
-                    )} */}
+    {/* Price */}
+    <p className="text-lg font-semibold text-gray-600">
+      {Price !== displayedPrice ? (
+        <>
+          <span className="line-through text-sm text-gray-400 mr-2">{Price}</span>
+          {displayedPrice}
+        </>
+      ) : (
+        Price
+      )}
+    </p>
+  </Link>
+</animated.div>
+          </div>
+          </div>
+         
 
-                </p>
-                       
-                        </Link>
-
-                    </div>
-                )
+          )
 
                })
 
             ):(
                 <div><div className="text-center col">No Products Found</div></div>
             )}
+            </div>
+           
+           
+            {isModalOpen && selectedProduct && (
+  <ProductQuickView
+    isOpen={isModalOpen}
+    classNames={classNames}
+    product={selectedProduct}
+    onClose={closeModal}
+  />
+)}
 
          </div>
     

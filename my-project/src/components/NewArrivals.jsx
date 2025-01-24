@@ -1515,13 +1515,14 @@ const addToWishList=async(userId,productId)=>{
                                 
                                     <div 
                                     // className=' absolute bottom-2 right-2 mb-2 flex items-center justify-center opacity-0 group-hover:opacity-85 transition-opacity duration-300'>
-                                    className="absolute bottom-2 right-2 opacity-0 group-hover:opacity-85 transition-opacity duration-300"
+                                    className="absolute flex flex-col bottom-2 right-2 opacity-0 group-hover:opacity-85 transition-opacity duration-300"
                                     >
                                         <div 
                                         // className='space-x-4 bg-gray-800 rounded'
-                                        className="space-x-2 bg-gray-800 rounded"
+                                        // className="space-x-2 bg-gray-800 rounded"
+                                        className=" flex bg-gray-800 rounded p-2 space-y-2 flex-col"
                                         >
-                                            <ul>
+                                            <ul> 
                                              
                                             <li>
                                             <button
