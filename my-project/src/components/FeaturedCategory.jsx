@@ -746,7 +746,7 @@ const FeaturedCategory = () => {
             onClick={() => handleCategoryClick(category)}
             className={`py-2 px-4 text-center rounded-md transition-all ${
               selectedCategory?._id === category._id
-                ? "font-bold font-sans"
+                ? "font-bold underline font-sans"
                 : "bg-white font-sans italic text-gray-700 font-normal"
             }`}
           >
