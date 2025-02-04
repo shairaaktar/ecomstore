@@ -272,10 +272,14 @@ const SalesByPie = () => {
 
   const fetchSalesData = async () => {
     try {
-      const month = selectedMonth.toISOString().slice(0, 7);
-      const response = await axios.post(
+      // const month = selectedMonth.toISOString().slice(0, 7);
+      // console.log('selectedMonth',month)
+      const month = selectedMonth.toLocaleDateString("en-CA", { year: "numeric", month: "2-digit" });
+
+      console.log("Selected Month:", month);
+      const response = await axios.get(
         `${BASE_URL}/api/sales-by-category?month=${month}`,
-        { email, token },
+       
         {
           headers: {
             Authorization: `Bearer ${token}`,

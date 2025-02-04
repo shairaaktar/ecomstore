@@ -109,7 +109,12 @@ const WishList = () => {
   
 
   return (
-    <div className="mt-5">
+    <>
+    <div 
+    // className="mt-5"
+     className="text-md breadcrumbs bg-pink-100 mt-10 mb-5 pt-5 pb-5 pl-2"
+    >
+
         <div className="text-md breadcrumbs">
             <ul>
                 <li>
@@ -126,6 +131,7 @@ const WishList = () => {
                
             </ul>
 
+        </div>
         </div>
       <div className="mb-4 capitalize">
         {Array.isArray(wishList.products) && wishList.products.length > 0 ? (
@@ -214,7 +220,8 @@ const WishList = () => {
         </div>
 
       </div>
-    </div>
+    {/* </div> */}
+    </>
   );
 };
 

@@ -107,12 +107,26 @@ const UserAccountDetails = () => {
 
   return (
     <>
+    <div className="text-md breadcrumbs bg-pink-100 mt-10 mb-5 pt-5 pb-5 pl-2">
+                <ul>
+                    <li>
+                        <Link to='/admindash'>Admin Dashboard</Link>
+                    </li>
+                    <li>
+                        <Link to='/managereviews'>
+                        Reviews
+                        </Link>
+                    </li>
+                </ul>
+    
+            </div>
     
     <section
-     className="h-screen  w-3/4 "
+      className="h-screen  w-3/4  "
+    //className="h-screen flex items-center justify-center"
      >
       <div 
-      className='card  w-80 lg:w-130 p-8 bg-base-100 shadow-lg flex flex-col gap-y-4'
+      className='card  w-100 lg:w-130 p-8  bg-base-100 shadow-lg flex flex-col gap-y-4 '
       >
 
         <h4 className='text-3xl font-bold'>

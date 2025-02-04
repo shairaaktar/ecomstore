@@ -42,7 +42,7 @@ router.post('/orders/update-payment-status', authCheck, updateOrderPaymentStatus
  router.get('/orders/:orderId',orderDetailsByOrderNumber)
  router.post('/daily-sales',getOrdersForToday)
  router.post('/monthly-sales',getDailyOrdersForCurrentMonth)
- router.post('/sales-by-category',authCheck,getSalesByCategory)
+ router.get('/sales-by-category',getSalesByCategory)
  router.post('/total-sales-month',authCheck,getTotalSalesForCurrentMonth)
  router.post('/todays-orders',authCheck,getOrdersByDate)
  router.post('/todays-orders-number',authCheck,getOrdersNumberByDate)

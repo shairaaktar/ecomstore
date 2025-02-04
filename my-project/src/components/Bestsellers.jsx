@@ -48,7 +48,7 @@ const BestSeller=()=>{
 
     return(
         <>
-        <div className="text-md breadcrumbs bg-primary mt-10 mb-5 pt-10 pb-10 pl-2">
+        <div className="text-md breadcrumbs bg-pink-100 mt-10 mb-5 pt-5 pb-5 pl-2">
                     <ul>
                         <li>
                             <Link to='/admindash'>Admin Dashboard</Link>

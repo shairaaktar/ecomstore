@@ -1038,84 +1038,267 @@ exports.getTotalSalesForCurrentMonth = async (req, res) => {
       }
 
 
-      const startDate=new Date(`${month}-01T00:00:00Z`);
-      //const endDate=new Date(`${month}-31`);
-      const endDate = new Date(new Date(startDate).setUTCMonth(startDate.getUTCMonth() + 1)); // Start of the next month
+      // const startDate=new Date(`${month}-01T00:00:00Z`);
+      // //const endDate=new Date(`${month}-31`);
+      // // const endDate = new Date(new Date(startDate).setUTCMonth(startDate.getUTCMonth() + 1)); // Start of the next month
+      // const endDate = new Date(startDate.getFullYear(), startDate.getMonth() + 1, 0); // Last day of the month
       
+//       const startDate = new Date(`${month}-01T00:00:00Z`);
+
+// // Get the first day of the next month
+// const endDate = new Date(startDate);
+// endDate.setUTCMonth(endDate.getUTCMonth() + 1);
+// endDate.setUTCDate(0); // This sets it to the last day of the previous month
+// endDate.setUTCHours(23, 59, 59, 999); // Ensure it includes the full last day
 
 
-      const salesData=await Order.aggregate([
-        {$match:{
-          orderStatus:"Completed",
-          createdAt:{$gte:startDate,$lte:endDate},
-        }},
-        {$unwind:"$cartItems"},
 
-        {
-          $addFields:{
-            "cartItems.productID":{
-              $toObjectId:"$cartItems.productID"
-            }
-          }
+const [year, monthNum] = month.split("-").map(Number);
 
-        },
+// Start of the selected month (UTC)
+const startDate = new Date(Date.UTC(year, monthNum - 1, 1, 0, 0, 0, 0));
 
-        {
-          $lookup:{
-            from:"products",
-            localField:"cartItems.productID",
-            foreignField:"_id",
-            as:"productDetails"
+// End of the selected month (UTC)
+const endDate = new Date(Date.UTC(year, monthNum, 0, 23, 59, 59, 999));
 
-          },
+      console.log("Fetching sales from:", startDate, "to", endDate);
 
-        },
-        { $unwind:"$productDetails"},
-        {
-          $lookup: {
-            from: "categories", // Assuming the categories collection is called 'categories'
-            localField: "productDetails.category", // category ID in products
-            foreignField: "_id", // category ID in categories collection
-            as: "categoryDetails",
-          },
+      // const salesData=await Order.aggregate([
+      //   {$match:{
+      //     orderStatus:"Completed",
+      //     createdAt:{$gte:startDate,$lte:endDate},
+      //   }},
+      //   {$unwind:"$cartItems"},
 
-        },
+      //   {
+      //     $addFields:{
+      //       "cartItems.productID":{
+      //         $toObjectId:"$cartItems.productID"
+      //       }
+      //     }
 
-        { $unwind: { path: "$categoryDetails", preserveNullAndEmptyArrays: true } },
+      //   },
+
+      //   {
+      //     $lookup:{
+      //       from:"products",
+      //       localField:"cartItems.productID",
+      //       foreignField:"_id",
+      //       as:"productDetails"
+
+      //     },
+
+      //   },
+      //   { $unwind:"$productDetails"},
+      //   {
+      //     $lookup: {
+      //       from: "categories", // Assuming the categories collection is called 'categories'
+      //       localField: "productDetails.category", // category ID in products
+      //       foreignField: "_id", // category ID in categories collection
+      //       as: "categoryDetails",
+      //     },
+
+      //   },
+
+      //   { $unwind: { path: "$categoryDetails", preserveNullAndEmptyArrays: true } },
 
 
 
 
 
         
-          {
-            $group:{
-              // _id:"$productDetails.category",
-              _id: "$categoryDetails.name",
+      //     {
+      //       $group:{
+      //         // _id:"$productDetails.category",
+      //         _id: "$categoryDetails.name",
 
-              totalSales:{$sum:{
-                $multiply:["$cartItems.price","$cartItems.amount"]
-              }},
-              totalProductsSold:{$sum:"$cartItems.amount"}
+      //         // totalSales:{$sum:{
+      //         //   $multiply:["$cartItems.price","$cartItems.amount"]
+      //         // }},
+      //         totalSales: {
+      //           $sum: {
+      //             $multiply: [{ $toDouble: "$cartItems.price" }, "$cartItems.amount"]
+      //           }
+      //         },
 
-            },
-          },
-          {
-            $project:{
-              category:"$_id",
-              totalSales:1,
-              totalProductsSold:1,
-              _id:0,
+      //         totalProductsSold:{$sum:"$cartItems.amount"}
+
+      //       },
+      //     },
+      //     {
+      //       $project:{
+      //         category:"$_id",
+      //         totalSales:1,
+      //         totalProductsSold:1,
+      //         _id:0,
 
 
-            }
-          },
-          {$sort:{
-            totalSales:-1
-          }}
+      //       }
+      //     },
+      //     {$sort:{
+      //       totalSales:-1
+      //     }}
         
        
-      ])
+      // ])
+      // const salesData = await Order.aggregate([
+      //   {
+      //     $match: {
+      //       orderStatus: "Completed",
+      //       createdAt: { $gte: startDate, $lte: endDate },
+      //     }
+      //   },
+      //   { $unwind: "$cartItems" },
+      
+      //   // Convert productID to ObjectId (only if necessary)
+      //   {
+      //     $addFields: {
+      //       "cartItems.productID": {
+      //         $toObjectId: "$cartItems.productID"
+      //       }
+      //     }
+      //   },
+      
+      //   // Lookup product details
+      //   {
+      //     $lookup: {
+      //       from: "products",
+      //       localField: "cartItems.productID",
+      //       foreignField: "_id",
+      //       as: "productDetails"
+      //     }
+      //   },
+      //   { $unwind: "$productDetails" },
+      
+      //   // Convert category ID to ObjectId (only if stored as a string)
+      //   {
+      //     $addFields: {
+      //       "productDetails.category": { $toObjectId: "$productDetails.category" }
+      //     }
+      //   },
+      
+      //   // Lookup category details
+      //   {
+      //     $lookup: {
+      //       from: "categories",
+      //       localField: "productDetails.category",
+      //       foreignField: "_id",
+      //       as: "categoryDetails",
+      //     }
+      //   },
+      //   { $unwind: { path: "$categoryDetails", preserveNullAndEmptyArrays: true } },
+      
+      //   // Group by category and sum sales
+      //   {
+      //     $group: {
+      //       _id: "$categoryDetails.name",
+      //       totalSales: {
+      //         $sum: {
+      //           $multiply: [{ $toDouble: "$cartItems.price" }, "$cartItems.amount"]
+      //         }
+      //       },
+      //       totalProductsSold: { $sum: "$cartItems.amount" }
+      //     }
+      //   },
+      
+      //   // Format output
+      //   {
+      //     $project: {
+      //       category: "$_id",
+      //       totalSales: 1,
+      //       totalProductsSold: 1,
+      //       _id: 0
+      //     }
+      //   },
+      
+      //   { $sort: { totalSales: -1 } }
+      // ]);
+      
+
+      // const salesData = await Order.aggregate([
+      //   { 
+      //     $match: { 
+      //       orderStatus: "Completed",
+      //       createdAt: { $gte: startDate, $lte: endDate } 
+      //     } 
+      //   },
+      //   { $unwind: "$cartItems" },
+      //   { 
+      //     $lookup: { 
+      //       from: "products", 
+      //       localField: "cartItems.productID", 
+      //       foreignField: "_id", 
+      //       as: "productDetails" 
+      //     } 
+      //   },
+      //   { $unwind: "$productDetails" }
+      // ]);
+      
+      const salesData = await Order.aggregate([
+        { 
+          $match: {
+            orderStatus: "Completed",
+            createdAt: { $gte: startDate, $lte: endDate }
+          }
+        },
+        { $unwind: "$cartItems" },
+      
+        // ✅ Convert cartItems.productID to ObjectId on the fly
+        {
+          $addFields: {
+            "cartItems.productID": { $toObjectId: "$cartItems.productID" }
+          }
+        },
+      
+        {
+          $lookup: {
+            from: "products",
+            localField: "cartItems.productID",
+            foreignField: "_id",
+            as: "productDetails"
+          }
+        },
+        { $unwind: "$productDetails" },
+      
+        {
+          $lookup: {
+            from: "categories",
+            localField: "productDetails.category",
+            foreignField: "_id",
+            as: "categoryDetails"
+          }
+        },
+        { $unwind: { path: "$categoryDetails", preserveNullAndEmptyArrays: true } },
+      
+        {
+          $group: {
+            _id: "$categoryDetails.name",
+            totalSales: { $sum: { $multiply: ["$cartItems.price", "$cartItems.amount"] } },
+            totalProductsSold: { $sum: "$cartItems.amount" }
+          }
+        },
+        {
+          $project: {
+            category: "$_id",
+            totalSales: 1,
+            totalProductsSold: 1,
+            _id: 0
+          }
+        },
+        { $sort: { totalSales: -1 } }
+      ]);
+      
+      console.log("Final Sales Data:", salesData);
+      
+     
+      
+
+      
+      
+      console.log("Matched Orders:", salesData);
+      
+      console.log("Final Sales Data:", salesData);
+      
 
       console.log("Completed Sales Data by Category:", salesData);
       res.status(200).json(salesData);
