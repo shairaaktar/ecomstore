@@ -1,77 +1,125 @@
-# project
+# 🛒 E-Commerce Platform (MERN Stack)
 
-🛒 E-Commerce Platform (MERN Stack)
-Overview
+A full-stack e-commerce application with **backend-driven architecture**, focusing on secure authentication, RESTful API design, and integrated payment processing.
 
-A full-stack e-commerce application focused on secure authentication, API-driven business logic, and payment integration.
+🔗 **Live Demo**: https://ecomstore-my-project.onrender.com
 
+---
 
-🔗 Live Demo: https://ecomstore-my-project.onrender.com
+## ✨ Key Features
 
-✨ Key Features
+### Authentication & Authorization
+- Firebase Authentication for user management
+- Backend token verification using Firebase Admin SDK
+- Protected routes with custom authorization middleware
+- Role-based access control (RBAC) for admin operations
 
--Authentication & Authorization
+### E-Commerce Functionality
+- Product catalog with detailed views
+- Shopping cart with persistent storage
+- Order creation and tracking
+- Admin dashboard for product/order management
+- Image uploads via Cloudinary integration
 
-User authentication using Firebase Authentication
+### Search, Filtering & Pagination
+- Advanced filtering (price range, category, color, shipping)
+- Keyword-based product search
+- Server-side pagination for optimized data retrieval
 
-Protected backend routes with authorization middleware
+### Payments
+- Stripe payment gateway integration
+- Secure checkout flow
+- Order confirmation after payment verification
 
-Role-based access control for admin operations
+## Product Reviews & Ratings
 
--E-Commerce Functionality
+- Authenticated users can submit product reviews and ratings
+- Enforced one-review-per-user-per-product constraint
+- Reviews are linked to user accounts
+- Average product ratings are updated automatically
+- Admin-only review moderation
 
-Product listing and detailed product views
+---
 
-Shopping cart management
+## 🛠️ Tech Stack
 
-Order creation and order tracking
+**Backend**: Node.js, Express.js, MongoDB, Mongoose  
+**Authentication**: Firebase Authentication + Firebase Admin SDK  
+**Frontend**: React, Redux, Tailwind CSS, DaisyUI  
+**Tools & Services**: Stripe API, Cloudinary, Git, Postman, Render
 
-Admin-only product and order management
+---
 
-Image upload and media management using Cloudinary
+## 🧠 System Highlights
 
+- RESTful API design following MVC architecture
+- Backend-driven business logic with separation of concerns
+- Dynamic query construction for filtering and search
+- Server-side pagination for scalability
+- Production deployment with environment-based configuration
 
--Search, Filtering & Pagination
+---
 
-Product filtering by price range, category, color, and shipping availability
+## 📡 API Endpoints
 
-General keyword-based product search
+### Authentication
+- `POST /api/auth/login` - User login with Firebase token verification
 
-Server-side pagination for optimized and scalable data retrieval
+### Products
+- `GET /api/products` - Get products with filtering, search, pagination
+- `GET /api/products/:id` - Get single product details
+- `PATCH /api/create-product` - create product (Admin only)
 
--Payments
+### Orders
+- `POST /api/orders` - Create order from cart
+- `GET /api/user/orders` - Get user's order history
 
-Secure checkout using Stripe payment gateway
+### Payments
+- `POST /api/create-payment-intent` - Process Stripe payment
 
-Order confirmation after successful payment processing
+---
 
-🛠️ Tech Stack
+## ⚙️ Local Setup
 
-Backend: Node.js, Express.js, MongoDB, Mongoose
-
-Authentication: Firebase Authentication
-
-Frontend: React, Redux, Tailwind CSS, DaisyUI
-
-Tools & Services: Stripe API, Firebase, Cloudinary, Git, Postman, Render
-
-🧠 System Highlights
-
-RESTful API design following MVC architecture
-
-Backend-driven business logic with clear separation of concerns
-
-Dynamic query construction for advanced filtering and search
-
-Server-side pagination for performance and scalability
-
-Production deployment on Render with environment-based configuration
-
-⚙️ Setup
-
-git clone https://github.com/shairaaktar/ecomstore.git
-cd ecomstore
+### Backend
+```bash
+cd backend
 npm install
+# Configure .env file (see below)
+npm run dev
+```
+
+### Frontend
+```bash
+cd my-project
+npm install
+npm start
+```
+
+---
+
+## 🔐 Environment Variables
+
+### Backend (.env)
+```env
+MONGODB_URI=mongodb://localhost:27017/ecommerce
+STRIPE_SECRET_KEY=sk_test_...
+FIREBASE_ADMIN_SDK=path/to/serviceAccountKey.json
+CLOUDINARY_CLOUD_NAME=your_cloud_name
+CLOUDINARY_API_KEY=your_api_key
+CLOUDINARY_API_SECRET=your_api_secret
+PORT=8001
+```
+
+### Frontend (.env)
+```env
+REACT_APP_FIREBASE_API_KEY=your_firebase_key
+REACT_APP_API_URL=http://localhost:5173
+REACT_APP_STRIPE_PUBLIC_KEY=pk_test_...
+```
+
+---
+
 
 
 
