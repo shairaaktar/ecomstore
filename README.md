@@ -10,7 +10,7 @@ A full-stack e-commerce application focused on secure authentication, API-driven
 
 ✨ Key Features
 
-Authentication & Authorization
+-Authentication & Authorization
 
 User authentication using Firebase Authentication
 
@@ -18,7 +18,7 @@ Protected backend routes with authorization middleware
 
 Role-based access control for admin operations
 
-E-Commerce Functionality
+-E-Commerce Functionality
 
 Product listing and detailed product views
 
@@ -31,7 +31,7 @@ Admin-only product and order management
 Image upload and media management using Cloudinary
 
 
-Search, Filtering & Pagination
+-Search, Filtering & Pagination
 
 Product filtering by price range, category, color, and shipping availability
 
@@ -39,7 +39,7 @@ General keyword-based product search
 
 Server-side pagination for optimized and scalable data retrieval
 
-Payments
+-Payments
 
 Secure checkout using Stripe payment gateway
 
