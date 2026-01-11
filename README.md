@@ -1,6 +1,6 @@
 # 🛒 E-Commerce Platform (MERN Stack)
 
-A full-stack e-commerce application with **backend-driven architecture**, focusing on secure authentication, RESTful API design, and integrated payment processing.
+A full-stack e-commerce application with focusing on secure authentication, RESTful API design, and integrated payment processing.
 
 🔗 **Live Demo**: https://ecomstore-my-project.onrender.com
 
